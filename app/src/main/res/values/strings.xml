@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MediBook</string>
+    <string name="drawer_open">DrawerOpen</string>
+    <string name="drawer_close">DrawerClose</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_hospital">병원 찾기</string>
+    <string name="menu_pharmacy">약국 찾기</string>
+    <string name="menu_community">커뮤니티</string>
+    <string name="menu_medical_info">질병/약품 관련 사이트</string>
+</resources>
