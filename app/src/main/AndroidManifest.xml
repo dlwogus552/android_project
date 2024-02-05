@@ -20,6 +20,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".user.UserMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".hospital.HospitalDetailActivity"
             android:exported="false" />
         <activity
@@ -27,13 +30,8 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".sign.RegisterActivity"
             android:exported="false" />
@@ -72,10 +70,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="dahrfkwko0" />
-
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Objects
 
 fun myCheckPermission(activity: AppCompatActivity) {
     val requestPermissionLauncher = activity.registerForActivityResult(
@@ -33,3 +34,7 @@ fun dateToString(date: Date): String {
     val format = SimpleDateFormat("yyyy-MM-dd")
     return format.format(date)
 }
+//server에서 값 받아오기
+class Result(
+    result:Objects
+)

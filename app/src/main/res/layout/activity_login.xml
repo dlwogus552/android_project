@@ -7,71 +7,95 @@
     android:padding="20dp"
     tools:context=".sign.LoginActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/logoTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:text="MEDIBOOK"
             android:textColor="@color/main"
             android:textSize="50dp"
-            android:textStyle="bold"
-            android:text="MEDIBOOK"/>
-
-        <EditText
-            android:id="@+id/loginUsernameEditTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/logoTextView"
-            android:layout_marginTop="16dp"
-            android:hint="Username" />
-
-        <EditText
-            android:id="@+id/loginPassEditTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/loginUsernameEditTextView"
-            android:layout_marginTop="8dp"
-            android:hint="Password"
-            android:inputType="textPassword" />
-
-        <Button
-            android:id="@+id/loginBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/loginPassEditTextView"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:text="로그인" />
-
-        <Button
-            android:id="@+id/googleLoginBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/loginBtn"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:text="구글 아이디로 로그인" />
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/goRegisterTextView"
+            android:id="@+id/loginStateText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="반갑습니다."
+            android:textColor="@color/black"
+            android:visibility="gone"
+            android:textSize="20dp"/>
+
+        <Button
+            android:id="@+id/logoutBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/googleLoginBtn"
-            android:layout_marginTop="8dp"
-            android:text="회원가입하기" />
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:text="로그아웃" />
 
-        <TextView
-            android:id="@+id/forgotPasswordTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/goRegisterTextView"
-            android:layout_marginTop="8dp"
-            android:text="비밀번호 찾기" />
+        <RelativeLayout
+            android:id="@+id/inputArea"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </RelativeLayout>
+            <EditText
+                android:id="@+id/loginUsernameEditTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Username" />
+
+            <EditText
+                android:id="@+id/loginPassEditTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/loginUsernameEditTextView"
+                android:layout_marginTop="8dp"
+                android:hint="Password"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/loginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/loginPassEditTextView"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:text="로그인" />
+
+            <Button
+                android:id="@+id/googleLoginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/loginBtn"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:text="구글 아이디로 로그인" />
+
+            <TextView
+                android:id="@+id/goRegisterTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/googleLoginBtn"
+                android:layout_marginTop="8dp"
+                android:text="회원가입하기" />
+
+            <TextView
+                android:id="@+id/forgotPasswordTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/goRegisterTextView"
+                android:layout_marginTop="8dp"
+                android:text="비밀번호 찾기" />
+        </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

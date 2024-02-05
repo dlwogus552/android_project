@@ -27,6 +27,12 @@
         android:hint="User Name"
         android:inputType="text" />
     <TextView
+        android:id="@+id/userNameCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:text="이메일 형식으로 입력바랍니다."/>
+    <TextView
         android:id="@+id/userNameError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,6 +47,19 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword" />
+    <TextView
+        android:id="@+id/passwordCehck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:text="비밀번호는 6자리 이상입니다."/>
+    <TextView
+        android:id="@+id/passwordError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ff0000"
+        android:visibility="gone"
+        android:text="비밀번호를 6자리 이상 입력해주세요."/>
 
     <EditText
         android:id="@+id/nickNameEditText"
