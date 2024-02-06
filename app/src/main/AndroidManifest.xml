@@ -28,6 +28,9 @@
             android:name=".hospital.DepartSelectActivity"
             android:exported="false" />
         <activity
+            android:name=".user.ModifyInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -45,6 +48,7 @@
         <activity
             android:name=".hospital.HospitalListActivity"
             android:exported="false" />
+
         <activity
             android:name=".sign.RegisterActivity"
             android:exported="false" />

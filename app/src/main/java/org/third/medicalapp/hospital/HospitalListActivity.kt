@@ -58,13 +58,14 @@ class HospitalListActivity : AppCompatActivity() {
         super.onStart()
         val networkService = (application as MyApplication).hospitalServie
         val hospitalListCall = networkService.doGetHospitalList()
+        val hospital :MutableList<Hospital>? = null
         hospitalListCall.enqueue(object : retrofit2.Callback<HospitalList> {
             override fun onResponse(call: Call<HospitalList>,response: Response<HospitalList>) {
                 if (response.isSuccessful) {
                     binding.recyclerListView.layoutManager =
                         LinearLayoutManager(this@HospitalListActivity)
-                    val hospital = response.body()?.hospitalList
-                    val adapter = HospitalAdapter(this@HospitalListActivity, hospital)
+                    hospital?.add(response.body()?.hospitalList?.get(0)!!) // Todo : for문으로 hospital list에 자료 넣기
+                    val adapter = HospitalAdapter(this@HospitalListActivity,hospital)
                     binding.recyclerListView.adapter= adapter
                     binding.recyclerListView.addItemDecoration(DividerItemDecoration(this@HospitalListActivity, LinearLayoutManager.VERTICAL)
                     )

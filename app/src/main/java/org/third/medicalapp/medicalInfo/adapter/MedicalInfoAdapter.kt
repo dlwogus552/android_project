@@ -2,6 +2,7 @@ package org.third.medicalapp.medicalInfo.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -42,6 +43,12 @@ class MediInfoAdapter (val context: Context, val datas: MutableList<MediInfo>) :
         Log.d("siteName",datas!![position].siteName)
 
         binding.root.setOnClickListener {
+            val siteUri = Uri.parse(datas!![position].siteUrl)
+            val intent = Intent(Intent.ACTION_VIEW, siteUri)
+            context.startActivity(intent)
+        }
+
+        binding.root.setOnLongClickListener {
             val intent = Intent(context, MedicalInfoModifyActivity::class.java)
             intent.putExtra("id", datas[position].id)
             intent.putExtra("siteName", datas[position].siteName)
@@ -49,6 +56,7 @@ class MediInfoAdapter (val context: Context, val datas: MutableList<MediInfo>) :
             intent.putExtra("siteIntro", datas[position].siteIntro)
             intent.putExtra("icoUrl", icoUrl[position])
             context.startActivity(intent)
+            true
         }
     }
 }

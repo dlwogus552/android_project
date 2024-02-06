@@ -23,24 +23,6 @@
             android:textSize="50dp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/loginStateText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="반갑습니다."
-            android:textColor="@color/black"
-            android:visibility="gone"
-            android:textSize="20dp"/>
-
-        <Button
-            android:id="@+id/logoutBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:text="로그아웃" />
-
         <RelativeLayout
             android:id="@+id/inputArea"
             android:visibility="visible"

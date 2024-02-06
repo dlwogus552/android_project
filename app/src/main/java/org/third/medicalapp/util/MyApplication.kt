@@ -29,10 +29,18 @@ class MyApplication : MultiDexApplication(){
                 false
             }
         }
+        fun checkAdmin():Boolean {
+            if(email.toString().equals("admin@example.com")){
+                return true
+            }
+            return false
+        }
     }
 
     var netWorkService: INetworkService
     var hospitalServie: HospitalNetworkService
+
+
     val retrofit: Retrofit
         get()= Retrofit.Builder()
             .baseUrl("http://10.100.105.168:8082/user/")

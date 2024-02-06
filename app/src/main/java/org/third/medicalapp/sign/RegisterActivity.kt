@@ -33,7 +33,7 @@ class RegisterActivity : AppCompatActivity() {
             val password = binding.passwordEditText.text.toString()
             val nickName = binding.nickNameEditText.text.toString()
             val phone = binding.phoneEditText.text.toString()
-            val userModel = UserModel(email, nickName, phone, "user")
+            val userModel = UserModel(email, nickName, phone,null,"user")
             Log.d("aaaa","${nickName}")
 
             networkService.checkNick(nickName).enqueue(object : Callback<Boolean> {
