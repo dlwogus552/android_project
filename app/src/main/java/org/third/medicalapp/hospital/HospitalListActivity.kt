@@ -1,11 +1,13 @@
 package org.third.medicalapp.hospital
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ActivityHospitalListBinding
+import org.third.medicalapp.hospital.adapter.ListAdapter
+import org.third.medicalapp.hospital.model.Hospital
 
 class HospitalListActivity : AppCompatActivity() {
     lateinit var binding: ActivityHospitalListBinding
@@ -14,6 +16,16 @@ class HospitalListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHospitalListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnDepSelect.setOnClickListener {
+            val intent = Intent(this, DepartSelectActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnLocalSelect.setOnClickListener {
+            val intent = Intent(this, LocationSelectActivity::class.java)
+            startActivity(intent)
+        }
 
         val data = mutableListOf<Hospital>()
         //test 입력값  나중에 retrofit으로 받을 것

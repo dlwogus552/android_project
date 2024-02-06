@@ -9,7 +9,7 @@
     tools:context=".hospital.HospitalListActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnDepSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -22,7 +22,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnSelectLocal"
+            android:id="@+id/btnLocalSelect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="서울특별시 중구" />

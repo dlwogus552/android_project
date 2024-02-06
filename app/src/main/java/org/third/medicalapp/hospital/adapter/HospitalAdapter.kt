@@ -1,4 +1,4 @@
-package org.third.medicalapp.hospital
+package org.third.medicalapp.hospital.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.third.medicalapp.databinding.ActivityHospitalListBinding
 import org.third.medicalapp.databinding.ItemListBinding
+import org.third.medicalapp.hospital.HospitalDetailActivity
+import org.third.medicalapp.hospital.model.Hospital
 
 class ListViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
 class ListAdapter(val context: Context, val data: MutableList<Hospital>, val binding: ActivityHospitalListBinding) :

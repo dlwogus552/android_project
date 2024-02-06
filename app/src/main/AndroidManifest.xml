@@ -20,6 +20,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".hospital.LocationSelectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".hospital.DepartSelectActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -37,7 +43,6 @@
         <activity
             android:name=".hospital.HospitalListActivity"
             android:exported="false" />
-
         <activity
             android:name=".sign.RegisterActivity"
             android:exported="false" />

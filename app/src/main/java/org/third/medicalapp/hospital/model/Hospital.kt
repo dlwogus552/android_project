@@ -1,4 +1,4 @@
-package org.third.medicalapp.hospital
+package org.third.medicalapp.hospital.model
 
 data class Hospital(
     var name: String,
