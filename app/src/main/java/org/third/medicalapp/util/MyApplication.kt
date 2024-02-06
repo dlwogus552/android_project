@@ -8,7 +8,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import org.third.medicalapp.hospital.util.HospitalNetworkService
+import org.third.medicalapp.sign.model.UserModel
 import org.third.medicalapp.sign.util.INetworkService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -28,9 +33,17 @@ class MyApplication : MultiDexApplication(){
                 false
             }
         }
+        fun checkAdmin():Boolean {
+            if(email.toString().equals("admin@example.com")){
+                return true
+            }
+            return false
+        }
     }
 
     var netWorkService: INetworkService
+    var hospitalServie: HospitalNetworkService
+
     val retrofit: Retrofit
         get()= Retrofit.Builder()
             .baseUrl("http://10.100.105.168:8082/user/")
@@ -40,6 +53,9 @@ class MyApplication : MultiDexApplication(){
         netWorkService=retrofit.create(INetworkService::class.java)
     }
 
+    init {
+        hospitalServie = retrofit.create(HospitalNetworkService::class.java)
+    }
     override fun onCreate() {
         super.onCreate()
 
@@ -54,4 +70,6 @@ class MyApplication : MultiDexApplication(){
         db = FirebaseFirestore.getInstance()
         storage = Firebase.storage
     }
+
+
 }

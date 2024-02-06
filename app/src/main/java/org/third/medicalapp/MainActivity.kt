@@ -5,28 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import org.third.medicalapp.community.CommunityActivity
-import org.third.medicalapp.medicalInfo.MedicalInfoActivity
 import org.third.medicalapp.databinding.ActivityMainBinding
+import org.third.medicalapp.medicalInfo.MedicalInfoActivity
 import org.third.medicalapp.hospital.HospitalListActivity
 import org.third.medicalapp.sign.LoginActivity
-import org.third.medicalapp.user.MyPageFragment
 import org.third.medicalapp.user.UserMainActivity
 import org.third.medicalapp.util.MyApplication
-import org.third.medicalapp.util.MyApplication.Companion.auth
 import org.third.medicalapp.util.MyApplication.Companion.email
 
 class MainActivity : AppCompatActivity() {
@@ -38,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = org.third.medicalapp.databinding.ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain.toolbar)
@@ -61,13 +50,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        Log.d("aaaa","${MyApplication.checkAuth()}")
+        Log.d("aaaa","${MyApplication.checkAdmin()}")
         navView = binding.navView
         if(MyApplication.checkAuth()){
-            navView.menu.clear()
-            navView.inflateMenu(R.menu.activity_main_login_drawer)
+            navView.menu.findItem(R.id.nav_login).setVisible(false)
+            navView.menu.findItem(R.id.nav_my_page).setVisible(true)
+            if(MyApplication.checkAdmin()){
+                navView.menu.findItem(R.id.nav_admin).setVisible(true)
+                navView.menu.findItem(R.id.nav_my_page).setVisible(false)
+            }
         }else{
-            navView.menu.clear()
-            navView.inflateMenu(R.menu.activity_main_drawer)
+            navView.menu.findItem(R.id.nav_login).setVisible(true)
+            navView.menu.findItem(R.id.nav_my_page).setVisible(false)
         }
         navView.setNavigationItemSelectedListener { menuItem ->
             // 클릭된 아이템에 따라 동작 처리
@@ -100,5 +95,11 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main,menu)
+        return super.onCreateOptionsMenu(menu)
     }
 }

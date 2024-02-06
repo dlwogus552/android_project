@@ -54,12 +54,23 @@
 
             <TextView
                 android:id="@+id/tvHospitalInfo"
+                android:layout_marginLeft="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="15dp"
+                android:textSize="15sp"
                 android:text="진료과"
-                android:textSize="15sp" />
+                />
+
+            <TextView
+                android:id="@+id/tvHospitalAddress"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:text="주소"
+                android:layout_marginBottom="15dp"
+                />
         </LinearLayout>
 
         <View

@@ -33,17 +33,20 @@ class CommunityWriteActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    // 액티비티 결과를 처리하기 위한 람다식
     val requestLancher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) {
+        // 결과가 성공적으로 돌아왔을 때
         if(it.resultCode === android.app.Activity.RESULT_OK) {
+            // Glide를 사용하여 이미지를 로드하고 ImageView에 표시
             Glide
                 .with(getApplicationContext())
                 .load(it.data?.data)
-//                .apply(RequestOptions().override(250,200))
                 .override(250, 200)
                 .centerCrop()
                 .into(binding.addImageView)
 
+            // 선택된 이미지의 파일 경로를 가져옵니다.
             val cursor = contentResolver.query(it.data?.data as Uri,
                 arrayOf<String>(MediaStore.Images.Media.DATA), null, null, null)
             cursor?.moveToFirst().let {
@@ -53,6 +56,7 @@ class CommunityWriteActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // 갤러리 메뉴 아이템을 선택한 경우
         if(item.itemId === R.id.menu_add_gallery) {
             val intent = Intent(Intent.ACTION_PICK)
             intent.setDataAndType(
@@ -61,34 +65,40 @@ class CommunityWriteActivity : AppCompatActivity() {
             )
             requestLancher.launch(intent)
 
+            // 저장 메뉴 아이템을 선택한 경우
         } else if(item.itemId === R.id.menu_add_save) {
-            if(binding.addImageView.drawable !== null && binding.addEditView.text.isNotEmpty()) {
+            // 이미지가 선택되었고 제목이 입력되었는지 확인
+            if(binding.addImageView.drawable !== null && binding.edTitle.text.isNotEmpty()) {
                 // stroe에 데이터 저장
                 saveStore()
             } else {
-                Log.d("aaaa","데이터가 모두 입력되지 않음")
+                Toast.makeText(baseContext,"게시물 업로드에 실패하였습니다. 필수 항목을 모두 작성해주세요.",Toast.LENGTH_SHORT).show()
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
+    // 데이터를 Firestore에 저장하는 함수
     fun saveStore() {
         val data = mapOf(
             "email" to MyApplication.email,
-            "content" to binding.addEditView.text.toString(),
-            "date" to dateToString(Date())
+            "title" to binding.edTitle.text.toString(),
+            "content" to binding.edContent.text.toString(),
+            "date" to dateToString(Date()),
+            "isLiked" to false
         )
 
-        MyApplication.db.collection("news")
+        MyApplication.db.collection("community")
             .add(data)
             .addOnSuccessListener {
                 uploadImage(it.id)
             }
             .addOnFailureListener {
-                Log.d("lmh", "data save error", it)
+                Log.d("db_save_failure", "데이터 업로드에 실패하였습니다.", it)
             }
     }
 
+    // 이미지를 Firebase Storage에 업로드하는 함수
     fun uploadImage(docId : String) {
         val storage = MyApplication.storage
         val storageRef = storage.reference
@@ -100,7 +110,7 @@ class CommunityWriteActivity : AppCompatActivity() {
                 finish()
             }
             .addOnFailureListener {
-                Log.d("aaaa", "file save error", it)
+                Log.d("img_save_failure", "이미지 업로드에 실패하였습니다.", it)
             }
     }
 }

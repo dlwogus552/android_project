@@ -32,11 +32,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.logoutBtn.setOnClickListener{
-            auth.signOut()
-            email = null
-            onStart()
-        }
+
         //구글 로그인 인텐트 결과 받아오기
         //인텐트 결과 받아오기
         val requestLauncher=registerForActivityResult(
@@ -45,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
             try{
                 val account=task.getResult(ApiException::class.java)
                 val credential= GoogleAuthProvider.getCredential(account.idToken,null)
-                MyApplication.auth.signInWithCredential(credential)
+                auth.signInWithCredential(credential)
                     .addOnCompleteListener(this){task->
                         if(task.isSuccessful){
                             Log.d("aaa","구글 성공")
@@ -67,6 +63,7 @@ class LoginActivity : AppCompatActivity() {
                                             account.email.toString(),
                                             "Google User-" + user?.uid.toString(),
                                             null,
+                                            null,
                                             "user"
                                         )
                                         val result = networkService.insert(userModel!!)
@@ -82,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
                                             }
 
                                             override fun onFailure(call: Call<Result>, t: Throwable) {
-                                                Log.d("aaa","실패")
+                                                Log.d("aaa","서버 연동 실패")
                                                 call.cancel()
                                             }
                                         })
@@ -92,6 +89,7 @@ class LoginActivity : AppCompatActivity() {
                                     }
                                 }
                                 override fun onFailure(call: Call<UserModel>, t: Throwable) {
+                                    Log.d("aaa","서버 연동 실패")
                                     call.cancel()
                                 }
                             })
@@ -139,20 +137,6 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.forgotPasswordTextView.setOnClickListener{
 
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if(MyApplication.checkAuth()){
-            binding.inputArea.visibility=View.GONE
-            binding.loginStateText.visibility=View.VISIBLE
-            binding.loginStateText.text = "${email.toString()}님 반갑습니다."
-            binding.logoutBtn.visibility=View.VISIBLE
-        }else{
-            binding.inputArea.visibility=View.VISIBLE
-            binding.loginStateText.visibility=View.GONE
-            binding.logoutBtn.visibility=View.GONE
         }
     }
 }

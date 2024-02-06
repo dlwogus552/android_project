@@ -5,20 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="org.lmh.firebaseapp.CommunityWriteActivity">
+    android:padding="20dp"
+    tools:context="org.third.medicalapp.community.CommunityWriteActivity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <EditText
+        android:id="@+id/edTitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@null"
+        android:hint="제목을 입력해주세요. (최대 50자)" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+
+    <EditText
+        android:id="@+id/edContent"
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        android:layout_marginTop="13dp"
+        android:gravity="left|top"
+        android:background="@null"
+        android:hint="내용을 입력해주세요." />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
 
     <ImageView
         android:id="@+id/addImageView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="fitXY" />
-
-    <EditText
-        android:id="@+id/addEditView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="left|top"
-        android:hint="내용을 입력해주세요" />
 
 </LinearLayout>

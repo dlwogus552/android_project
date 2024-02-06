@@ -2,11 +2,14 @@ package org.third.medicalapp.util
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.os.Build
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Objects
 
@@ -30,10 +33,12 @@ fun myCheckPermission(activity: AppCompatActivity) {
     }
 }
 
-fun dateToString(date: Date): String {
+fun dateToString(date: Date?): String {
     val format = SimpleDateFormat("yyyy-MM-dd")
     return format.format(date)
 }
+
+
 //server에서 값 받아오기
 class Result(
     result:Objects
