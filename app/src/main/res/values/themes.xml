@@ -7,4 +7,5 @@
     </style>
 
     <style name="Theme.MedicalApp" parent="Base.Theme.MedicalApp" />
+    <style name="Theme.MedicalApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 </resources>

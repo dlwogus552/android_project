@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "182696298334",
-    "project_id": "medicalapp-c65a0",
-    "storage_bucket": "medicalapp-c65a0.appspot.com"
+    "project_number": "938955725912",
+    "project_id": "medicalapp-a1eb5",
+    "storage_bucket": "medicalapp-a1eb5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:182696298334:android:1e85b4a1e85a69ad4531cf",
+        "mobilesdk_app_id": "1:938955725912:android:7b5b798ec722ad95cf7e2d",
         "android_client_info": {
           "package_name": "org.third.medicalapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "182696298334-lr6lolak17flq5p5oeg8upkg5mcmeuju.apps.googleusercontent.com",
+          "client_id": "938955725912-j3trg96ll40igfbncs7du6cuu14ggnhv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "org.third.medicalapp",
-            "certificate_hash": "6e753d842572527c4466624d665f2953ade49052"
+            "certificate_hash": "e99909e00143d212dc6ffc87fa3677cdc76e2f71"
           }
         },
         {
-          "client_id": "182696298334-v1frmepjrngm0oo0d2lt2ntgvg6epsh6.apps.googleusercontent.com",
+          "client_id": "938955725912-dvefa07hb5cavnk7us751c0tk9dbgkvo.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDEeAM3V4D5mJoKAqJ6P-7_UqP0rcXa6hI"
+          "current_key": "AIzaSyDKN0Ph-tYhHls4QO8MNUwHfM4eJ-lSwLM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "182696298334-v1frmepjrngm0oo0d2lt2ntgvg6epsh6.apps.googleusercontent.com",
+              "client_id": "938955725912-dvefa07hb5cavnk7us751c0tk9dbgkvo.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

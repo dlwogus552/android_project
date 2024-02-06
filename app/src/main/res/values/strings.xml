@@ -3,8 +3,14 @@
     <string name="drawer_open">DrawerOpen</string>
     <string name="drawer_close">DrawerClose</string>
     <string name="menu_home">Home</string>
+    <string name="menu_login">Login</string>
+    <string name="menu_my_page">내 정보</string>
+    <string name="menu_my_review">내 리뷰</string>
+    <string name="menu_my_write">작성글</string>
     <string name="menu_hospital">병원 찾기</string>
     <string name="menu_pharmacy">약국 찾기</string>
     <string name="menu_community">커뮤니티</string>
     <string name="menu_medical_info">질병/약품 관련 사이트</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
