@@ -77,8 +77,8 @@ class LoginActivity : AppCompatActivity() {
                                             ) {
                                                 response.body().toString()
                                                 Log.d("aaa","성공")
-                                                onStart()
-//                                                finish()
+//                                                onStart()
+                                                finish()
                                             }
 
                                             override fun onFailure(call: Call<Result>, t: Throwable) {
@@ -87,8 +87,8 @@ class LoginActivity : AppCompatActivity() {
                                             }
                                         })
                                     }else{
-                                        onStart()
-//                                        finish()
+//                                        onStart()
+                                        finish()
                                     }
                                 }
                                 override fun onFailure(call: Call<UserModel>, t: Throwable) {
@@ -117,13 +117,13 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.loginUsernameEditTextView.text.toString()
             val password=binding.loginPassEditTextView.text.toString()
 
-            MyApplication.auth.signInWithEmailAndPassword(email,password)
+            auth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this){task->
                     if(task.isSuccessful){
                         if(MyApplication.checkAuth()){
                             MyApplication.email=email
-//                            finish()
-                            onStart()
+                            finish()
+//                            onStart()
                         }else{
                             Toast.makeText(this,"메일인증을 진행해주세요",Toast.LENGTH_SHORT).show()
                             Log.d("aaa","로그인 실패 / 인증처리 안됨")

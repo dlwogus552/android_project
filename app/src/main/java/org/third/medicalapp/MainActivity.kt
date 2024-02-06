@@ -21,8 +21,10 @@ import com.google.android.material.navigation.NavigationView
 import org.third.medicalapp.community.CommunityActivity
 import org.third.medicalapp.medicalInfo.MedicalInfoActivity
 import org.third.medicalapp.databinding.ActivityMainBinding
+import org.third.medicalapp.hospital.HospitalListActivity
 import org.third.medicalapp.sign.LoginActivity
 import org.third.medicalapp.user.MyPageFragment
+import org.third.medicalapp.user.UserMainActivity
 import org.third.medicalapp.util.MyApplication
 import org.third.medicalapp.util.MyApplication.Companion.auth
 import org.third.medicalapp.util.MyApplication.Companion.email
@@ -51,7 +53,10 @@ class MainActivity : AppCompatActivity() {
         drawerLayout.addDrawerListener(toggle)
 //        toggle.syncState()
 //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+        binding.imageView2.setOnClickListener{
+            var intent = Intent(this,HospitalListActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onStart() {
@@ -70,6 +75,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_login -> {
                     Toast.makeText(baseContext, "login", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.nav_my_page -> {
+                    Toast.makeText(baseContext, "My Page", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, UserMainActivity::class.java)
                     startActivity(intent)
                     true
                 }
