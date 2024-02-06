@@ -1,9 +1,13 @@
 package org.third.medicalapp.hospital.model
 
 data class Hospital(
-    var name: String,
-    var openTime: String,
-    var depart: String,
-    var locationX: String,
-    var locationY: String
+    var h_name: String,
+    var h_code: String,
+    var addr:String,
+    var city: String,
+    var si_gun: String,
+    var dong: String,
+    var x: Double,
+    var y: Double,
+    var tel: String
 )

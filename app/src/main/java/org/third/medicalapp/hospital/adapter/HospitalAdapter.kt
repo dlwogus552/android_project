@@ -11,7 +11,7 @@ import org.third.medicalapp.hospital.HospitalDetailActivity
 import org.third.medicalapp.hospital.model.Hospital
 
 class ListViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
-class ListAdapter(val context: Context, val data: MutableList<Hospital>, val binding: ActivityHospitalListBinding) :
+class HospitalAdapter(val context: Context, val data: List<Hospital>?, val binding: ActivityHospitalListBinding) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ListViewHolder(ItemListBinding.inflate(
@@ -19,15 +19,16 @@ class ListAdapter(val context: Context, val data: MutableList<Hospital>, val bin
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return data?.size?: 0
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val binding =(holder as ListViewHolder).binding
+        val hospital = data?.get(position)
 
-        binding.tvHospitalName.text = data[position].name
-        binding.tvHospitalInfo.text = data[position].depart
-        binding.tvHospitalTime.text = data[position].openTime
+        binding.tvHospitalName.text = hospital?.h_name
+        binding.tvHospitalCode.text = hospital?.h_code
+        binding.tvHospitalAddress.text = hospital?.addr
 //        binding.tvHospitalOpen.text = 현재시간에 따라 진료중 // 진료종료 표시 기능 넣어보자
 // 가능하다면 현재 내 위치와 x,y좌표값을 비교하여 거리가 얼마나 떨어져 있는지 알아보는 기능 넣어보자
 
@@ -42,6 +43,12 @@ class ListAdapter(val context: Context, val data: MutableList<Hospital>, val bin
 //        }
         binding.itemHospital.setOnClickListener {
             val intent = Intent(context, HospitalDetailActivity::class.java)
+            intent.putExtra("h_name", hospital?.h_name)
+            intent.putExtra("h_code", hospital?.h_code)
+            intent.putExtra("addr", hospital?.addr)
+            intent.putExtra("x", hospital?.x)
+            intent.putExtra("y", hospital?.y)
+            intent.putExtra("tel", hospital?.tel)
             context.startActivity(intent)
         }
 
