@@ -11,15 +11,15 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface INetworkService {
-    @GET("check/{nickName}")
+    @GET("user/check/{nickName}")
     fun checkNick(@Path("nickName") nickName: String): Call<Boolean>
-    @GET("checkUser/{userName}")
+    @GET("user/checkUser/{userName}")
     fun checkUser(@Path("userName") userName: String) : Call<UserModel>
-    @GET("list")
+    @GET("user/list")
     fun getUserList():Call<UserModelList>
-    @PUT("modify")
-    fun modify(@Body userModel: UserModel):Call<Result>
+    @PUT("user/modify")
+    fun modify(@Body userModel: UserModel):Call<Boolean>
 
-    @POST("insert")
+    @POST("user/insert")
     fun insert(@Body userModel: UserModel):Call<Result>
 }

@@ -1,83 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main"
     android:padding="20dp"
+    android:orientation="vertical"
     tools:context=".sign.LoginActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/logoTextView"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        app:srcCompat="@drawable/logo" />
+
+    <EditText
+        android:id="@+id/loginUsernameEditTextView"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:layout_marginTop="40dp"
+        android:background="@android:drawable/editbox_background_normal"
+        android:layout_gravity="center_horizontal"
+        android:padding="12dp"
+        android:ems="10"
+        android:hint=" 이메일"
+        android:inputType="text"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/loginPassEditTextView"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/editbox_background_normal"
+        android:layout_gravity="center_horizontal"
+        android:padding="12dp"
+        android:ems="10"
+        android:hint=" 비밀번호 (6자 이상 입력)"
+        android:inputType="textPassword"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/editbox_background_normal"
+        android:backgroundTint="#01DFA5"
+        android:layout_marginTop="13dp"
+        android:layout_gravity="center_horizontal"
+        android:padding="12dp"
+        android:ems="10"
+        android:hint="로그인"
+        android:textStyle="bold"
+        android:inputType="text"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/forgotPasswordTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:text="비밀번호 찾기" />
+
+    <View
+        android:layout_width="300dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@android:color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:text="소셜 로그인" />
+
+    <RelativeLayout
+        android:id="@+id/googleLoginBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="51dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/common_google_signin_btn_text_light_normal" />
 
         <TextView
-            android:id="@+id/logoTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="MEDIBOOK"
-            android:textColor="@color/main"
-            android:textSize="50dp"
-            android:textStyle="bold" />
+            android:layout_centerInParent="true"
+            android:text="구글 계정으로 로그인"
+            android:textStyle="bold"
+            android:textSize="18sp" />
 
-        <RelativeLayout
-            android:id="@+id/inputArea"
-            android:visibility="visible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    </RelativeLayout>
 
-            <EditText
-                android:id="@+id/loginUsernameEditTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="Username" />
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp">
 
-            <EditText
-                android:id="@+id/loginPassEditTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/loginUsernameEditTextView"
-                android:layout_marginTop="8dp"
-                android:hint="Password"
-                android:inputType="textPassword" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:text="계정이 없으신가요?" />
 
-            <Button
-                android:id="@+id/loginBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/loginPassEditTextView"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:text="로그인" />
+        <TextView
+            android:id="@+id/goRegisterTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textColor="#0B614B"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="가입하기" />
 
-            <Button
-                android:id="@+id/googleLoginBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/loginBtn"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:text="구글 아이디로 로그인" />
-
-            <TextView
-                android:id="@+id/goRegisterTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/googleLoginBtn"
-                android:layout_marginTop="8dp"
-                android:text="회원가입하기" />
-
-            <TextView
-                android:id="@+id/forgotPasswordTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/goRegisterTextView"
-                android:layout_marginTop="8dp"
-                android:text="비밀번호 찾기" />
-        </RelativeLayout>
     </LinearLayout>
-</RelativeLayout>
+
+
+</LinearLayout>

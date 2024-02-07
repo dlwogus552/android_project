@@ -53,6 +53,7 @@ class RegisterActivity : AppCompatActivity() {
                                         binding.phoneEditText.text.clear()
                                         auth.currentUser?.sendEmailVerification()
                                             ?.addOnCompleteListener { sendTask ->
+                                                // 메일 인증
                                                 if (sendTask.isSuccessful) {
                                                     Toast.makeText(
                                                         baseContext,
@@ -60,6 +61,8 @@ class RegisterActivity : AppCompatActivity() {
                                                         Toast.LENGTH_SHORT
                                                     ).show()
                                                     Log.d("aaaa", "인증성공")
+
+                                                    //db insert
                                                     val result = networkService.insert(userModel)
                                                     result.enqueue(object : Callback<Result> {
                                                         override fun onResponse(
