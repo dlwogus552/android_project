@@ -117,11 +117,36 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this){task->
                     if(task.isSuccessful){
+                        MyApplication.email=email
                         if(MyApplication.checkAuth()){
-                            MyApplication.email=email
+                            val networkService =
+                                (applicationContext as MyApplication).netWorkService
+                            val check = networkService.checkUser(email)
+                            var userModel: UserModel?
+                            val sharedPref = getSharedPreferences("User", MODE_PRIVATE)
+                            val editor=sharedPref.edit()
+                            check.enqueue(object : Callback<UserModel>{
+                                override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
+                                    Log.d("aaa","${response.body()?.userName}")
+                                    if(response.body()!=null){
+                                        userModel=response.body()
+                                        editor.putString("nickName",userModel?.nickName)
+                                        editor.putString("phoneNumber",userModel?.phoneNumber)
+                                        editor.putString("regiDate",userModel?.regiDate?.substring(0,10))
+                                        editor.apply()
+                                    }else{
+                                        Log.d("aaa","error")
+                                    }
+                                }
+                                override fun onFailure(call: Call<UserModel>, t: Throwable) {
+                                    Log.d("aaaa","info 서버연결 실패")
+                                    call.cancel()
+                                }
+                            })
                             finish()
 //                            onStart()
                         }else{
+                            MyApplication.email=null
                             Toast.makeText(this,"메일인증을 진행해주세요",Toast.LENGTH_SHORT).show()
                             Log.d("aaa","로그인 실패 / 인증처리 안됨")
                         }

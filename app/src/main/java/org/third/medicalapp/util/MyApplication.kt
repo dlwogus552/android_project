@@ -26,6 +26,9 @@ class MyApplication : MultiDexApplication(){
 
         fun checkAuth() : Boolean {
             var currentUser = auth.currentUser
+            if(checkAdmin()){
+                return true
+            }
             return currentUser?.let {
                 email = currentUser.email
                 currentUser.isEmailVerified

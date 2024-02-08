@@ -17,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.tasks.Task
@@ -59,33 +60,11 @@ class MyPageFragment : Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
             val activity=activity as UserMainActivity
             //회원정보 값 받아오기
-            val networkService =
-                (activity.applicationContext as MyApplication).netWorkService
-            val check = networkService.checkUser(email.toString())
-            var userModel: UserModel?
-            check.enqueue(object : Callback<UserModel>{
-                override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
-                    Log.d("aaa","${response.body()?.userName}")
-                    if(response.body()!=null){
-                        userModel=response.body()
-                        binding.userNameText.text=userModel?.userName
-                        binding.nickNameText.text=userModel?.nickName
-                        if(userModel?.phoneNumber!=null){
-                            binding.phoneNumberText.text=userModel?.phoneNumber
-                        }else{
-                            binding.phoneNumberText.text="없음"
-                        }
-                        binding.regiDateText.text= userModel?.regiDate?.substring(0,10)
-
-                    }else{
-                        Log.d("aaa","error")
-                    }
-                }
-                override fun onFailure(call: Call<UserModel>, t: Throwable) {
-                    Log.d("aaaa","info 서버연결 실패")
-                    call.cancel()
-                }
-            })
+            val sharedPref = activity.getSharedPreferences("User", AppCompatActivity.MODE_PRIVATE)
+            binding.userNameText.text=email.toString()
+            binding.nickNameText.text=sharedPref.getString("nickName","-")
+            binding.phoneNumberText.text = sharedPref.getString("phoneNumber","-")
+            binding.regiDateText.text = sharedPref.getString("regiDate","-")
             // networtService 종료
             // profile 지정
             val storageRef = storage.reference.child("images/profile/${email}.jpg")
