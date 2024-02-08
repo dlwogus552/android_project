@@ -17,5 +17,7 @@ class LocationSelectActivity : AppCompatActivity() {
             finish()
         }
 
+        
+
     }
 }

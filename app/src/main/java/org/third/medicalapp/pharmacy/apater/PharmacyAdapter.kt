@@ -13,7 +13,8 @@ import org.third.medicalapp.pharmacy.model.Pharmacy
 class ListViewHolder(val binding: ItemListPhBinding) : RecyclerView.ViewHolder(binding.root)
 class PharmacyAdapter(val context: Context, val data:List<Pharmacy>?):
     RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
+            RecyclerView.ViewHolder {
         return ListViewHolder(
             ItemListPhBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )

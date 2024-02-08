@@ -13,7 +13,8 @@ import org.third.medicalapp.hospital.model.Hospital
 class ListViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
 class HospitalAdapter(val context: Context, val data: List<Hospital>?) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
+            RecyclerView.ViewHolder {
         return ListViewHolder(
             ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )

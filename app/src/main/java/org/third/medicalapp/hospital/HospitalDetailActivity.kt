@@ -65,6 +65,7 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun MapView() {
 
+
         val fm = supportFragmentManager
         val mapFragment = fm.findFragmentById(R.id.map_fragment) as MapFragment?
             ?: MapFragment.newInstance().also {

@@ -9,6 +9,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import org.third.medicalapp.hospital.util.HospitalNetworkService
+import org.third.medicalapp.pharmacy.util.PharmacyNetworkService
 import org.third.medicalapp.sign.model.UserModel
 import org.third.medicalapp.sign.util.INetworkService
 import retrofit2.Call
@@ -50,7 +51,8 @@ class MyApplication : MultiDexApplication(){
     val retrofit: Retrofit
         get()= Retrofit.Builder()
 //            .baseUrl("http://10.100.105.168:8082/")
-            .baseUrl("http://10.100.105.216:8082/")
+//            .baseUrl("http://10.100.105.216:8082/")
+            .baseUrl("http://10.100.105.204:8082/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     init {
