@@ -1,6 +1,7 @@
 package org.third.medicalapp.user
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -21,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import org.third.medicalapp.R
 import org.third.medicalapp.databinding.FragmentMyPageBinding
 import org.third.medicalapp.sign.model.UserModel
@@ -53,35 +55,36 @@ class MyPageFragment : Fragment() {
         setHasOptionsMenu(true)
         return root
     }
+
     // on create 종료
     override fun onStart() {
         super.onStart()
 
-            val activity=activity as UserMainActivity
-            //회원정보 값 받아오기
-            val sharedPref = activity.getSharedPreferences("User", AppCompatActivity.MODE_PRIVATE)
-            binding.userNameText.text=email.toString()
-            binding.nickNameText.text=sharedPref.getString("nickName","-")
-            binding.phoneNumberText.text = sharedPref.getString("phoneNumber","-")
-            binding.regiDateText.text = sharedPref.getString("regiDate","-")
-            // networtService 종료
-            // profile 지정
-            val storageRef = storage.reference.child("images/profile/${email}.jpg")
-            // 파일 존재 여부 확인
-            Log.d("aaaa","파일존재여부 확인 전")
-            storageRef.metadata.addOnSuccessListener { metadata ->
-                Log.d("aaaa","파일존재여부 확인 중")
-                storageRef.downloadUrl.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Glide.with(requireContext())
-                            .load(task.result)
-                            .into(binding.profilePicture)
-                    }
+        val activity = activity as UserMainActivity
+        //회원정보 값 받아오기
+        val sharedPref = activity.getSharedPreferences("User", AppCompatActivity.MODE_PRIVATE)
+        binding.userNameText.text = email.toString()
+        binding.nickNameText.text = sharedPref.getString("nickName", "-")
+        binding.phoneNumberText.text = sharedPref.getString("phoneNumber", "-")
+        binding.regiDateText.text = sharedPref.getString("regiDate", "-")
+        // networtService 종료
+        // profile 지정
+        val storageRef = storage.reference.child("images/profile/${email}.jpg")
+        // 파일 존재 여부 확인
+        Log.d("aaaa", "파일존재여부 확인 전")
+        storageRef.metadata.addOnSuccessListener { metadata ->
+            Log.d("aaaa", "파일존재여부 확인 중")
+            storageRef.downloadUrl.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Glide.with(requireContext())
+                        .load(task.result)
+                        .into(binding.profilePicture)
                 }
-            }.addOnFailureListener {exception->
-                Log.d("aaaa","파일존재여부 확인 중")
-                binding.profilePicture.setImageResource(R.drawable.basic_profile)
             }
+        }.addOnFailureListener { exception ->
+            Log.d("aaaa", "파일존재여부 확인 중")
+            binding.profilePicture.setImageResource(R.drawable.basic_profile)
+        }
 
     }
 
@@ -95,7 +98,7 @@ class MyPageFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_modify -> {
-                startActivity(Intent(context,ModifyInfoActivity::class.java))
+                startActivity(Intent(context, ModifyInfoActivity::class.java))
                 return true
             }
 
@@ -106,9 +109,58 @@ class MyPageFragment : Fragment() {
                 return true
             }
 
+            R.id.menu_unregi -> {
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle("회원탈퇴")
+                builder.setMessage("정말 탈퇴하시겠습니까?")
+                builder.setPositiveButton("Yes") { dialog, which ->
+                    Log.d("aaaa", "확인")
+                    val networkService =
+                        ((activity as UserMainActivity).applicationContext as MyApplication).netWorkService
+                    val delete = networkService.delete(email.toString())
+                    delete.enqueue(object : Callback<Boolean> {
+                        override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                            if (response.body() == true) {
+                                Log.d("aaa", "server 탈퇴성공")
+                                val user = auth.currentUser
+                                Log.d("aaaa","${user?.email}")
+                                user?.delete()?.addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        auth.signOut()
+                                        email = null
+                                        Log.d("aaa", "탈퇴성공")
+                                        (activity as UserMainActivity).finish()
+                                    } else {
+                                        Log.d("aaa","${task.exception?.message}")
+                                        Log.d("aaa", "탈퇴 실패")
+                                    }
+                                }
+                            }else{
+                                Log.d("aaa","존재하지 않음")
+                            }
+                        }
+
+                        override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                            Log.d("aaa", "연결실패")
+                            call.cancel()
+                        }
+
+                    })
+                }
+                builder.setNegativeButton("No") { dialog, which ->
+                    // 취소 버튼을 클릭했을 때의 동작
+                    // 여기에 취소 버튼을 눌렀을 때 수행할 작업을 추가하세요
+                    Log.d("aaa", "취소")
+                }
+                val dialog = builder.create()
+                dialog.show()
+                return true
+            }
+
             else -> return super.onOptionsItemSelected(item)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

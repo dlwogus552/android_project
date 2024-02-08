@@ -26,7 +26,6 @@ import org.third.medicalapp.user.UserMainActivity
 import org.third.medicalapp.util.MyApplication
 import org.third.medicalapp.util.MyApplication.Companion.auth
 import org.third.medicalapp.util.MyApplication.Companion.email
-import org.third.medicalapp.util.Result
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -119,10 +118,10 @@ class LoginActivity : AppCompatActivity() {
                                             "user"
                                         )
                                         val result = networkService.insert(userModel!!)
-                                        result.enqueue(object : Callback<Result> {
+                                        result.enqueue(object : Callback<Boolean> {
                                             override fun onResponse(
-                                                call: Call<Result>,
-                                                response: Response<Result>
+                                                call: Call<Boolean>,
+                                                response: Response<Boolean>
                                             ) {
 
 
@@ -132,7 +131,7 @@ class LoginActivity : AppCompatActivity() {
                                             }
 
                                             override fun onFailure(
-                                                call: Call<Result>,
+                                                call: Call<Boolean>,
                                                 t: Throwable
                                             ) {
                                                 Log.d("aaa", "서버 연동 실패")

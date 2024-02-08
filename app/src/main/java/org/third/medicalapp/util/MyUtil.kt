@@ -173,9 +173,3 @@ fun deleteLike(docId: String?, email: String?) {
             Log.d("likeCount update failure", "좋아요 수 증가에 실패하였습니다.")
         }
 }
-
-
-//server에서 값 받아오기
-class Result(
-    result:Objects
-)

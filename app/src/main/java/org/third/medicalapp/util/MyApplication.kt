@@ -39,7 +39,7 @@ class MyApplication : MultiDexApplication(){
             }
         }
         fun checkAdmin():Boolean {
-            if(email.toString().equals("medicalmanage00@gmail.com")){
+            if(email.toString().equals("admin@example.com")){
                 return true
             }
             return false
