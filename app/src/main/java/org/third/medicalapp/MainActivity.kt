@@ -1,6 +1,7 @@
 package org.third.medicalapp
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = org.third.medicalapp.databinding.ActivityMainBinding.inflate(layoutInflater)
+        binding =ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         myCheckPermission(this)
 
@@ -54,6 +55,13 @@ class MainActivity : AppCompatActivity() {
         binding.imageView7.setOnClickListener {
             var intent = Intent(this, PharmacyListActivity::class.java)
             startActivity(intent)
+        }
+        binding.call.setOnClickListener{
+            var intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:0555521435")
+            if(intent.resolveActivity(packageManager) != null){
+                startActivity(intent)
+            }
         }
     }
 
@@ -110,10 +118,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main,menu)
-        return super.onCreateOptionsMenu(menu)
     }
 }

@@ -31,6 +31,13 @@ fun myCheckPermission(activity: AppCompatActivity) {
     ) {
         requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
     }
+    if(ContextCompat.checkSelfPermission(
+            activity,
+            Manifest.permission.CALL_PHONE
+        ) !== PackageManager.PERMISSION_GRANTED
+    ){
+        requestPermissionLauncher.launch(Manifest.permission.CALL_PHONE)
+    }
 }
 
 fun dateToString(date: Date?): String {

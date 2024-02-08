@@ -56,8 +56,7 @@ class MyPageFragment : Fragment() {
     // on create 종료
     override fun onStart() {
         super.onStart()
-        //딜레이
-        Handler(Looper.getMainLooper()).postDelayed({
+
             val activity=activity as UserMainActivity
             //회원정보 값 받아오기
             val sharedPref = activity.getSharedPreferences("User", AppCompatActivity.MODE_PRIVATE)
@@ -83,7 +82,7 @@ class MyPageFragment : Fragment() {
                 Log.d("aaaa","파일존재여부 확인 중")
                 binding.profilePicture.setImageResource(R.drawable.basic_profile)
             }
-        }, 1500) // 1000ms = 1초
+
     }
 
 

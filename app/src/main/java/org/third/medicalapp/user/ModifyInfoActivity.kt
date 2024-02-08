@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
@@ -161,8 +163,10 @@ class ModifyInfoActivity : AppCompatActivity() {
                             call.cancel()
                         }
                     })
-
-                    finish()
+                    //딜레이
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        finish()
+                    }, 1500) // 1000ms = 1초
                     return true
                 } else {
                     Log.d("aaaa", "닉네임 입력")
