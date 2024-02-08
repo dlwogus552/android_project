@@ -43,7 +43,13 @@ class MyAdapter(val context: Context, val itemList: MutableList<CommunityData>) 
             tvWriter.text = "${data.email}"
             tvDate.text = data.date
             tvTitle.text = data.title
-            tvContent.text = data.content
+            val maxLength = 500
+            val truncatedContent = if (data.content!!.length > maxLength) {
+                data.content!!.substring(0, maxLength) + "..."
+            } else {
+                data.content
+            }
+            tvContent.text = truncatedContent
 
             // 비동기적으로 댓글 수 가져오기
             getCommentCount(data.docId) { count ->
@@ -94,17 +100,17 @@ class MyAdapter(val context: Context, val itemList: MutableList<CommunityData>) 
                     saveLikeStore(data.docId, MyApplication.email)
                     updateLikeCount(data.docId, 1)
                     holder.imageLike.setImageResource(R.drawable.like_full)
+                    data.likeCount++
                 } else {
                     // 좋아요 취소 버튼을 누르면
                     deleteLike(data.docId, MyApplication.email)
                     updateLikeCount(data.docId, -1)
                     holder.imageLike.setImageResource(R.drawable.like)
+                    data.likeCount--
                 }
+                holder.textViewLike.text = data.likeCount.toString()
             }
         }
-
-        // RecyclerView 갱신
-//        notifyItemChanged(position)
     }
 
     // 비동기 방식으로 댓글 수를 가져와서 commentCount에 설정
