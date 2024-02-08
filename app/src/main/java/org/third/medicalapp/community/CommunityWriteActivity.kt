@@ -85,7 +85,7 @@ class CommunityWriteActivity : AppCompatActivity() {
             "title" to binding.edTitle.text.toString(),
             "content" to binding.edContent.text.toString(),
             "date" to dateToString(Date()),
-            "isLiked" to false
+            "likeCount" to 0.toLong()
         )
 
         MyApplication.db.collection("community")

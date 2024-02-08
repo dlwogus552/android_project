@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         myCheckPermission(this)
 
-        setSupportActionBar(binding.appBarMain.toolbar)
+//        setSupportActionBar(binding.appBarMain.toolbar)
         // 왼쪽 상단 버튼 만들기
 //        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
 

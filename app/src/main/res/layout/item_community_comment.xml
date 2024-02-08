@@ -34,7 +34,7 @@
                 android:layout_weight="1" />
 
             <ImageView
-                android:id="@+id/icoDelete"
+                android:id="@+id/commentDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
