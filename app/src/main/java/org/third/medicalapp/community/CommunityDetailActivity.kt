@@ -1,6 +1,7 @@
 package org.third.medicalapp.community
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ActivityCommunityDetailBinding
+import org.third.medicalapp.hospital.HospitalListActivity
 import org.third.medicalapp.util.MyApplication
 import org.third.medicalapp.util.dateToString
 import org.third.medicalapp.util.updateLikeCount
@@ -25,17 +27,7 @@ class CommunityDetailActivity : AppCompatActivity() {
         binding = ActivityCommunityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        val imageLike = findViewById<ImageView>(R.id.imageLike)
-//        var isLiked = false
-//
-//        imageLike.setOnClickListener {
-//            isLiked = !isLiked
-//            if (isLiked) {
-//                imageLike.setImageResource(R.drawable.like_full)
-//            } else {
-//                imageLike.setImageResource(R.drawable.like)
-//            }
-//        }
+        setSupportActionBar(binding.appBarMain.toolbar)
 
         // Intent로부터 전달된 데이터 받기
         val docId = intent.getStringExtra("docId")
@@ -43,7 +35,7 @@ class CommunityDetailActivity : AppCompatActivity() {
         val date = intent.getStringExtra("date")
         val title = intent.getStringExtra("title")
         val content = intent.getStringExtra("content")
-        var likeCount = intent.getIntExtra("likeCount",0)
+        var likeCount = intent.getIntExtra("likeCount", 0)
 
         // 데이터를 화면에 바인딩
         binding.apply {
@@ -62,9 +54,12 @@ class CommunityDetailActivity : AppCompatActivity() {
                 }
             }
 
-
-            // 좋아요 텍스트 설정
-            likeCountView.text = likeCount.toString()
+            MyApplication.db.collection("community").document(docId!!).get()
+                .addOnSuccessListener { document ->
+                    val likeCount = document.getLong("likeCount")
+                    // 좋아요 텍스트 설정
+                    likeCountView.text = likeCount.toString()
+                }
         }
 
         val imgRef = MyApplication.storage.reference.child("images/$docId.jpg")
@@ -86,11 +81,21 @@ class CommunityDetailActivity : AppCompatActivity() {
                     org.third.medicalapp.util.saveLikeStore(docId, MyApplication.email)
                     updateLikeCount(docId, 1)
                     binding.imageLike.setImageResource(R.drawable.like_full)
+
+                    val currentText = binding.likeCountView.text.toString()
+                    val currentLikeCount = if (currentText.isEmpty()) 0 else currentText.toInt()
+                    val updatedLikeCount = currentLikeCount + 1
+                    binding.likeCountView.text = updatedLikeCount.toString()
                 } else {
                     // 좋아요 취소 버튼을 누르면
                     org.third.medicalapp.util.deleteLike(docId, MyApplication.email)
                     updateLikeCount(docId, -1)
                     binding.imageLike.setImageResource(R.drawable.like)
+
+                    val currentText = binding.likeCountView.text.toString()
+                    val currentLikeCount = if (currentText.isEmpty()) 0 else currentText.toInt()
+                    val updatedLikeCount = currentLikeCount - 1
+                    binding.likeCountView.text = updatedLikeCount.toString()
                 }
             }
         }
@@ -113,9 +118,61 @@ class CommunityDetailActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            makeCommentRecyclerVIew(docId)
         }
-        makeCommentRecyclerVIew(intent.getStringExtra("docId"))
-        getCommentCount(intent.getStringExtra("docId"))
+
+        binding.communityDelete.setOnClickListener {
+            if (MyApplication.email == email) {
+                // fire store에 저장되어 있는 커뮤니티 게시글 삭제
+                MyApplication.db.collection("community").document(docId!!).delete()
+                    .addOnSuccessListener {
+                        Log.d("community_db delete success", "데이터 삭제에 성공하였습니다.")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.d("community delete failure", "데이터 삭제에 실패하였습니다.")
+                    }
+                // fire store에 저장되어 있는 해당 게시글의 댓글 삭제
+                MyApplication.db.collection("comment").whereEqualTo("docId", docId).get()
+                    .addOnSuccessListener { documents ->
+                        // documents에는 쿼리 결과에 해당하는 문서들이 포함됩니다.
+                        for (document in documents) {
+                            // 각 문서를 삭제합니다.
+                            MyApplication.db.collection("comment").document(document.id).delete()
+                                .addOnSuccessListener {
+                                    Log.d("comment_db delete success", "데이터 삭제에 성공하였습니다.")
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.d("comment_db delete failure", "데이터 삭제에 실패하였습니다.")
+                                }
+                        }
+                    }
+            } else {
+                Toast.makeText(baseContext, "작성자만 삭제 가능합니다.", Toast.LENGTH_SHORT).show()
+            }
+
+            // fire store에 저장되어 있는 해당 게시글의 좋아요 정보 삭제
+            MyApplication.db.collection("like").whereEqualTo("docId", docId).get()
+                .addOnSuccessListener { documents ->
+                    // documents에는 쿼리 결과에 해당하는 문서들이 포함됩니다.
+                    for (document in documents) {
+                        // 각 문서를 삭제합니다.
+                        MyApplication.db.collection("like").document(document.id).delete()
+                            .addOnSuccessListener {
+                                Log.d("like_db delete success", "데이터 삭제에 성공하였습니다.")
+                            }
+                            .addOnFailureListener { e ->
+                                Log.d("like_db delete failure", "데이터 삭제에 실패하였습니다.")
+                            }
+                    }
+                }
+
+            var intent = Intent(this, CommunityActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(baseContext, "게시글이 삭제되었습니다", Toast.LENGTH_SHORT).show()
+        }
+
+        makeCommentRecyclerVIew(docId)
+        getCommentCount(docId)
     }
 
     // 댓글 데이터를 Firestore에 저장하는 함수

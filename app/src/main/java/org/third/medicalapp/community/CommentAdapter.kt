@@ -44,12 +44,15 @@ class CommentAdapter(val context: Context, val itemList: MutableList<CommentData
                         MyApplication.db.collection("comment").document(data.commentId!!).delete()
                             .addOnSuccessListener {
                                 Toast.makeText(context, "댓글이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                                notifyDataSetChanged()
+
                             }
                             .addOnFailureListener { exception ->
                                 Log.e("deleteComment", "Error deleting document", exception)
-                                Toast.makeText(context, "게시글 삭제 실패", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "댓글 삭제 실패", Toast.LENGTH_SHORT).show()
                             }
                     }
+
                 } else {
                     Toast.makeText(context, "작성자만 삭제 가능합니다.", Toast.LENGTH_SHORT).show()
                 }

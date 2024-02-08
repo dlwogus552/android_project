@@ -19,6 +19,7 @@ class CommunityActivity : AppCompatActivity() {
         binding = ActivityCommunityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.appBarMain.toolbar)
         // 앱 권한을 확인하는 함수 호출
         myCheckPermission(this)
 
