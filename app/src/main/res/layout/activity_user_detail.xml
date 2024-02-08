@@ -7,20 +7,21 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="20dp"
-    tools:context=".user.MyPageFragment">
+    tools:context=".user.UserDetailActivity">
+
     <androidx.cardview.widget.CardView
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:cardMaxElevation="5dp"
         android:layout_marginBottom="20dp"
-        app:cardCornerRadius="50dp">
+        app:cardCornerRadius="50dp"
+        app:cardMaxElevation="5dp">
 
         <ImageView
             android:id="@+id/profilePicture"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:scaleType="centerCrop"
             android:clickable="true"
+            android:scaleType="centerCrop"
             android:src="@drawable/basic_profile" />
 
     </androidx.cardview.widget.CardView>
@@ -29,28 +30,28 @@
         android:id="@+id/userNameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="Email : "/>
+        android:text="Email : "
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/nickNameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="Nick Name : " />
+        android:text="Nick Name : "
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/phoneNumberText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="Phone Number : " />
+        android:text="Phone Number : "
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/regiDateText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="Registration Date" />
+        android:text="Registration Date"
+        android:textSize="20sp" />
 
 </LinearLayout>

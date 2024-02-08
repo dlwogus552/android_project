@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/hospitalDetail"
+    android:id="@+id/pharmacyDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
@@ -13,35 +13,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--병원 이름 / 진료시간 정보-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvHospitalName"
+                android:id="@+id/tvPharmacyName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
-                android:text="병원이름"
+                android:text="약국이름"
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
 
             <TextView
-                android:id="@+id/tvHospitalCode"
-                android:layout_marginLeft="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="진료과"
-                />
-
-            <TextView
-                android:id="@+id/tvHospitalAddress"
+                android:id="@+id/tvPharmacyAddress"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
@@ -52,7 +42,6 @@
                 />
         </LinearLayout>
 
-        <!--    병원정보 진료정보-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,13 +57,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="병원정보" />
+                    android:text="약국정보" />
 
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="병원리뷰" />
+                    android:text="약국리뷰" />
             </LinearLayout>
 
 
@@ -93,28 +82,12 @@
                 android:layout_marginTop="15dp">
 
                 <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/map_fragment"
+                    android:id="@+id/map_fragment_PH"
                     android:name="com.naver.maps.map.MapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:text="진료과목"
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/tvHospitalDepart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="진료과" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -139,7 +112,7 @@
                 android:layout_gravity="right"
                 />
 
-<!--            병원 리뷰 작성-->
+            <!--            병원 리뷰 작성-->
 
         </LinearLayout>
 
