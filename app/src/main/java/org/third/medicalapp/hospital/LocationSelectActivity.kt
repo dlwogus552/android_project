@@ -1,5 +1,6 @@
 package org.third.medicalapp.hospital
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import org.third.medicalapp.R
@@ -15,5 +16,6 @@ class LocationSelectActivity : AppCompatActivity() {
         binding.btnCloseX.setOnClickListener {
             finish()
         }
+
     }
 }

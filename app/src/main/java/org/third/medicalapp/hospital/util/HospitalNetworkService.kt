@@ -11,12 +11,12 @@ import retrofit2.http.Path
 interface HospitalNetworkService {
     @GET("home")
     fun doHome(): Call<String>
-    @GET("list")
+    @GET("api/hospital/list")
     fun doGetHospitalList(): Call<HospitalList>
-    @GET("getHospitalId/{id}")
-    fun doGetHospitalId(@Path("h_id") id: Long): Call<Hospital>
-    @GET("getUsername/{name}")
-    fun doGetHospitalname(@Path("h_name") name: String): Call<Hospital>
-    @POST("insert")
+    @GET("api/hospital/byId/{id}")
+    fun doGetHospitalId(@Path("id") id: Long): Call<Hospital>
+    @GET("api/hospital/getUsername/{name}")
+    fun doGetHospitalName(@Path("hname") name: String): Call<Hospital>
+    @POST("api/hospital/insert")
     fun insert(@Body hospital: Hospital): Call<String>
 }
