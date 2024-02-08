@@ -109,7 +109,7 @@
                 android:textSize="14dp" />
 
             <TextView
-                android:id="@+id/likeCount"
+                android:id="@+id/likeCountView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"

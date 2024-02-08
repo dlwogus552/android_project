@@ -4,12 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ActivityCommunityBinding
 import org.third.medicalapp.sign.LoginActivity
 import org.third.medicalapp.util.MyApplication
@@ -50,7 +47,7 @@ class CommunityActivity : AppCompatActivity() {
             binding.mainRecyclerView.visibility = View.VISIBLE
             // RecyclerView에 데이터 로드
             makeRecyclerVIew()
-        // 로그인 되어있지 않을 때
+            // 로그인 되어있지 않을 때
         } else {
             binding.logoutTextView.visibility = View.VISIBLE
             binding.mainRecyclerView.visibility = View.GONE
@@ -60,12 +57,13 @@ class CommunityActivity : AppCompatActivity() {
     // RecyclerView를 생성하고 데이터를 로드하는 함수
     fun makeRecyclerVIew() {
         // Firestore에서 커뮤니티 게시물 데이터 가져오기
-        MyApplication.db. collection("community")
+
+        MyApplication.db.collection("community")
             .get()
             .addOnSuccessListener { result ->
                 val itemList = mutableListOf<CommunityData>()
                 // 가져온 데이터를 CommunityData 객체로 변환하여 itemList에 추가
-                for(document in result) {
+                for (document in result) {
                     val item = document.toObject(CommunityData::class.java)
                     item.docId = document.id
                     itemList.add(item)
@@ -80,10 +78,6 @@ class CommunityActivity : AppCompatActivity() {
                 Log.d("aaaa", "error... getting document..", exception)
                 Toast.makeText(this, "서버 데이터 획득 실패", Toast.LENGTH_SHORT).show()
             }
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_community, menu)
-        return super.onCreateOptionsMenu(menu)
     }
 }
