@@ -34,6 +34,12 @@
             android:name=".pharmacy.PharmacyListActivity"
             android:exported="false" />
         <activity
+            android:name=".user.UserDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.UserListActivity"
+            android:exported="false" />
+        <activity
             android:name=".hospital.LocationSelectActivity"
             android:exported="false" />
         <activity

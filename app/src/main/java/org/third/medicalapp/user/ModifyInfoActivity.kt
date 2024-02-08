@@ -1,6 +1,7 @@
 package org.third.medicalapp.user
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -36,6 +37,7 @@ import java.io.File
 class ModifyInfoActivity : AppCompatActivity() {
     lateinit var binding: ActivityModifyInfoBinding
     lateinit var filePath: String
+    lateinit var sharedPref : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +45,9 @@ class ModifyInfoActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         checkProfile()
+        sharedPref = getSharedPreferences("User", MODE_PRIVATE)
+        binding.modiEditNickName.setText(sharedPref.getString("nickName",""))
+        binding.modiPhoneNumberText.setText(sharedPref.getString("phoneNumber",""))
         binding.modiProfilePicture.setOnClickListener {
             Log.d("aaaa", "click")
             showPopUpMenu(it)
@@ -140,6 +145,10 @@ class ModifyInfoActivity : AppCompatActivity() {
                                 if (profile?.constantState != baseProfile?.constantState) {
                                     uploadImage()
                                 }
+                                val editor=sharedPref.edit()
+                                editor.putString("nickName",nickname)
+                                editor.putString("phoneNumber",phoneNumber)
+                                editor.apply()
                                 Log.d("aaa", "수정성공")
                             } else {
                                 Toast.makeText(baseContext, "수정실패", Toast.LENGTH_SHORT).show()

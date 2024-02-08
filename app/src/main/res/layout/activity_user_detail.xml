@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp"
+    tools:context=".user.UserDetailActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="50dp"
+        app:cardMaxElevation="5dp">
+
+        <ImageView
+            android:id="@+id/profilePicture"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/basic_profile" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/userNameText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email : "
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/nickNameText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nick Name : "
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/phoneNumberText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phone Number : "
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/regiDateText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registration Date"
+        android:textSize="20sp" />
+
+</LinearLayout>

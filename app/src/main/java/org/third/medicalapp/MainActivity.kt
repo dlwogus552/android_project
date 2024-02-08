@@ -15,6 +15,7 @@ import org.third.medicalapp.medicalInfo.MedicalInfoActivity
 import org.third.medicalapp.hospital.HospitalListActivity
 import org.third.medicalapp.pharmacy.PharmacyListActivity
 import org.third.medicalapp.sign.LoginActivity
+import org.third.medicalapp.user.UserListActivity
 import org.third.medicalapp.user.UserMainActivity
 import org.third.medicalapp.util.MyApplication
 import org.third.medicalapp.util.MyApplication.Companion.email
@@ -82,6 +83,13 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_my_page -> {
                     Toast.makeText(baseContext, "My Page", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, UserMainActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.nav_admin -> {
+                    Toast.makeText(baseContext, "User List", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, UserListActivity::class.java)
                     startActivity(intent)
                     true
                 }
