@@ -22,6 +22,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".pharmacy.PharmacyAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".hospital.HospitalAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pharmacy.PharmacyDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pharmacy.PharmacyListActivity"
+            android:exported="false" />
+        <activity
             android:name=".hospital.LocationSelectActivity"
             android:exported="false" />
         <activity
@@ -48,7 +60,6 @@
         <activity
             android:name=".hospital.HospitalListActivity"
             android:exported="false" />
-
         <activity
             android:name=".sign.RegisterActivity"
             android:exported="false" />

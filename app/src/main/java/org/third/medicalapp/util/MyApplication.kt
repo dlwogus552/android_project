@@ -9,9 +9,11 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import org.third.medicalapp.hospital.util.HospitalNetworkService
+import org.third.medicalapp.pharmacy.util.PharmacyNetworkService
 import org.third.medicalapp.sign.util.INetworkService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 class MyApplication : MultiDexApplication(){
     companion object {
@@ -39,11 +41,13 @@ class MyApplication : MultiDexApplication(){
 
     var netWorkService: INetworkService
     var hospitalServie: HospitalNetworkService
+    var pharmacyService: PharmacyNetworkService
 
 
     val retrofit: Retrofit
         get()= Retrofit.Builder()
-            .baseUrl("http://10.100.105.168:8082/user/")
+//            .baseUrl("http://10.100.105.168:8082/")
+            .baseUrl("http://10.100.105.216:8082/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     init {
@@ -52,6 +56,9 @@ class MyApplication : MultiDexApplication(){
 
     init {
         hospitalServie = retrofit.create(HospitalNetworkService::class.java)
+    }
+    init {
+        pharmacyService = retrofit.create(PharmacyNetworkService::class.java)
     }
 
     override fun onCreate() {

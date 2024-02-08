@@ -6,22 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".hospital.HospitalListActivity">
+    tools:context=".pharmacy.PharmacyListActivity">
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <Button
-        android:id="@+id/btnDepSelect"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="20dp"
-        android:text="진료과 선택" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
@@ -43,8 +33,6 @@
             android:text="진료중" />
 
     </LinearLayout>
-    </LinearLayout>
-
 
     <TextView
         android:id="@+id/tvSearchCount"
@@ -57,10 +45,8 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerListView"
+        android:id="@+id/recyclerListViewPH"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </androidx.recyclerview.widget.RecyclerView>
-
-
 </LinearLayout>

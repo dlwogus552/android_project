@@ -13,6 +13,7 @@ import org.third.medicalapp.community.CommunityActivity
 import org.third.medicalapp.databinding.ActivityMainBinding
 import org.third.medicalapp.medicalInfo.MedicalInfoActivity
 import org.third.medicalapp.hospital.HospitalListActivity
+import org.third.medicalapp.pharmacy.PharmacyListActivity
 import org.third.medicalapp.sign.LoginActivity
 import org.third.medicalapp.user.UserMainActivity
 import org.third.medicalapp.util.MyApplication
@@ -44,6 +45,11 @@ class MainActivity : AppCompatActivity() {
 //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.imageView2.setOnClickListener{
             var intent = Intent(this,HospitalListActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.imageView7.setOnClickListener {
+            var intent = Intent(this, PharmacyListActivity::class.java)
             startActivity(intent)
         }
     }

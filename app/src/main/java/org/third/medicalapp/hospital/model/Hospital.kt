@@ -1,6 +1,7 @@
 package org.third.medicalapp.hospital.model
 
 data class Hospital(
+    var id: Long,
     var hname: String,
     var hcode: String,
     var addr:String,
