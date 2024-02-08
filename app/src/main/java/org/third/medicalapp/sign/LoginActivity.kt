@@ -26,7 +26,6 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding:ActivityLoginBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         binding=ActivityLoginBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -51,7 +50,6 @@ class LoginActivity : AppCompatActivity() {
                                 (applicationContext as MyApplication).netWorkService
                             val check = networkService.checkUser(email.toString())
                             var userModel: UserModel? =null
-                            //이미 가입된 동일한 아이디가 있으면 대체 구글 아이디로 대체
                             check.enqueue(object : Callback<UserModel>{
                                 override fun onResponse(
                                     call: Call<UserModel>,
@@ -72,7 +70,8 @@ class LoginActivity : AppCompatActivity() {
                                                 call: Call<Result>,
                                                 response: Response<Result>
                                             ) {
-                                                response.body().toString()
+
+
                                                 Log.d("aaa","성공")
 //                                                onStart()
                                                 finish()

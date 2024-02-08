@@ -18,6 +18,7 @@ import org.third.medicalapp.sign.LoginActivity
 import org.third.medicalapp.user.UserMainActivity
 import org.third.medicalapp.util.MyApplication
 import org.third.medicalapp.util.MyApplication.Companion.email
+import org.third.medicalapp.util.myCheckPermission
 
 class MainActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = org.third.medicalapp.databinding.ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        myCheckPermission(this)
 
         setSupportActionBar(binding.appBarMain.toolbar)
         // 왼쪽 상단 버튼 만들기
@@ -56,8 +58,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        Log.d("aaaa","${MyApplication.checkAuth()}")
-        Log.d("aaaa","${MyApplication.checkAdmin()}")
         navView = binding.navView
         if(MyApplication.checkAuth()){
             navView.menu.findItem(R.id.nav_login).setVisible(false)

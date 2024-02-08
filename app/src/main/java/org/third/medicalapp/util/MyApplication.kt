@@ -9,8 +9,11 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import org.third.medicalapp.hospital.util.HospitalNetworkService
-import org.third.medicalapp.pharmacy.util.PharmacyNetworkService
+import org.third.medicalapp.sign.model.UserModel
 import org.third.medicalapp.sign.util.INetworkService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -75,4 +78,6 @@ class MyApplication : MultiDexApplication(){
         db = FirebaseFirestore.getInstance()
         storage = Firebase.storage
     }
+
+
 }
