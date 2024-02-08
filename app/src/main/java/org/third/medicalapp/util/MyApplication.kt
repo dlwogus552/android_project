@@ -9,6 +9,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import org.third.medicalapp.hospital.util.HospitalNetworkService
+import org.third.medicalapp.pharmacy.util.PharmacyNetworkService
 import org.third.medicalapp.sign.model.UserModel
 import org.third.medicalapp.sign.util.INetworkService
 import retrofit2.Call
@@ -38,7 +39,7 @@ class MyApplication : MultiDexApplication(){
             }
         }
         fun checkAdmin():Boolean {
-            if(email.toString().equals("admin@example.com")){
+            if(email.toString().equals("medicalmanage00@gmail.com")){
                 return true
             }
             return false
