@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
@@ -35,9 +36,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         myCheckPermission(this)
 
-//        setSupportActionBar(binding.appBarMain.toolbar)
-        // 왼쪽 상단 버튼 만들기
-//        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
+        setSupportActionBar(binding.appBarMain.toolbar)
 
         val drawerLayout: DrawerLayout = binding.drawer
 
@@ -45,8 +44,8 @@ class MainActivity : AppCompatActivity() {
             this, drawerLayout, R.string.drawer_open, R.string.drawer_close
         )
         drawerLayout.addDrawerListener(toggle)
-//        toggle.syncState()
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.imageView2.setOnClickListener{
             var intent = Intent(this,HospitalListActivity::class.java)
             startActivity(intent)
@@ -117,6 +116,11 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
