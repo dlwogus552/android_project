@@ -283,5 +283,4 @@ class CommunityDetailActivity : AppCompatActivity() {
         binding.commentCount.text = commentCount.toString() // commentCount 텍스트뷰에 값을 설정
     }
 
-
 }
