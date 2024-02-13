@@ -5,7 +5,11 @@ import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.third.medicalapp.MainActivity
+import org.third.medicalapp.R
 import org.third.medicalapp.medicalInfo.adapter.MediInfoAdapter
 import org.third.medicalapp.databinding.ActivityMedicalInfoBinding
 import org.third.medicalapp.medicalInfo.model.MediInfo
@@ -27,13 +31,28 @@ class MedicalInfoActivity : AppCompatActivity() {
         binding = ActivityMedicalInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        myCheckPermission(this) // 퍼미션 체크
+        setSupportActionBar(binding.appBarMain.toolbar)
+        supportActionBar?.title = "질병/약품 관련 사이트"
 
         db = MedicalInfoDBHelper(this).readableDatabase
         binding.writeFab.setOnClickListener{
             val intent = Intent(this, MedicalInfoWriteActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_home, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // 저장 메뉴 아이템을 선택한 경우
+        if (item.itemId == R.id.menu_main) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onStart() {
