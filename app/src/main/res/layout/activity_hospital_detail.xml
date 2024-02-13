@@ -9,9 +9,9 @@
     tools:context=".hospital.HospitalDetailActivity">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <!--병원 이름 / 진료시간 정보-->
         <LinearLayout
@@ -33,23 +33,21 @@
 
             <TextView
                 android:id="@+id/tvHospitalCode"
-                android:layout_marginLeft="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:layout_marginLeft="20dp"
                 android:text="진료과"
-                />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tvHospitalAddress"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:text="주소"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="15dp"
-                />
+                android:text="주소"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <!--    병원정보 진료정보-->
@@ -124,6 +122,7 @@
                 android:layout_marginBottom="15dp"
                 android:text="전화번호"
                 android:textSize="22sp" />
+
             <TextView
                 android:id="@+id/tvPhoneNumber"
                 android:layout_width="match_parent"
@@ -135,13 +134,50 @@
                 android:id="@+id/btnCall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="전화하기"
                 android:layout_gravity="right"
-                />
+                android:text="전화하기" />
 
-<!--            병원 리뷰 작성-->
 
+            <!--            병원 리뷰 작성-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/reviewRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:paddingHorizontal="20dp"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edReview"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:background="@android:drawable/editbox_background_normal"
+                    android:backgroundTint="#D8D8D8"
+                    android:ems="10"
+                    android:hint="후기를 작성해주세요."
+                    android:inputType="textMultiLine"
+                    android:padding="10dp"
+                    android:textSize="14dp" />
+
+                <ImageView
+                    android:id="@+id/icoSend"
+                    android:layout_width="20dp"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="20dp"
+                    android:clickable="true"
+                    android:paddingVertical="8dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/send" />
+
+            </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
 </ScrollView>
