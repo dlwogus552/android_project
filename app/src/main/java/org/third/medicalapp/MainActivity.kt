@@ -24,8 +24,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
     lateinit var binding: ActivityMainBinding
     lateinit var navView:NavigationView
-//    private lateinit var appBarConfiguration: AppBarConfiguration
-
+    lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        val drawerLayout: DrawerLayout = binding.drawer
+        drawerLayout = binding.drawer
 
         toggle = ActionBarDrawerToggle(
             this, drawerLayout, R.string.drawer_open, R.string.drawer_close
@@ -81,12 +80,14 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_login -> {
                     Toast.makeText(baseContext, "login", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, LoginActivity::class.java)
+                    drawerLayout.closeDrawers()
                     startActivity(intent)
                     true
                 }
                 R.id.nav_my_page -> {
                     Toast.makeText(baseContext, "My Page", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, UserMainActivity::class.java)
+                    drawerLayout.closeDrawers()
                     startActivity(intent)
                     true
                 }
@@ -94,18 +95,21 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_admin -> {
                     Toast.makeText(baseContext, "User List", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, UserListActivity::class.java)
+                    drawerLayout.closeDrawers()
                     startActivity(intent)
                     true
                 }
 
                 R.id.nav_community -> {
                     val intent = Intent(this, CommunityActivity::class.java)
+                    drawerLayout.closeDrawers()
                     startActivity(intent)
                     true
                 }
 
                 R.id.nav_medical_info -> {
                     val intent = Intent(this, MedicalInfoActivity::class.java)
+                    drawerLayout.closeDrawers()
                     startActivity(intent)
                     true
                 }
