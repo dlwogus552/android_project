@@ -11,12 +11,24 @@ import retrofit2.http.Path
 interface HospitalNetworkService {
     @GET("home")
     fun doHome(): Call<String>
+    //병원리스트 전체 불러오기
     @GET("api/hospital/list")
     fun doGetHospitalList(): Call<HospitalList>
+    //상세보기시 그 병원id에 맞는 것 불러오기
     @GET("api/hospital/byId/{id}")
     fun doGetHospitalId(@Path("id") id: Long): Call<Hospital>
-    @GET("api/hospital/getUsername/{name}")
-    fun doGetHospitalName(@Path("hname") name: String): Call<Hospital>
+
+    //이름 검색시 관련된 병원리스트 불러오기
+    @GET("api/hospital/byName/{hname}")
+    fun doGetHospitalName(@Path("hname") name: String): Call<HospitalList>
+
+    //진료과에 해당하는 병원리스트 불러오기 -> DepartSelectActivity
+    @GET("api/hospital/byCode/{hcode}")
+    fun doGetHcode(@Path("hcode") hcode: String): Call<HospitalList>
+
+    //검색한 동에 해당하는 병원리스트 불러오기 -> LocationSelectActivity
+    @GET("api/hospital/byDong/{dong}")
+    fun doGetDong(@Path("dong") dong: String): Call<HospitalList>
     @POST("api/hospital/insert")
     fun insert(@Body hospital: Hospital): Call<String>
 }

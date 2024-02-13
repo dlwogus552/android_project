@@ -17,7 +17,12 @@ class LocationSelectActivity : AppCompatActivity() {
             finish()
         }
 
-        
+        binding.btnDongSearch.setOnClickListener {
+            val dong = binding.tvDong.text.toString()
+            intent.putExtra("dong", dong)
+            setResult(RESULT_OK, intent)
+            finish()
+        }
 
     }
 }
