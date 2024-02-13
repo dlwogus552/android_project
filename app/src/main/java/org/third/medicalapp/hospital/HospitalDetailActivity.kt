@@ -2,6 +2,8 @@ package org.third.medicalapp.hospital
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -70,8 +72,10 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         })
 
         val tel = intent.getStringExtra("tel")
-        binding.btnCall.setOnClickListener {
-            //버튼을 누르면 전화가 되게끔
+        binding.btnCall.setOnClickListener { //버튼을 누르면 전화가 되게끔
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:$tel")
+            startActivity(intent)
         }
 
         binding.icoSend.setOnClickListener {
@@ -97,8 +101,6 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
     private fun MapView() {
-
-
         val fm = supportFragmentManager
         val mapFragment = fm.findFragmentById(R.id.map_fragment) as MapFragment?
             ?: MapFragment.newInstance().also {

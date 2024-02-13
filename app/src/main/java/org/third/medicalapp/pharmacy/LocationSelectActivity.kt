@@ -1,4 +1,4 @@
-package org.third.medicalapp.hospital
+package org.third.medicalapp.pharmacy
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +12,7 @@ class LocationSelectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLocationSelectBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val intent = Intent(this, HospitalListActivity::class.java)
+        val intent = Intent(this, PharmacyListActivity::class.java)
 
         binding.btnCloseX.setOnClickListener {
             startActivity(intent)
