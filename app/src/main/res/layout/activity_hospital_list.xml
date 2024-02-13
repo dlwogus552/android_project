@@ -24,7 +24,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
-                android:text="진료과 선택" />
+                android:text="진료과 선택"
+                android:backgroundTint="#FFFFFF"
+                android:background="@drawable/rounded_button"
+                android:textColor="#000000"
+                android:padding="10dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,19 +39,35 @@
                     android:id="@+id/btnLocalSelect"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="지역을 선택하세요" />
+                    android:text="지역"
+                    android:backgroundTint="#FFFFFF"
+                    android:background="@drawable/rounded_button"
+                    android:textColor="#000000"
+                    android:padding="10dp"
+                    android:layout_marginEnd="5dp"/>
 
                 <Button
                     android:id="@+id/btnOrder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="거리순" />
+                    android:text="거리순"
+                    android:backgroundTint="#FFFFFF"
+                    android:background="@drawable/rounded_button"
+                    android:textColor="#000000"
+                    android:padding="10dp"
+                    android:layout_marginEnd="5dp"/>
 
                 <Button
                     android:id="@+id/btnOpentime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="진료중" />
+                    android:text="진료중"
+                    android:backgroundTint="#FFFFFF"
+                    android:background="@drawable/rounded_button"
+                    android:textColor="#000000"
+                    android:padding="10dp"
+                    android:layout_marginEnd="5dp" />
+
 
             </LinearLayout>
         </LinearLayout>
