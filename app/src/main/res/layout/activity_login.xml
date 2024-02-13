@@ -35,13 +35,22 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="40dp"
                 android:src="@drawable/logo" />
+            <TextView
+                android:id="@+id/loginError"
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#ff0000"
+                android:visibility="gone"
+                android:text="아이디 또는 비밀번호를 확인해주세요."/>
 
             <EditText
                 android:id="@+id/loginUsernameEditTextView"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="10dp"
                 android:background="@android:drawable/editbox_background_normal"
                 android:ems="10"
                 android:hint=" 이메일"

@@ -4,8 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -17,10 +15,9 @@ import org.third.medicalapp.medicalInfo.MedicalInfoActivity
 import org.third.medicalapp.hospital.HospitalListActivity
 import org.third.medicalapp.pharmacy.PharmacyListActivity
 import org.third.medicalapp.sign.LoginActivity
-import org.third.medicalapp.user.UserListActivity
+import org.third.medicalapp.admin.UserListActivity
 import org.third.medicalapp.user.UserMainActivity
 import org.third.medicalapp.util.MyApplication
-import org.third.medicalapp.util.MyApplication.Companion.email
 import org.third.medicalapp.util.myCheckPermission
 
 class MainActivity : AppCompatActivity() {

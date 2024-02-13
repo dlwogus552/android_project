@@ -54,7 +54,7 @@ class MyPageFragment : Fragment() {
 
         _binding = FragmentMyPageBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        setHasOptionsMenu(true)
+
 
 
 

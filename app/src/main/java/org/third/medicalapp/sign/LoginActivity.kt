@@ -21,7 +21,7 @@ import org.third.medicalapp.community.CommunityActivity
 import org.third.medicalapp.databinding.ActivityLoginBinding
 import org.third.medicalapp.medicalInfo.MedicalInfoActivity
 import org.third.medicalapp.sign.model.UserModel
-import org.third.medicalapp.user.UserListActivity
+import org.third.medicalapp.admin.UserListActivity
 import org.third.medicalapp.user.UserMainActivity
 import org.third.medicalapp.util.MyApplication
 import org.third.medicalapp.util.MyApplication.Companion.auth
@@ -215,10 +215,14 @@ class LoginActivity : AppCompatActivity() {
 //                            onStart()
                         } else {
                             MyApplication.email = null
+                            binding.loginError.text="메일 인증 후 로그인 바랍니다."
+                            binding.loginError.visibility=View.VISIBLE
                             Toast.makeText(this, "메일인증을 진행해주세요", Toast.LENGTH_SHORT).show()
                             Log.d("aaa", "로그인 실패 / 인증처리 안됨")
                         }
                     } else {
+                        binding.loginError.text="아이디 또는 비밀번호를 확인해주세요."
+                        binding.loginError.visibility=View.VISIBLE
                         Log.d("aaa", "로그인 실패")
                     }
                 }

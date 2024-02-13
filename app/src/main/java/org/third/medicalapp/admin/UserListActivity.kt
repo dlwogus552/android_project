@@ -1,11 +1,9 @@
-package org.third.medicalapp.user
+package org.third.medicalapp.admin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.third.medicalapp.R
-import org.third.medicalapp.community.MyAdapter
 import org.third.medicalapp.databinding.ActivityUserListBinding
 import org.third.medicalapp.sign.model.UserModel
 import org.third.medicalapp.sign.model.UserModelList

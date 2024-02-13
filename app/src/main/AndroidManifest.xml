@@ -50,10 +50,10 @@
             android:name=".pharmacy.PharmacyListActivity"
             android:exported="false" />
         <activity
-            android:name=".user.UserDetailActivity"
+            android:name=".admin.UserDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".user.UserListActivity"
+            android:name=".admin.UserListActivity"
             android:exported="false" />
         <activity
             android:name=".hospital.LocationSelectActivity"
