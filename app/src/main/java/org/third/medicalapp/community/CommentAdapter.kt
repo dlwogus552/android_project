@@ -52,7 +52,7 @@ class CommentAdapter(val context: Context, val itemList: MutableList<CommentData
         Log.d("Comment","${data.comment}")
         Log.d("date","${data.date}")
         holder.binding.run{
-            tvCommentWriter.text = "${data.email}"
+            tvCommentWriter.text = "${data.nick}"
             tvCommentDate.text = data.date
             tvComment.text = data.comment
 
