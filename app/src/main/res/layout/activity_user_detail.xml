@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="20dp"
-    tools:context=".user.UserDetailActivity">
+    tools:context=".admin.UserDetailActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="200dp"

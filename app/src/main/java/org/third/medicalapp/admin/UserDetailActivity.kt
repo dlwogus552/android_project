@@ -1,4 +1,4 @@
-package org.third.medicalapp.user
+package org.third.medicalapp.admin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
