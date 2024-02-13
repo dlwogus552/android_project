@@ -35,5 +35,5 @@ interface HospitalNetworkService {
     @GET("api/hospital/bySigun/{sigun}")
     fun doGetSignun(@Path("sigun") sigun: String): Call<HospitalList>
     @POST("api/hospital/insert")
-    fun insert(@Body hospital: Hospital): Call<String>
+    fun insert(@Body hospital: Hospital): Call<Boolean>
 }

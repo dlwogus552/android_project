@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.Filter
 import org.third.medicalapp.community.CommunityData
@@ -45,8 +46,10 @@ class UserWriteFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        val activity = activity as UserMainActivity
+        val sharedPref = activity.getSharedPreferences("User", AppCompatActivity.MODE_PRIVATE)
         MyApplication.db.collection("community")
-            .whereEqualTo("email",email)
+            .whereEqualTo("email",sharedPref.getString("nickName", "-"))
             .get()
             .addOnSuccessListener { result ->
                 val itemList = mutableListOf<CommunityData>()
