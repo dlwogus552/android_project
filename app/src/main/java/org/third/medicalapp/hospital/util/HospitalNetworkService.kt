@@ -29,6 +29,11 @@ interface HospitalNetworkService {
     //검색한 동에 해당하는 병원리스트 불러오기 -> LocationSelectActivity
     @GET("api/hospital/byDong/{dong}")
     fun doGetDong(@Path("dong") dong: String): Call<HospitalList>
+
+    @GET("api/hospital/byCity/{city}")
+    fun doGetCity(@Path("city") city: String): Call<HospitalList>
+    @GET("api/hospital/bySigun/{sigun}")
+    fun doGetSignun(@Path("sigun") sigun: String): Call<HospitalList>
     @POST("api/hospital/insert")
     fun insert(@Body hospital: Hospital): Call<String>
 }

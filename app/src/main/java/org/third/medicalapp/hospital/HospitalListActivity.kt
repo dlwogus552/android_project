@@ -35,17 +35,14 @@ class HospitalListActivity : AppCompatActivity() {
 
         binding.btnLocalSelect.setOnClickListener {
             val intent = Intent(this, LocationSelectActivity::class.java)
-            if (hcode != null) {
-                intent.putExtra("hcode", hcode)
-            }
             startActivity(intent)
             finish()
         }
-        if(MyApplication.checkAdmin()){
-            binding.addFab.visibility= View.VISIBLE
+        if (MyApplication.checkAdmin()) {
+            binding.addFab.visibility = View.VISIBLE
         }
-        binding.addFab.setOnClickListener{
-            startActivity(Intent(this,HospitalAddActivity::class.java))
+        binding.addFab.setOnClickListener {
+            startActivity(Intent(this, HospitalAddActivity::class.java))
         }
 
 
@@ -54,10 +51,14 @@ class HospitalListActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val hCode = intent.getStringExtra("hcode")
-        val location = intent.getStringExtra("location")
+        val city = intent.getStringExtra("city")
+        val sigun = intent.getStringExtra("sigun")
+        val dong = intent.getStringExtra("dong")
+
+        Log.d("주소입력 확인", "city:${city}, sigun:${sigun}, dong:${dong}")
         val networkService = (applicationContext as MyApplication).hospitalServie
 //        전체리스트 호출
-        if (hCode == null || hCode == "" && location == null) {
+        if (hCode == null || hCode == "" && city == null && sigun == null && dong == null) {
             val hospitalListCall = networkService.doGetHospitalList()
             hospitalListCall.enqueue(object : retrofit2.Callback<HospitalList> {
                 override fun onResponse(
@@ -86,7 +87,7 @@ class HospitalListActivity : AppCompatActivity() {
             })
         }
 //        진료과 선택 리스트 호출
-        else if (hCode != null || hCode != "" && location == null) {
+        else if (hCode != null || hCode != "" && city == null && sigun == null && dong == null) {
             val hcodeListCall = networkService.doGetHcode(hcode = hCode)
             hcodeListCall.enqueue(object : retrofit2.Callback<HospitalList> {
                 override fun onResponse(
@@ -113,8 +114,8 @@ class HospitalListActivity : AppCompatActivity() {
         }
 
 //        지역검색 리스트 호출
-        else if(location != null) {
-            val dongListCall = networkService.doGetDong(dong = "dong")
+        else if (dong != null && city == null && sigun == null) {
+            val dongListCall = networkService.doGetDong(dong = dong)
             dongListCall.enqueue(object : retrofit2.Callback<HospitalList> {
                 override fun onResponse(
                     call: Call<HospitalList>,
@@ -138,6 +139,50 @@ class HospitalListActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<HospitalList>, t: Throwable) {
                     call.cancel()
                 }
+            })
+        }
+        else if (city != null && dong == null && sigun == null){
+            val cityListCall = networkService.doGetCity(city = city)
+            cityListCall.enqueue(object : retrofit2.Callback<HospitalList>{
+                override fun onResponse(
+                    call: Call<HospitalList>,
+                    response: Response<HospitalList>
+                ) {
+                    if (response.isSuccessful){
+                        binding.recyclerListView.layoutManager = LinearLayoutManager(this@HospitalListActivity)
+                        val cityHospital = response.body()?.hospitalList
+                        val adapter = HospitalAdapter(this@HospitalListActivity, cityHospital)
+                        binding.recyclerListView.adapter = adapter
+                        binding.recyclerListView.addItemDecoration(DividerItemDecoration(this@HospitalListActivity, LinearLayoutManager.VERTICAL))
+                    }
+                }
+
+                override fun onFailure(call: Call<HospitalList>, t: Throwable) {
+                    call.cancel()
+                }
+
+            })
+        }
+        else if (sigun !=null && dong == null && city== null){
+            val sigunListCall = networkService.doGetSignun(sigun = sigun)
+            sigunListCall.enqueue(object : retrofit2.Callback<HospitalList>{
+                override fun onResponse(
+                    call: Call<HospitalList>,
+                    response: Response<HospitalList>
+                ) {
+                    if (response.isSuccessful){
+                        binding.recyclerListView.layoutManager = LinearLayoutManager(this@HospitalListActivity)
+                        val sigunHospital = response.body()?.hospitalList
+                        val adapter = HospitalAdapter(this@HospitalListActivity, sigunHospital)
+                        binding.recyclerListView.adapter = adapter
+                        binding.recyclerListView.addItemDecoration(DividerItemDecoration(this@HospitalListActivity, LinearLayoutManager.VERTICAL))
+                    }
+                }
+
+                override fun onFailure(call: Call<HospitalList>, t: Throwable) {
+                    call.cancel()
+                }
+
             })
         }
 
