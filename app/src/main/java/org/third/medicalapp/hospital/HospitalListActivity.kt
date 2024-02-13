@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.third.medicalapp.databinding.ActivityHospitalListBinding
@@ -38,6 +39,12 @@ class HospitalListActivity : AppCompatActivity() {
             val intent = Intent(this, LocationSelectActivity::class.java)
             startActivity(intent)
             finish()
+        }
+        if(MyApplication.checkAdmin()){
+            binding.addFab.visibility= View.VISIBLE
+        }
+        binding.addFab.setOnClickListener{
+            startActivity(Intent(this,HospitalAddActivity::class.java))
         }
 
 

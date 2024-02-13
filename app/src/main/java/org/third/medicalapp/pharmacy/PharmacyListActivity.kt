@@ -1,7 +1,9 @@
 package org.third.medicalapp.pharmacy
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.third.medicalapp.R
@@ -23,7 +25,12 @@ class PharmacyListActivity : AppCompatActivity() {
         binding.btnLocalSelect.setOnClickListener {
 
         }
-
+        if(MyApplication.checkAdmin()){
+            binding.addFab.visibility= View.VISIBLE
+        }
+        binding.addFab.setOnClickListener{
+            startActivity(Intent(this,PharmacyAddActivity::class.java))
+        }
     }
 
     override fun onStart() {
