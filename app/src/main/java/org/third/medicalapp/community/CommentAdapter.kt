@@ -1,7 +1,6 @@
 package org.third.medicalapp.community
 
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import org.third.medicalapp.databinding.ItemCommunityCommentBinding
 import org.third.medicalapp.util.MyApplication
-import org.third.medicalapp.util.MyApplication.Companion.email
 
 class CommentViewHolder(val binding: ItemCommunityCommentBinding) :
     RecyclerView.ViewHolder(binding.root)
