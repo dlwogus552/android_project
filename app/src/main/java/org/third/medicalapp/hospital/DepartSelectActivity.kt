@@ -14,6 +14,7 @@ class DepartSelectActivity : AppCompatActivity() {
         setContentView(binding.root)
         val intent = Intent(this, HospitalListActivity::class.java)
         binding.btnCloseX.setOnClickListener {
+            startActivity(intent)
             finish()
         }
 
