@@ -1,10 +1,15 @@
 package org.third.medicalapp.pharmacy
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.third.medicalapp.MainActivity
+import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ActivityPharmacyDetailBinding
 import org.third.medicalapp.pharmacy.apater.PharmacyReviewAdapter
 import org.third.medicalapp.pharmacy.model.PharmacyReview
@@ -18,6 +23,23 @@ class PharmacyDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPharmacyDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.appBarMain.toolbar)
+        supportActionBar?.title = "약국 정보"
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_home, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // 저장 메뉴 아이템을 선택한 경우
+        if (item.itemId == R.id.menu_main) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     // 리뷰 데이터를 Firestore에 저장하는 함수

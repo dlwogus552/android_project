@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ItemReviewBinding
+import org.third.medicalapp.hospital.model.Hospital
 import org.third.medicalapp.hospital.model.HospitalReview
+import org.third.medicalapp.util.MyApplication
+import retrofit2.Call
+import retrofit2.Response
 
 
 class HospitalReviewViewHolder(val binding: ItemReviewBinding) :
@@ -29,6 +33,7 @@ class HospitalReviewAdapter(val context: Context, val itemList: MutableList<Hosp
 
     override fun onBindViewHolder(holder: HospitalReviewViewHolder, position: Int) {
         val data = itemList.get(position)
+
         holder.binding.run{
             tvWriter.text = "${data.email}"
             tvDate.text = data.date
@@ -39,6 +44,28 @@ class HospitalReviewAdapter(val context: Context, val itemList: MutableList<Hosp
                 tvGood.setText("")
                 tvBad.setText("")
                 tv.setText("")
+
+
+//
+//                MyApplication.db.collection("comment").whereEqualTo("docId", docId).get()
+//                    .addOnSuccessListener { documents ->
+//                        // documents에는 쿼리 결과에 해당하는 문서들이 포함됩니다.
+//                        for (document in documents) {
+//                            // 각 문서를 삭제합니다.
+//                            MyApplication.db.collection("comment").document(document.id).delete()
+//                                .addOnSuccessListener {
+//                                    Log.d("comment_db delete success", "데이터 삭제에 성공하였습니다.")
+//                                }
+//                                .addOnFailureListener { e ->
+//                                    Log.d("comment_db delete failure", "데이터 삭제에 실패하였습니다.")
+//                                }
+//                        }
+//                    }
+//
+
+
+
+
             }
             tvBad.setOnClickListener {
                 holder.binding.imageReview.setImageResource(R.drawable.bad)
@@ -48,6 +75,7 @@ class HospitalReviewAdapter(val context: Context, val itemList: MutableList<Hosp
             }
         }
     }
+
 
 
 }
