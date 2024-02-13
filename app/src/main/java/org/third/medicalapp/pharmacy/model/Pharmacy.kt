@@ -1,7 +1,7 @@
 package org.third.medicalapp.pharmacy.model
 
 data class Pharmacy(
-    var id: Long,
+    var id: Long?,
     var pharmacy: String,
     var citycode: String,
     var siguncode: String,
