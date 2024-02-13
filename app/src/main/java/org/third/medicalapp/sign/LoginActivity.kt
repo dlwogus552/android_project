@@ -196,10 +196,7 @@ class LoginActivity : AppCompatActivity() {
                                         Log.d("aaa", "${userModel?.nickName}")
                                         editor.putString("nickName", userModel?.nickName)
                                         editor.putString("phoneNumber", userModel?.phoneNumber)
-                                        editor.putString(
-                                            "regiDate",
-                                            userModel?.regiDate?.substring(0, 10)
-                                        )
+                                        editor.putString("regiDate",userModel?.regiDate?.substring(0, 10))
                                         editor.apply()
                                     } else {
                                         Log.d("aaa", "error")

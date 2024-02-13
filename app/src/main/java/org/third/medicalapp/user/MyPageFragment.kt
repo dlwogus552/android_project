@@ -56,8 +56,6 @@ class MyPageFragment : Fragment() {
         val root: View = binding.root
 
 
-
-
         binding.myHospital.setOnClickListener{
         }
         binding.myWrite.setOnClickListener{
