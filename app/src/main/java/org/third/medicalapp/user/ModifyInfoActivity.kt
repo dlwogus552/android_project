@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
@@ -27,7 +29,6 @@ import org.third.medicalapp.sign.model.UserModel
 import org.third.medicalapp.util.MyApplication
 import org.third.medicalapp.util.MyApplication.Companion.email
 import org.third.medicalapp.util.MyApplication.Companion.storage
-import org.third.medicalapp.util.Result
 import org.third.medicalapp.util.myCheckPermission
 import retrofit2.Call
 import retrofit2.Callback
@@ -161,8 +162,10 @@ class ModifyInfoActivity : AppCompatActivity() {
                             call.cancel()
                         }
                     })
-
-                    finish()
+                    //딜레이
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        finish()
+                    }, 1500) // 1000ms = 1초
                     return true
                 } else {
                     Log.d("aaaa", "닉네임 입력")

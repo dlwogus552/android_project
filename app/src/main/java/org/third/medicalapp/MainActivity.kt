@@ -1,10 +1,12 @@
 package org.third.medicalapp
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
@@ -30,13 +32,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = org.third.medicalapp.databinding.ActivityMainBinding.inflate(layoutInflater)
+        binding =ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         myCheckPermission(this)
 
         setSupportActionBar(binding.appBarMain.toolbar)
-        // 왼쪽 상단 버튼 만들기
-//        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
 
         val drawerLayout: DrawerLayout = binding.drawer
 
@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
             this, drawerLayout, R.string.drawer_open, R.string.drawer_close
         )
         drawerLayout.addDrawerListener(toggle)
-//        toggle.syncState()
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.imageView2.setOnClickListener{
             var intent = Intent(this,HospitalListActivity::class.java)
             startActivity(intent)
@@ -54,6 +54,13 @@ class MainActivity : AppCompatActivity() {
         binding.imageView7.setOnClickListener {
             var intent = Intent(this, PharmacyListActivity::class.java)
             startActivity(intent)
+        }
+        binding.call.setOnClickListener{
+            var intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:0555521435")
+            if(intent.resolveActivity(packageManager) != null){
+                startActivity(intent)
+            }
         }
     }
 
@@ -109,11 +116,11 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main,menu)
-        return super.onCreateOptionsMenu(menu)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

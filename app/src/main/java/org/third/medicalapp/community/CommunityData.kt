@@ -10,5 +10,6 @@ data class CommunityData(
     var title : String? = null,
     var content : String? = null,
     var date : String? = null,
-    var isLiked : Boolean = false
+    var likeCount : Int = 0
+//    var like: Like = Like()
 )

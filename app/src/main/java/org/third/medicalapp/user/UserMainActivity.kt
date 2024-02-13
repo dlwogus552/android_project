@@ -25,6 +25,7 @@ import org.third.medicalapp.util.MyApplication.Companion.email
 class UserMainActivity : AppCompatActivity() {
     lateinit var binding: ActivityUserMainBinding
     lateinit var navController: NavController
+    lateinit var toggle: ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserMainBinding.inflate(layoutInflater)
@@ -32,18 +33,26 @@ class UserMainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
+
         //네비게이션 및 drawer 설정
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController=navHostFragment.navController
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
+        toggle = ActionBarDrawerToggle(
+            this, drawerLayout, R.string.drawer_open, R.string.drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val navView = binding.navView
         navView.menu.clear()
         navView.inflateMenu(R.menu.activity_main_login_drawer)
         if (MyApplication.checkAdmin()) {
             navView.menu.findItem(R.id.nav_admin).setVisible(true)
             navView.menu.findItem(R.id.nav_my_page).setVisible(false)
-        }else{
+        } else {
             navView.menu.findItem(R.id.nav_admin).setVisible(false)
             navView.menu.findItem(R.id.nav_my_page).setVisible(true)
         }
@@ -55,20 +64,28 @@ class UserMainActivity : AppCompatActivity() {
                     drawerLayout.closeDrawers()
                     true
                 }
+
                 R.id.nav_my_write -> {
                     navController.navigate(R.id.nav_write)
                     drawerLayout.closeDrawers()
                     true
                 }
+
                 R.id.nav_my_write -> {
                     navController.navigate(R.id.nav_my_review)
                     drawerLayout.closeDrawers()
                     true
                 }
+
                 else -> false
             }
         }
     }
 
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

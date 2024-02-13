@@ -39,7 +39,7 @@ class MyApplication : MultiDexApplication(){
             }
         }
         fun checkAdmin():Boolean {
-            if(email.toString().equals("medicalmanage00@gmail.com")){
+            if(email.toString().equals("admin@example.com")){
                 return true
             }
             return false
@@ -53,9 +53,9 @@ class MyApplication : MultiDexApplication(){
 
     val retrofit: Retrofit
         get()= Retrofit.Builder()
-//            .baseUrl("http://10.100.105.168:8082/")
+            .baseUrl("http://10.100.105.168:8082/")
 //            .baseUrl("http://10.100.105.216:8082/")
-            .baseUrl("http://10.100.105.204:8082/")
+//            .baseUrl("http://10.100.105.204:8082/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     init {

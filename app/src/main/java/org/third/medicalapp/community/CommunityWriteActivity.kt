@@ -26,6 +26,9 @@ class CommunityWriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCommunityWriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.appBarMain.toolbar)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -67,8 +70,8 @@ class CommunityWriteActivity : AppCompatActivity() {
 
             // 저장 메뉴 아이템을 선택한 경우
         } else if(item.itemId === R.id.menu_add_save) {
-            // 이미지가 선택되었고 제목이 입력되었는지 확인
-            if(binding.addImageView.drawable !== null && binding.edTitle.text.isNotEmpty()) {
+            // 제목과 내용ㅁㄴ이 입력되었는지 확인
+            if(binding.edTitle.text.isNotEmpty() && binding.edContent.text.isNotEmpty()) {
                 // stroe에 데이터 저장
                 saveStore()
             } else {
@@ -85,7 +88,7 @@ class CommunityWriteActivity : AppCompatActivity() {
             "title" to binding.edTitle.text.toString(),
             "content" to binding.edContent.text.toString(),
             "date" to dateToString(Date()),
-            "isLiked" to false
+            "likeCount" to 0.toLong()
         )
 
         MyApplication.db.collection("community")
