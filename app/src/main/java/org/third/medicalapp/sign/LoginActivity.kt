@@ -84,6 +84,7 @@ class LoginActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
         //구글 로그인 인텐트 결과 받아오기
         //인텐트 결과 받아오기
         val requestLauncher = registerForActivityResult(
@@ -227,7 +228,9 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.forgotPasswordTextView.setOnClickListener {
-
+            Log.d("aaa","click")
+            val intent = Intent(this, forGetPassActivity::class.java)
+            startActivity(intent)
         }
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

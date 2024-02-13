@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".sign.LoginActivity"
-    tools:openDrawer="start">
+    tools:openDrawer="start"
+    tools:context=".sign.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -80,9 +80,12 @@
                 android:id="@+id/forgotPasswordTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="right"
+                android:layout_marginRight="40dp"
                 android:layout_marginTop="8dp"
                 android:text="비밀번호 찾기"
+                android:clickable="true"
+                android:textSize="18dp"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
