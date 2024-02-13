@@ -85,20 +85,11 @@ fun saveLikeStore(docId: String?, email: String?) {
 
 fun updateLikeCount(docId: String?, number: Long) {
     Log.d("updateLikeCount", "updateLikeCount 함수 호출")
-    MyApplication.db.collection("community")
-        .get()
-        .addOnSuccessListener { documents ->
-            for (document in documents) {
-                MyApplication.db.collection("community").document(document.id).update("likeCount", FieldValue.increment(number))
-                    .addOnSuccessListener {
-                        Log.d("likeCount update success", "좋아요수 업데이트에 성공하였습니다.")
-                    }
-                    .addOnFailureListener { e ->
-                        Log.d("likeCount update failure", "좋아요수 업데이트에 실패하였습니다.")
-                    }
-            }
+    MyApplication.db.collection("community").document(docId!!).update("likeCount", FieldValue.increment(number))
+        .addOnSuccessListener {
+            Log.d("likeCount update success", "좋아요수 업데이트에 성공하였습니다.")
         }
-        .addOnFailureListener { exception ->
+        .addOnFailureListener { e ->
             Log.d("likeCount update failure", "좋아요수 업데이트에 실패하였습니다.")
         }
 }
@@ -173,3 +164,4 @@ fun deleteLike(docId: String?, email: String?) {
             Log.d("likeCount update failure", "좋아요 수 증가에 실패하였습니다.")
         }
 }
+

@@ -5,6 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,9 +14,9 @@ import com.bumptech.glide.Glide
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.third.medicalapp.MainActivity
 import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ActivityCommunityDetailBinding
-import org.third.medicalapp.hospital.HospitalListActivity
 import org.third.medicalapp.util.MyApplication
 import org.third.medicalapp.util.dateToString
 import org.third.medicalapp.util.updateLikeCount
@@ -28,6 +30,7 @@ class CommunityDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain.toolbar)
+        supportActionBar?.title = "커뮤니티 "
 
         // Intent로부터 전달된 데이터 받기
         val docId = intent.getStringExtra("docId")
@@ -121,6 +124,18 @@ class CommunityDetailActivity : AppCompatActivity() {
             makeCommentRecyclerVIew(docId)
         }
 
+        // 게시글 수정
+        binding.icoModify.setOnClickListener {
+            if (MyApplication.email == email) {
+                val intent = Intent(this, CommunityModifyActivity::class.java)
+                intent.putExtra("docId", docId)
+                intent.putExtra("title", title)
+                intent.putExtra("content", content)
+                this.startActivity(intent)
+
+            }
+        }
+
         binding.communityDelete.setOnClickListener {
             if (MyApplication.email == email) {
                 // fire store에 저장되어 있는 커뮤니티 게시글 삭제
@@ -175,6 +190,20 @@ class CommunityDetailActivity : AppCompatActivity() {
         getCommentCount(docId)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_home, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // 저장 메뉴 아이템을 선택한 경우
+        if (item.itemId == R.id.menu_main) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     // 댓글 데이터를 Firestore에 저장하는 함수
     fun saveStore() {
         val data = mapOf(
@@ -188,9 +217,14 @@ class CommunityDetailActivity : AppCompatActivity() {
         MyApplication.db.collection("comment")
             .add(data)
             .addOnSuccessListener { documentReference ->
+                Toast.makeText(this, "댓글이 추가되었습니다.", Toast.LENGTH_SHORT).show()
+
                 // 댓글이 성공적으로 추가되면 RecyclerView를 새로 고침
                 makeCommentRecyclerVIew(intent.getStringExtra("docId"))
                 getCommentCount(intent.getStringExtra("docId"))
+
+                binding.edComment.setText("")
+                binding.edComment.clearFocus()
             }
             .addOnFailureListener { exception ->
                 // 데이터 저장 실패 시 메시지 표시
@@ -202,38 +236,33 @@ class CommunityDetailActivity : AppCompatActivity() {
     // CommentRecyclerView를 생성하고 데이터를 로드하는 함수
     fun makeCommentRecyclerVIew(docId: String?) {
         // Firestore에서 커뮤니티 게시물 데이터 가져오기
-        if (docId != null) {
-            MyApplication.db.collection("comment").whereEqualTo("docId", docId)
-                .get()
-                .addOnSuccessListener { result ->
-                    val itemList = mutableListOf<CommentData>()
-                    // 가져온 데이터를 CommentData 객체로 변환하여 itemList에 추가
-                    for (document in result) {
-                        val item = document.toObject(CommentData::class.java)
-                        item.commentId = document.id
-                        itemList.add(item)
-                    }
-
-                    // RecyclerView 설정
-                    binding.commentRecyclerView.layoutManager = LinearLayoutManager(this)
-                    binding.commentRecyclerView.adapter = CommentAdapter(this, itemList)
-
-                    // 댓글 목록이 변경될 때마다 RecyclerView의 높이를 다시 계산하여 설정
-                    binding.commentRecyclerView.viewTreeObserver.addOnGlobalLayoutListener {
-                        val height = binding.commentRecyclerView.computeVerticalScrollRange()
-                        binding.commentRecyclerView.layoutParams.height = height
-                        binding.commentRecyclerView.requestLayout()
-                    }
+        MyApplication.db.collection("comment").whereEqualTo("docId", docId)
+            .get()
+            .addOnSuccessListener { result ->
+                val itemList = mutableListOf<CommentData>()
+                // 가져온 데이터를 CommentData 객체로 변환하여 itemList에 추가
+                for (document in result) {
+                    val item = document.toObject(CommentData::class.java)
+                    item.commentId = document.id
+                    itemList.add(item)
                 }
-                .addOnFailureListener { exception ->
-                    // 데이터 가져오기 실패 시 로그와 메시지 출력
-                    Log.d("aaaa", "error... getting document..", exception)
-                    Toast.makeText(this, "댓글 데이터 획득 실패", Toast.LENGTH_SHORT).show()
+
+                // RecyclerView 설정
+                binding.commentRecyclerView.layoutManager = LinearLayoutManager(this)
+                binding.commentRecyclerView.adapter = CommentAdapter(this, itemList)
+
+                // 댓글 목록이 변경될 때마다 RecyclerView의 높이를 다시 계산하여 설정
+                binding.commentRecyclerView.viewTreeObserver.addOnGlobalLayoutListener {
+                    val height = binding.commentRecyclerView.computeVerticalScrollRange()
+                    binding.commentRecyclerView.layoutParams.height = height
+                    binding.commentRecyclerView.requestLayout()
                 }
-        } else {
-            Log.e("makeCommentRecyclerVIew", "docId is null")
-            Toast.makeText(this, "게시물 ID를 가져올 수 없습니다.", Toast.LENGTH_SHORT).show()
-        }
+            }
+            .addOnFailureListener { exception ->
+                // 데이터 가져오기 실패 시 로그와 메시지 출력
+                Log.d("aaaa", "error... getting document..", exception)
+                Toast.makeText(this, "댓글 데이터 획득 실패", Toast.LENGTH_SHORT).show()
+            }
     }
 
     fun getCommentCount(docId: String?) {

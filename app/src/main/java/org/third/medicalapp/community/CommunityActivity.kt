@@ -4,10 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.third.medicalapp.MainActivity
+import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ActivityCommunityBinding
+import org.third.medicalapp.hospital.HospitalListActivity
 import org.third.medicalapp.sign.LoginActivity
 import org.third.medicalapp.util.MyApplication
 import org.third.medicalapp.util.myCheckPermission
@@ -20,6 +25,8 @@ class CommunityActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain.toolbar)
+        supportActionBar?.title = "커뮤니티"
+
         // 앱 권한을 확인하는 함수 호출
         myCheckPermission(this)
 
@@ -39,6 +46,20 @@ class CommunityActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_home, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // 저장 메뉴 아이템을 선택한 경우
+        if (item.itemId == R.id.menu_main) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onStart() {
         super.onStart()
         // 사용자가 로그인되어 있는지 확인하고 화면 구성 변경
@@ -50,7 +71,9 @@ class CommunityActivity : AppCompatActivity() {
             makeRecyclerVIew()
             // 로그인 되어있지 않을 때
         } else {
-            binding.logoutTextView.visibility = View.VISIBLE
+//            binding.logoutTextView.visibility = View.VISIBLE
+            var intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
             binding.mainRecyclerView.visibility = View.GONE
         }
     }

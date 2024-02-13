@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.DIAL_PHONE" />
 
+
     <application
         android:name=".util.MyApplication"
         android:allowBackup="false"
@@ -32,6 +33,9 @@
             android:exported="false" />
         <activity
             android:name=".sign.forGetPassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".community.CommunityModifyActivity"
             android:exported="false" />
         <activity
             android:name=".pharmacy.PharmacyAddActivity"

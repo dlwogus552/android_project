@@ -36,15 +36,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tvContent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="10dp"
-                    android:text="TextView"
-                    android:textSize="14dp" />
-
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -63,6 +54,14 @@
                     app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:text="TextView"
+                android:textSize="14dp" />
 
             <ImageView
                 android:id="@+id/imageView"
