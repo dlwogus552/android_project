@@ -33,16 +33,11 @@
                 android:text="지역을 선택하세요" />
 
             <Button
-                android:id="@+id/btnOrder"
+                android:id="@+id/btnNameSelect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="거리순" />
+                android:text="약국을 검색하세요" />
 
-            <Button
-                android:id="@+id/btnOpentime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="진료중" />
 
         </LinearLayout>
 

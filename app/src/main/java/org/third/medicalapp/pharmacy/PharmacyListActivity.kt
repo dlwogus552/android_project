@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.third.medicalapp.MainActivity
 import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ActivityPharmacyListBinding
+import org.third.medicalapp.hospital.NameSearchActivity
 import org.third.medicalapp.pharmacy.apater.PharmacyAdapter
 import org.third.medicalapp.pharmacy.model.PharmacyList
 import org.third.medicalapp.util.MyApplication
@@ -30,6 +31,11 @@ class PharmacyListActivity : AppCompatActivity() {
         binding.btnLocalSelect.setOnClickListener {
 
         }
+
+        binding.btnNameSelect.setOnClickListener {
+
+        }
+
         if(MyApplication.checkAdmin()){
             binding.addFab.visibility= View.VISIBLE
         }

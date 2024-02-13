@@ -2,7 +2,6 @@ package org.third.medicalapp.pharmacy
 
 import android.content.Intent
 import android.net.Uri
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -19,12 +18,14 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import org.third.medicalapp.R
 import org.third.medicalapp.MainActivity
-import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ActivityPharmacyDetailBinding
 import org.third.medicalapp.pharmacy.apater.PharmacyReviewAdapter
+import org.third.medicalapp.pharmacy.model.Pharmacy
 import org.third.medicalapp.pharmacy.model.PharmacyReview
 import org.third.medicalapp.util.MyApplication
 import org.third.medicalapp.util.dateToString
+import retrofit2.Call
+import retrofit2.Response
 import java.util.Date
 
 class PharmacyDetailActivity : AppCompatActivity(), OnMapReadyCallback {
