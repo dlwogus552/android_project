@@ -98,6 +98,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
+                <TextView
+                    android:id="@+id/tvHospitalDepart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="진료과" />
+
             </LinearLayout>
 
             <TextView
@@ -108,13 +115,6 @@
                 android:layout_marginBottom="15dp"
                 android:text="진료과목"
                 android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/tvHospitalDepart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="진료과" />
 
             <TextView
                 android:layout_width="match_parent"
