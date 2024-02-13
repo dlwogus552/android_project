@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -35,6 +37,7 @@ class CommunityDetailActivity : AppCompatActivity() {
         // Intent로부터 전달된 데이터 받기
         val docId = intent.getStringExtra("docId")
         val email = intent.getStringExtra("email")
+        val nick = intent.getStringExtra("nick")
         val date = intent.getStringExtra("date")
         val title = intent.getStringExtra("title")
         val content = intent.getStringExtra("content")
@@ -44,7 +47,7 @@ class CommunityDetailActivity : AppCompatActivity() {
         binding.apply {
             tvTitle.text = title
             tvContent.text = content
-            tvWriter.text = email
+            tvWriter.text = nick
             tvDate.text = date
 
             // 좋아요 상태에 따라 이미지 설정
@@ -121,7 +124,11 @@ class CommunityDetailActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            makeCommentRecyclerVIew(docId)
+            Handler(Looper.getMainLooper()).postDelayed({
+                makeCommentRecyclerVIew(docId)
+            }, 1500)
+
+
         }
 
         // 게시글 수정
@@ -132,7 +139,6 @@ class CommunityDetailActivity : AppCompatActivity() {
                 intent.putExtra("title", title)
                 intent.putExtra("content", content)
                 this.startActivity(intent)
-
             }
         }
 
@@ -206,9 +212,12 @@ class CommunityDetailActivity : AppCompatActivity() {
 
     // 댓글 데이터를 Firestore에 저장하는 함수
     fun saveStore() {
+        val sharedPref = getSharedPreferences("User", MODE_PRIVATE)
+
         val data = mapOf(
             "docId" to intent.getStringExtra("docId"),
             "email" to MyApplication.email,
+            "nick" to sharedPref.getString("nickName", "-"),
             "comment" to binding.edComment.text.toString(),
             "date" to dateToString(Date()),
             "isLiked" to false

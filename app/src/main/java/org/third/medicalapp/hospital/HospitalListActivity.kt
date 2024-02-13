@@ -4,9 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.third.medicalapp.MainActivity
+import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ActivityHospitalListBinding
 import org.third.medicalapp.hospital.adapter.HospitalAdapter
 import org.third.medicalapp.hospital.model.Hospital
@@ -22,6 +26,9 @@ class HospitalListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHospitalListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.appBarMain.toolbar)
+        supportActionBar?.title = "병원 찾기"
 
         val hcode = intent.getStringExtra("hcode")
         val dong = intent.getStringExtra("dong")
@@ -47,6 +54,20 @@ class HospitalListActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_home, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // 저장 메뉴 아이템을 선택한 경우
+        if (item.itemId == R.id.menu_main) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onStart() {

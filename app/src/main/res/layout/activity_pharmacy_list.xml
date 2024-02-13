@@ -5,18 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
     tools:context=".pharmacy.PharmacyListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/app_bar_main"
+            layout="@layout/app_bar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="20dp"
             android:orientation="horizontal">
@@ -45,6 +50,7 @@
             android:id="@+id/tvSearchCount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:text="총 검색 수"
@@ -53,6 +59,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerListViewPH"
             android:layout_width="match_parent"
+            android:padding="10dp"
             android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 

@@ -40,7 +40,7 @@ class MyAdapter(val context: Context, val itemList: MutableList<CommunityData>) 
         val data = itemList.get(position)
 
         holder.binding.run {
-            tvWriter.text = "${data.email}"
+            tvWriter.text = "${data.nick}"
             tvDate.text = data.date
             tvTitle.text = data.title
             val maxLength = 500
@@ -69,6 +69,7 @@ class MyAdapter(val context: Context, val itemList: MutableList<CommunityData>) 
         holder.binding.root.setOnClickListener {
             val intent = Intent(context, CommunityDetailActivity::class.java)
             intent.putExtra("docId", data.docId)
+            intent.putExtra("nick", data.nick)
             intent.putExtra("email", data.email)
             intent.putExtra("date", data.date)
             intent.putExtra("title", data.title)

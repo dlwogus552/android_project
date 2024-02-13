@@ -2,9 +2,12 @@ package org.third.medicalapp.pharmacy
 
 import android.content.Intent
 import android.net.Uri
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.naver.maps.geometry.LatLng
@@ -15,14 +18,13 @@ import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import org.third.medicalapp.R
+import org.third.medicalapp.MainActivity
+import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ActivityPharmacyDetailBinding
 import org.third.medicalapp.pharmacy.apater.PharmacyReviewAdapter
-import org.third.medicalapp.pharmacy.model.Pharmacy
 import org.third.medicalapp.pharmacy.model.PharmacyReview
 import org.third.medicalapp.util.MyApplication
 import org.third.medicalapp.util.dateToString
-import retrofit2.Call
-import retrofit2.Response
 import java.util.Date
 
 class PharmacyDetailActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -78,6 +80,23 @@ class PharmacyDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         val cameraUpdate = CameraUpdate.scrollTo(LatLng(y, x))
             .animate(CameraAnimation.None, 0)
         naverMap.moveCamera(cameraUpdate)
+
+        setSupportActionBar(binding.appBarMain.toolbar)
+        supportActionBar?.title = "약국 정보"
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_home, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // 저장 메뉴 아이템을 선택한 경우
+        if (item.itemId == R.id.menu_main) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     // 리뷰 데이터를 Firestore에 저장하는 함수

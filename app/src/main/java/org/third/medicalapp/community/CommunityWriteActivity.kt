@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ActivityCommunityWriteBinding
 import org.third.medicalapp.util.MyApplication
+import org.third.medicalapp.util.MyApplication.Companion.email
 import org.third.medicalapp.util.dateToString
 import java.io.File
 import java.util.Date
@@ -83,8 +84,11 @@ class CommunityWriteActivity : AppCompatActivity() {
 
     // 데이터를 Firestore에 저장하는 함수
     fun saveStore() {
+        val sharedPref = getSharedPreferences("User", MODE_PRIVATE)
+
         val data = mapOf(
-            "email" to MyApplication.email,
+            "email" to email.toString(),
+            "nick" to sharedPref.getString("nickName", "-"),
             "title" to binding.edTitle.text.toString(),
             "content" to binding.edContent.text.toString(),
             "date" to dateToString(Date()),
