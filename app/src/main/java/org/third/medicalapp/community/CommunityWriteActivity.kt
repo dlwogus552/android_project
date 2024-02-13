@@ -26,6 +26,9 @@ class CommunityWriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCommunityWriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.appBarMain.toolbar)
+        supportActionBar?.title = "게시글 작성"
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -37,7 +40,7 @@ class CommunityWriteActivity : AppCompatActivity() {
     val requestLancher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) {
         // 결과가 성공적으로 돌아왔을 때
-        if(it.resultCode === android.app.Activity.RESULT_OK) {
+        if(it.resultCode == android.app.Activity.RESULT_OK) {
             // Glide를 사용하여 이미지를 로드하고 ImageView에 표시
             Glide
                 .with(getApplicationContext())
@@ -67,8 +70,8 @@ class CommunityWriteActivity : AppCompatActivity() {
 
             // 저장 메뉴 아이템을 선택한 경우
         } else if(item.itemId === R.id.menu_add_save) {
-            // 이미지가 선택되었고 제목이 입력되었는지 확인
-            if(binding.addImageView.drawable !== null && binding.edTitle.text.isNotEmpty()) {
+            // 제목과 내용이 입력되었는지 확인
+            if(binding.edTitle.text.isNotEmpty() && binding.edContent.text.isNotEmpty()) {
                 // stroe에 데이터 저장
                 saveStore()
             } else {

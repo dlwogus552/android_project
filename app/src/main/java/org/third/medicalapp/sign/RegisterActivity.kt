@@ -10,7 +10,6 @@ import org.third.medicalapp.databinding.ActivityRegisterBinding
 import org.third.medicalapp.sign.model.UserModel
 import org.third.medicalapp.util.MyApplication
 import org.third.medicalapp.util.MyApplication.Companion.auth
-import org.third.medicalapp.util.Result
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,9 +21,6 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.cancelBtn.setOnClickListener {
-            finish()
-        }
 
         // 가입
         val networkService = (applicationContext as MyApplication).netWorkService
@@ -64,17 +60,22 @@ class RegisterActivity : AppCompatActivity() {
 
                                                     //db insert
                                                     val result = networkService.insert(userModel)
-                                                    result.enqueue(object : Callback<Result> {
+                                                    result.enqueue(object : Callback<Boolean> {
                                                         override fun onResponse(
-                                                            call: Call<Result>,
-                                                            response: Response<Result>
+                                                            call: Call<Boolean>,
+                                                            response: Response<Boolean>
                                                         ) {
-                                                            Log.d("aaa", "성공")
+                                                            if(response.body()==true){
                                                             finish()
+                                                            Log.d("aaa", "성공")
+                                                            }else{
+
+                                                                Log.d("aaa", "실패")
+                                                            }
                                                         }
 
                                                         override fun onFailure(
-                                                            call: Call<Result>,
+                                                            call: Call<Boolean>,
                                                             t: Throwable
                                                         ) {
                                                             Log.d("aaa", "실패")

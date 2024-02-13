@@ -29,7 +29,6 @@ import org.third.medicalapp.sign.model.UserModel
 import org.third.medicalapp.util.MyApplication
 import org.third.medicalapp.util.MyApplication.Companion.email
 import org.third.medicalapp.util.MyApplication.Companion.storage
-import org.third.medicalapp.util.Result
 import org.third.medicalapp.util.myCheckPermission
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,24 +38,57 @@ import java.io.File
 class ModifyInfoActivity : AppCompatActivity() {
     lateinit var binding: ActivityModifyInfoBinding
     lateinit var filePath: String
-    lateinit var sharedPref : SharedPreferences
+    lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityModifyInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
+        setSupportActionBar(binding.appBarMain.toolbar)
         checkProfile()
         sharedPref = getSharedPreferences("User", MODE_PRIVATE)
-        binding.modiEditNickName.setText(sharedPref.getString("nickName",""))
-        binding.modiPhoneNumberText.setText(sharedPref.getString("phoneNumber",""))
+        binding.modiEditNickName.setText(sharedPref.getString("nickName", ""))
+        binding.modiEditPhoneNumber.setText(sharedPref.getString("phoneNumber", ""))
         binding.modiProfilePicture.setOnClickListener {
             Log.d("aaaa", "click")
             showPopUpMenu(it)
         }
+        binding.modiEditNickName.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                val networkService =
+                    (applicationContext as MyApplication).netWorkService
+                val nickname = binding.modiEditNickName.text.toString()
+                val result = networkService.checkNick(nickname)
+                result.enqueue(object : Callback<Boolean> {
+                    override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                        if (response.body() == true) {
+                            Log.d("aaa", "성공")
+                            binding.userNickNameError.visibility = View.GONE
+                        } else {
+                            if (binding.modiEditNickName.text.toString() == sharedPref.getString(
+                                    "nickName",
+                                    ""
+                                )
+                            ) {
+                                binding.userNickNameError.visibility = View.GONE
+                            } else {
+                                Log.d("aaa", "중복")
+                                binding.userNickNameError.visibility = View.VISIBLE
 
+                            }
+                        }
+                    }
 
+                    override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                        Log.d("aaa", "check nick 오류")
+                        call.cancel()
+                    }
+
+                })
+            }
+        }
     }
+
 
     //사진값 가져오기
     val requestLauncher = registerForActivityResult(
@@ -147,12 +179,13 @@ class ModifyInfoActivity : AppCompatActivity() {
                                 if (profile?.constantState != baseProfile?.constantState) {
                                     uploadImage()
                                 }
-                                val editor=sharedPref.edit()
-                                editor.putString("nickName",nickname)
-                                editor.putString("phoneNumber",phoneNumber)
+                                val editor = sharedPref.edit()
+                                editor.putString("nickName", nickname)
+                                editor.putString("phoneNumber", phoneNumber)
                                 editor.apply()
                                 Log.d("aaa", "수정성공")
                             } else {
+                                binding.userNickNameError.visibility = View.VISIBLE
                                 Toast.makeText(baseContext, "수정실패", Toast.LENGTH_SHORT).show()
                                 Log.d("aaa", "수정 실패")
                             }
@@ -214,8 +247,8 @@ class ModifyInfoActivity : AppCompatActivity() {
             }
     }
 
-    fun checkProfile(){
-        val storageRef = MyApplication.storage.reference.child("images/profile/${email}.jpg")
+    fun checkProfile() {
+        val storageRef = storage.reference.child("images/profile/${email}.jpg")
         storageRef.metadata.addOnSuccessListener { metadata ->
             storageRef.downloadUrl.addOnCompleteListener { task ->
                 if (task.isSuccessful) {

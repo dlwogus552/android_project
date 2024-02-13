@@ -1,12 +1,13 @@
 package org.third.medicalapp.pharmacy
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ActivityPharmacyListBinding
-import org.third.medicalapp.hospital.adapter.HospitalAdapter
 import org.third.medicalapp.pharmacy.apater.PharmacyAdapter
 import org.third.medicalapp.pharmacy.model.PharmacyList
 import org.third.medicalapp.util.MyApplication
@@ -23,21 +24,33 @@ class PharmacyListActivity : AppCompatActivity() {
         binding.btnLocalSelect.setOnClickListener {
 
         }
-
+        if(MyApplication.checkAdmin()){
+            binding.addFab.visibility= View.VISIBLE
+        }
+        binding.addFab.setOnClickListener{
+            startActivity(Intent(this,PharmacyAddActivity::class.java))
+        }
     }
 
     override fun onStart() {
         super.onStart()
         val networkService = (applicationContext as MyApplication).pharmacyService
+//        전체 약국호출
         val pharmacyListCall = networkService.doGetPharmacyList()
-        pharmacyListCall.enqueue(object : retrofit2.Callback<PharmacyList>{
+        pharmacyListCall.enqueue(object : retrofit2.Callback<PharmacyList> {
             override fun onResponse(call: Call<PharmacyList>, response: Response<PharmacyList>) {
-                if (response.isSuccessful){
-                    binding.recyclerListViewPH.layoutManager = LinearLayoutManager(this@PharmacyListActivity)
+                if (response.isSuccessful) {
+                    binding.recyclerListViewPH.layoutManager =
+                        LinearLayoutManager(this@PharmacyListActivity)
                     val pharmacy = response.body()?.pharmacyList
                     val adapter = PharmacyAdapter(this@PharmacyListActivity, pharmacy)
                     binding.recyclerListViewPH.adapter = adapter
-                    binding.recyclerListViewPH.addItemDecoration(DividerItemDecoration(this@PharmacyListActivity, LinearLayoutManager.VERTICAL))
+                    binding.recyclerListViewPH.addItemDecoration(
+                        DividerItemDecoration(
+                            this@PharmacyListActivity,
+                            LinearLayoutManager.VERTICAL
+                        )
+                    )
                 }
             }
 

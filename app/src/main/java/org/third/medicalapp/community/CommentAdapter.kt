@@ -29,6 +29,26 @@ class CommentAdapter(val context: Context, val itemList: MutableList<CommentData
         return itemList.size
     }
 
+    // 댓글 삭제 이벤트 핸들러
+    fun deleteComment(position: Int) {
+        val commentId = itemList[position].commentId
+        if (commentId != null) {
+            // Firestore에서 댓글 삭제
+            MyApplication.db.collection("comment").document(commentId).delete()
+                .addOnSuccessListener {
+                    // 댓글 데이터 제거 및 리사이클러뷰 갱신
+                    itemList.removeAt(position)
+                    notifyItemRemoved(position)
+                    notifyDataSetChanged()
+                    Toast.makeText(context, "댓글이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { exception ->
+                    Log.e("deleteComment", "Error deleting document", exception)
+                    Toast.makeText(context, "댓글 삭제 실패", Toast.LENGTH_SHORT).show()
+                }
+        }
+    }
+
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val data = itemList.get(position)
         Log.d("Comment","${data.comment}")
@@ -39,21 +59,10 @@ class CommentAdapter(val context: Context, val itemList: MutableList<CommentData
             tvComment.text = data.comment
 
             commentDelete.setOnClickListener {
-                if (MyApplication.email == data.email) {
-                    if (data.commentId != null) {
-                        MyApplication.db.collection("comment").document(data.commentId!!).delete()
-                            .addOnSuccessListener {
-                                Toast.makeText(context, "댓글이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-                            }
-                            .addOnFailureListener { exception ->
-                                Log.e("deleteComment", "Error deleting document", exception)
-                                Toast.makeText(context, "게시글 삭제 실패", Toast.LENGTH_SHORT).show()
-                            }
-                    }
-                } else {
-                    Toast.makeText(context, "작성자만 삭제 가능합니다.", Toast.LENGTH_SHORT).show()
-                }
+                deleteComment(holder.adapterPosition)
             }
         }
     }
+
+
 }

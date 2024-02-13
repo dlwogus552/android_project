@@ -1,4 +1,4 @@
-package org.third.medicalapp.community
+package org.third.medicalapp.user
 
 import android.content.Context
 import android.content.Intent
@@ -11,34 +11,31 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.third.medicalapp.R
-import org.third.medicalapp.databinding.ItemCommunityBinding
+import org.third.medicalapp.community.CommunityData
+import org.third.medicalapp.community.CommunityDetailActivity
+import org.third.medicalapp.databinding.ItemUserListBinding
+import org.third.medicalapp.databinding.ItemUserWriteListBinding
+import org.third.medicalapp.sign.model.UserModel
 import org.third.medicalapp.util.MyApplication
-import org.third.medicalapp.util.MyApplication.Companion.email
 import org.third.medicalapp.util.deleteLike
 import org.third.medicalapp.util.isSavedLike
 import org.third.medicalapp.util.saveLikeStore
 import org.third.medicalapp.util.updateLikeCount
 
-class MyViewHolder(val binding: ItemCommunityBinding) : RecyclerView.ViewHolder(binding.root) {
-    val imageLike = binding.imageLike
-    val textViewLike = binding.likeCount
-    val commentCount = binding.commentCount
+class UserWriteViewHolder(val binding: ItemUserWriteListBinding) : RecyclerView.ViewHolder(binding.root)
 
-}
-
-class MyAdapter(val context: Context, val itemList: MutableList<CommunityData>) :
-    RecyclerView.Adapter<MyViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(ItemCommunityBinding.inflate(LayoutInflater.from(parent.context)))
+class UserWriteAdapter(val context: Context, val itemList: MutableList<CommunityData>) :RecyclerView.Adapter<UserWriteViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserWriteViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return UserWriteViewHolder(ItemUserWriteListBinding.inflate(layoutInflater))
     }
 
     override fun getItemCount(): Int {
         return itemList.size
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: UserWriteViewHolder, position: Int) {
         val data = itemList.get(position)
-
         holder.binding.run {
             tvWriter.text = "${data.email}"
             tvDate.text = data.date
@@ -54,7 +51,7 @@ class MyAdapter(val context: Context, val itemList: MutableList<CommunityData>) 
             // 비동기적으로 댓글 수 가져오기
             getCommentCount(data.docId) { count ->
                 count?.let {
-                    holder.commentCount.text = it.toString()
+                    holder.binding.commentCount.text = it.toString()
                 }
             }
         }
@@ -79,36 +76,36 @@ class MyAdapter(val context: Context, val itemList: MutableList<CommunityData>) 
 
         // 좋아요 상태에 따라 이미지 설정
         CoroutineScope(Dispatchers.Main).launch {
-            val isLiked = isSavedLike(data.docId, email)
+            val isLiked = isSavedLike(data.docId, MyApplication.email)
             if (isLiked == false) {
-                holder.imageLike.setImageResource(R.drawable.like)
+                holder.binding.imageLike.setImageResource(R.drawable.like)
             } else {
-                holder.imageLike.setImageResource(R.drawable.like_full)
+                holder.binding.imageLike.setImageResource(R.drawable.like_full)
             }
         }
 
         // 좋아요 텍스트 설정
-        holder.textViewLike.text = data.likeCount.toString()
+        holder.binding.textViewLike.text = data.likeCount.toString()
 
         // 좋아요 이미지를 클릭했을 때 이벤트 처리
-        holder.imageLike.setOnClickListener {
+        holder.binding.imageLike.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
-                val isLiked = isSavedLike(data.docId, email)
+                val isLiked = isSavedLike(data.docId, MyApplication.email)
                 // 여기에서 isLiked를 사용하여 다음 작업 수행
                 if (isLiked == false) {
                     // 좋아요 버튼을 누르면
                     saveLikeStore(data.docId, MyApplication.email)
                     updateLikeCount(data.docId, 1)
-                    holder.imageLike.setImageResource(R.drawable.like_full)
+                    holder.binding.imageLike.setImageResource(R.drawable.like_full)
                     data.likeCount++
                 } else {
                     // 좋아요 취소 버튼을 누르면
                     deleteLike(data.docId, MyApplication.email)
                     updateLikeCount(data.docId, -1)
-                    holder.imageLike.setImageResource(R.drawable.like)
+                    holder.binding.imageLike.setImageResource(R.drawable.like)
                     data.likeCount--
                 }
-                holder.textViewLike.text = data.likeCount.toString()
+                holder.binding.textViewLike.text = data.likeCount.toString()
             }
         }
     }

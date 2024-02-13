@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="main">#1B9F7E</color>
     <color name="mediInfo_box">#F8F8F8</color>
+    <color name="my_page_back">#e5e5e5</color>
 </resources>

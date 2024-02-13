@@ -300,6 +300,20 @@
                 android:padding="10dp"
                 android:layout_margin="3dp"/>
 
+            <Button
+                android:id="@+id/btn90"
+                android:layout_row="9"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:text="대학병원" />
+
+            <Button
+                android:id="@+id/btn91"
+                android:layout_row="9"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:text="종합병원" />
+
         </GridLayout>
 
     </LinearLayout>

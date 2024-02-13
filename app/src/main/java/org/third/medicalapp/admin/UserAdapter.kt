@@ -1,19 +1,16 @@
-package org.third.medicalapp.user
+package org.third.medicalapp.admin
 
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.third.medicalapp.R
-import org.third.medicalapp.community.MyViewHolder
 import org.third.medicalapp.databinding.ItemUserListBinding
 import org.third.medicalapp.sign.model.UserModel
 import org.third.medicalapp.util.MyApplication
-import java.util.Objects
 
 class UserViewHolder(val binding: ItemUserListBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -50,7 +47,7 @@ class UserAdapter(val context: Context, val itemList:MutableList<UserModel>):Rec
             nickName.text = "${data.nickName}"
         }
         holder.binding.itemLayout.setOnClickListener{
-            val intent= Intent(context,UserDetailActivity::class.java)
+            val intent= Intent(context, UserDetailActivity::class.java)
             intent.putExtra("userName",data.userName)
             intent.putExtra("nickName",data.nickName)
             intent.putExtra("phoneNumber",data.phoneNumber)
