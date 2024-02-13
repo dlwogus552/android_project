@@ -96,8 +96,6 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
     }
-
-
     private fun MapView() {
 
 

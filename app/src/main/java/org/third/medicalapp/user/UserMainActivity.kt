@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
@@ -32,8 +33,7 @@ class UserMainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain.toolbar)
-
-
+        supportActionBar?.title="My Page"
         //네비게이션 및 drawer 설정
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -55,30 +55,6 @@ class UserMainActivity : AppCompatActivity() {
         } else {
             navView.menu.findItem(R.id.nav_admin).setVisible(false)
             navView.menu.findItem(R.id.nav_my_page).setVisible(true)
-        }
-        navView.setNavigationItemSelectedListener { menuItem ->
-            // 클릭된 아이템에 따라 동작 처리
-            when (menuItem.itemId) {
-                R.id.nav_my_info -> {
-                    navController.navigate(R.id.nav_my_page)
-                    drawerLayout.closeDrawers()
-                    true
-                }
-
-                R.id.nav_my_write -> {
-                    navController.navigate(R.id.nav_write)
-                    drawerLayout.closeDrawers()
-                    true
-                }
-
-                R.id.nav_my_write -> {
-                    navController.navigate(R.id.nav_my_review)
-                    drawerLayout.closeDrawers()
-                    true
-                }
-
-                else -> false
-            }
         }
     }
 

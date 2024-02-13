@@ -21,9 +21,6 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.cancelBtn.setOnClickListener {
-            finish()
-        }
 
         // 가입
         val networkService = (applicationContext as MyApplication).netWorkService

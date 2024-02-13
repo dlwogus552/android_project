@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".sign.LoginActivity"
-    tools:openDrawer="start">
+    tools:openDrawer="start"
+    tools:context=".sign.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,13 +35,22 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="40dp"
                 android:src="@drawable/logo" />
+            <TextView
+                android:id="@+id/loginError"
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#ff0000"
+                android:visibility="gone"
+                android:text="아이디 또는 비밀번호를 확인해주세요."/>
 
             <EditText
                 android:id="@+id/loginUsernameEditTextView"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="10dp"
                 android:background="@android:drawable/editbox_background_normal"
                 android:ems="10"
                 android:hint=" 이메일"
@@ -80,9 +89,12 @@
                 android:id="@+id/forgotPasswordTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="right"
+                android:layout_marginRight="40dp"
                 android:layout_marginTop="8dp"
                 android:text="비밀번호 찾기"
+                android:clickable="true"
+                android:textSize="18dp"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
