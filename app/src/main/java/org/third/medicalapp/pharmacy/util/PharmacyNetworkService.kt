@@ -23,4 +23,6 @@ interface PharmacyNetworkService {
     fun doGetDong(@Path("dong") dong: String): Call<PharmacyList>
     @POST("api/ph/insert")
     fun insert(@Body pharmacy: Pharmacy): Call<Boolean>
+    @POST("api/ph/findid")
+    fun findById(@Body pharmacyList: List<Long>): Call<PharmacyList>
 }
