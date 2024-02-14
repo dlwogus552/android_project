@@ -30,7 +30,7 @@ class PharmacyReviewAdapter(val context: Context, val itemList: MutableList<Phar
     override fun onBindViewHolder(holder: PharmacyReviewViewHolder, position: Int) {
         val data = itemList.get(position)
         holder.binding.run{
-            tvWriter.text = "${data.email}"
+            tvWriter.text = data.nick
             tvDate.text = data.date
             tvReview.text = data.review
 

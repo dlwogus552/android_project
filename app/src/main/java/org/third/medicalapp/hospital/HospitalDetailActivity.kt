@@ -194,9 +194,12 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
     // 리뷰 데이터를 Firestore에 저장하는 함수
     fun saveStore() {
+        val sharedPref = getSharedPreferences("User", MODE_PRIVATE)
+
         val data = mapOf(
             "hospitalId" to hospitalId,
             "email" to MyApplication.email,
+            "nick" to sharedPref.getString("nickName", "-"),
             "review" to binding.edReview.text.toString(),
             "date" to dateToString(Date()),
             "isLiked" to false
