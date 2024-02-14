@@ -1,7 +1,7 @@
 package org.third.medicalapp.pharmacy.model
 
 data class PharmacyReview(
-    var pharmacyName : String? = null,
+    var pharmacyId : Long? = null,
     var pharmacyReviewId : String? = null,
     var email : String? = null,
     var review : String? = null,

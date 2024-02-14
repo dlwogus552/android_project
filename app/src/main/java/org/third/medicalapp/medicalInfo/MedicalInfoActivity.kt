@@ -47,7 +47,6 @@ class MedicalInfoActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // 저장 메뉴 아이템을 선택한 경우
         if (item.itemId == R.id.menu_main) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
