@@ -28,6 +28,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".hospital.HospitalSearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".pharmacy.PhNameActivity"
             android:exported="false" />
         <activity

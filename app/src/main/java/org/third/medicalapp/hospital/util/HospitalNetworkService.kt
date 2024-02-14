@@ -7,6 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface HospitalNetworkService {
     @GET("home")
@@ -34,6 +35,10 @@ interface HospitalNetworkService {
     fun doGetCity(@Path("city") city: String): Call<HospitalList>
     @GET("api/hospital/bySigun/{sigun}")
     fun doGetSignun(@Path("sigun") sigun: String): Call<HospitalList>
+    // 지역과 진료과 동시검색기능
+    @GET("api/hospital/search")
+    fun doSearch(@Path("hcode") hcode: String, @Path("dong") dong: String, @Path("hname") hname:String): Call<HospitalList>
+
     @POST("api/hospital/insert")
     fun insert(@Body hospital: Hospital): Call<Boolean>
 }
