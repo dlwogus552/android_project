@@ -71,8 +71,11 @@
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
         android:layout_gravity="center_horizontal"
-        android:backgroundTint="#7B7474"
         android:textStyle="bold"
-        android:text="닫기" />
+        android:text="닫기"
+        android:backgroundTint="#FFFFFF"
+        android:background="@drawable/rounded_button"
+        android:textColor="#000000"
+        android:padding="10dp"/>
 
 </LinearLayout>
