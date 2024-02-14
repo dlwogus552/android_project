@@ -49,7 +49,7 @@ class UserWriteFragment : Fragment() {
         val activity = activity as UserMainActivity
         val sharedPref = activity.getSharedPreferences("User", AppCompatActivity.MODE_PRIVATE)
         MyApplication.db.collection("community")
-            .whereEqualTo("email",sharedPref.getString("nickName", "-"))
+            .whereEqualTo("email", email)
             .get()
             .addOnSuccessListener { result ->
                 val itemList = mutableListOf<CommunityData>()

@@ -56,26 +56,29 @@ class MyPageFragment : Fragment() {
         val root: View = binding.root
 
 
-        binding.myHospital.setOnClickListener{
-        }
+
         binding.myWrite.setOnClickListener{
             findNavController().navigate(R.id.nav_write)
         }
-        binding.myPhar.setOnClickListener{
-
+        binding.myHospital.setOnClickListener{
+            findNavController().navigate(R.id.nav_hospital)
         }
-        binding.modiInfoText.setOnClickListener{
+        binding.myPhar.setOnClickListener{
+            findNavController().navigate(R.id.nav_pharmacy)
+        }
+
+        binding.modiInfo.setOnClickListener{
             startActivity(Intent(context, ModifyInfoActivity::class.java))
         }
-        binding.changPassText.setOnClickListener {
+        binding.changePass.setOnClickListener {
             startActivity(Intent(context, ChangePassActivity::class.java))
         }
-        binding.logoutText.setOnClickListener {
+        binding.logoutView.setOnClickListener {
             auth.signOut()
             email = null
             (activity as UserMainActivity).finish()
         }
-        binding.unregiText.setOnClickListener {
+        binding.unregi.setOnClickListener {
             val builder = AlertDialog.Builder(context)
             builder.setTitle("회원탈퇴")
             builder.setMessage("정말 탈퇴하시겠습니까?")
