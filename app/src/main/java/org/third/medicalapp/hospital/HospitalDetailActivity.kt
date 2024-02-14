@@ -121,7 +121,7 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
 
-        // 좋아요 상태에 따라 이미지 설정
+        // 찜 상태에 따라 이미지 설정
         CoroutineScope(Dispatchers.Main).launch {
             hospitalId?.let { id ->
                 Log.d("aaa","${id}")
@@ -135,7 +135,7 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
 
-        // 좋아요 이미지를 클릭했을 때 이벤트 처리
+        // 찜 이미지를 클릭했을 때 이벤트 처리
         binding.imageLike.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
                 hospitalId?.let { id ->

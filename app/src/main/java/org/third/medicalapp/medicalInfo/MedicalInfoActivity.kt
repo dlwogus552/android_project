@@ -86,12 +86,6 @@ class MedicalInfoActivity : AppCompatActivity() {
         binding.recyclerViewCommunity.layoutManager = LinearLayoutManager(this)
         adapter = MediInfoAdapter(this, datas ?: mutableListOf())
         binding.recyclerViewCommunity.adapter = adapter
-//        binding.recyclerViewCommunity.addItemDecoration(
-//            DividerItemDecoration(
-//                this,
-//                LinearLayoutManager.VERTICAL
-//            )
-//        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

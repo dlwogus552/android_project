@@ -273,7 +273,7 @@ class CommunityDetailActivity : AppCompatActivity() {
                 Toast.makeText(this, "댓글 데이터 획득 실패", Toast.LENGTH_SHORT).show()
             }
     }
-
+    // 댓글 수 계산 함수
     fun getCommentCount(docId: String?) {
         if (docId != null) {
             MyApplication.db.collection("comment").whereEqualTo("docId", docId)

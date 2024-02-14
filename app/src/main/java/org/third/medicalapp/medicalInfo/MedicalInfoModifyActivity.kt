@@ -69,21 +69,6 @@ class MedicalInfoModifyActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
-
-//        // update() 함수 사용하는 방법
-//        val values = ContentValues()
-//        values.put("name", "임민혜")
-//        values.put("phone", "010-9999-8888")
-//        db.update(tableName, values, "_id=?", arrayOf("2"))
-//        binding.tvResult.append("\n데이터가 수정되었습니다.")
-
-//        binding.btnDelete.setOnClickListener{
-//            // 데이터 삭제 (delete)
-//            val sql = "delete from $tableName where _id = 3"
-//            db.execSQL(sql)
-//            binding.tvResult.append("\n데이터가 삭제되었습니다.")
-//        }
-
     }
 
     private fun updateItem(id: Long, name: String, url: String, intro: String) {

@@ -71,7 +71,6 @@ class CommunityActivity : AppCompatActivity() {
             makeRecyclerVIew()
             // 로그인 되어있지 않을 때
         } else {
-//            binding.logoutTextView.visibility = View.VISIBLE
             var intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             binding.mainRecyclerView.visibility = View.GONE

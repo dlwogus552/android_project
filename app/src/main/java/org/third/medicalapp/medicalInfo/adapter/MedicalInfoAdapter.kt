@@ -16,8 +16,6 @@ import org.third.medicalapp.medicalInfo.model.MediInfo
 class MediInfoViewHolder(val binding: ItemMedicalinfoBinding) : RecyclerView.ViewHolder(binding.root)
 class MediInfoAdapter (val context: Context, val datas: MutableList<MediInfo>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-//    val siteName = arrayOf("KOICD 한국질병분류 정보센터","국가암정보센터","희귀질환 헬프라인","예방접종 도우미",
-//        "감염병 포털", "약학정보원","의약품정보검색","휴일지킴이약국")
     val icoUrl = arrayOf(R.drawable.medi_info1, R.drawable.medi_info2, R.drawable.medi_info3, R.drawable.medi_info4,
         R.drawable.medi_info5, R.drawable.medi_info6, R.drawable.medi_info7, R.drawable.medi_info8)
 
