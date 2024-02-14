@@ -5,7 +5,6 @@
     android:id="@+id/pharmacyDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     tools:context=".hospital.HospitalDetailActivity">
 
     <LinearLayout
@@ -35,6 +34,16 @@
                 android:text="약국이름"
                 android:textSize="28sp"
                 android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageLike"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:clickable="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                app:srcCompat="@drawable/like" />
 
 
             <TextView
@@ -75,6 +84,7 @@
                     android:layout_marginEnd="5dp"/>
 
                 <Button
+                    android:id="@+id/btnReview"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

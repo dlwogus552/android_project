@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ItemReviewBinding
 import org.third.medicalapp.pharmacy.model.PharmacyReview
 
@@ -29,9 +30,22 @@ class PharmacyReviewAdapter(val context: Context, val itemList: MutableList<Phar
     override fun onBindViewHolder(holder: PharmacyReviewViewHolder, position: Int) {
         val data = itemList.get(position)
         holder.binding.run{
-            tvWriter.text = "${data.email}"
+            tvWriter.text = data.nick
             tvDate.text = data.date
             tvReview.text = data.review
+
+            tvGood.setOnClickListener {
+                holder.binding.imageReview.setImageResource(R.drawable.good)
+                tvGood.setText("")
+                tvBad.setText("")
+                tv.setText("")
+            }
+            tvBad.setOnClickListener {
+                holder.binding.imageReview.setImageResource(R.drawable.bad)
+                tvGood.setText("")
+                tvBad.setText("")
+                tv.setText("")
+            }
         }
     }
 

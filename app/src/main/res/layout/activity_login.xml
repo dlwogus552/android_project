@@ -78,7 +78,6 @@
                 android:layout_marginTop="13dp"
                 android:background="@android:drawable/editbox_background_normal"
                 android:backgroundTint="#01DFA5"
-                android:ems="10"
                 android:hint="로그인"
                 android:inputType="text"
                 android:padding="12dp"

@@ -46,11 +46,11 @@ class HospitalListActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.btnNameSelect.setOnClickListener {
-            val intent = Intent(this, NameSearchActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+//        binding.btnNameSelect.setOnClickListener {
+//            val intent = Intent(this, NameSearchActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
 
         if (MyApplication.checkAdmin()) {
             binding.addFab.visibility = View.VISIBLE

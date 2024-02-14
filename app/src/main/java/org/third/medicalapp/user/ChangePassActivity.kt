@@ -27,56 +27,9 @@ class ChangePassActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain.toolbar)
-        val drawerLayout: DrawerLayout = binding.drawerLayout
-        toggle = ActionBarDrawerToggle(
-            this, drawerLayout, R.string.drawer_open, R.string.drawer_close
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val navView = binding.navView
-        navView.setNavigationItemSelectedListener { menuItem ->
-            // 클릭된 아이템에 따라 동작 처리
-            when (menuItem.itemId) {
-                R.id.nav_login -> {
-                    Toast.makeText(baseContext, "login", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                R.id.nav_my_page -> {
-                    Toast.makeText(baseContext, "My Page", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, UserMainActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                R.id.nav_admin -> {
-                    Toast.makeText(baseContext, "User List", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, UserListActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                R.id.nav_community -> {
-                    val intent = Intent(this, CommunityActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                R.id.nav_medical_info -> {
-                    val intent = Intent(this, MedicalInfoActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                else -> false
-            }
-        }
 
         binding.checkPassBtn.setOnClickListener {
-            MyApplication.auth.signInWithEmailAndPassword(
+            auth.signInWithEmailAndPassword(
                 email.toString(),
                 binding.currentPass.text.toString()
             )

@@ -29,8 +29,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginBottom="30dp"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -55,19 +55,18 @@
         android:background="@color/my_page_back" />
 
     <TextView
-        android:id="@+id/boardText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="나의 활동"
-        android:padding="7dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="20sp" />
+        android:text="내 활동"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:textSize="20sp"/>
     <LinearLayout
-        android:paddingHorizontal="30dp"
-        android:paddingVertical="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingHorizontal="30dp"
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:id="@+id/myWrite"
@@ -75,21 +74,21 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginBottom="5dp"
-                android:src="@drawable/pencil"
-                />
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/pencil" />
 
             <TextView
-                android:id="@+id/myWriteText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="내가 쓴 글"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,21 +97,23 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+
+            android:padding="10dp">
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="8dp"
 
-                android:src="@drawable/pencil"
-                />
+                android:src="@drawable/hospital" />
+
             <TextView
-                android:id="@+id/myListHospital"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="찜한 병원"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -121,82 +122,139 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginBottom="5dp"
-                android:src="@drawable/pencil"
-                />
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/pharmacy" />
+
             <TextView
-                android:id="@+id/myListPhar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="찜한 약국"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
         </LinearLayout>
+
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/my_page_back" />
     <TextView
-        android:id="@+id/infoText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="내 정보"
-        android:padding="7dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="20sp" />
+        android:text="회원정보"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:textSize="20sp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/modiInfoText"
-            android:padding="7dp"
-            android:layout_marginLeft="28dp"
-            android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="20dp">
+        <LinearLayout
+            android:id="@+id/modiInfo"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="회원정보 수정"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/my_page_back" />
-        <TextView
-            android:padding="7dp"
-            android:layout_marginLeft="28dp"
-            android:id="@+id/changPassText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="비밀번호 변경"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/my_page_back" />
-        <TextView
-            android:padding="7dp"
-            android:layout_marginLeft="28dp"
-            android:id="@+id/logoutText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="로그아웃"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/my_page_back" />
-        <TextView
-            android:padding="7dp"
-            android:layout_marginLeft="28dp"
-            android:id="@+id/unregiText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="회원탈퇴"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/my_page_back" />
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
 
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="8dp"
+
+                android:src="@drawable/user_info" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="회원정보 수정"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/changePass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/change_pass" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="비밀번호 변경"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/logoutView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/logout" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="로그아웃"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/unregi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/unregi" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="회원탈퇴"
+                android:textSize="15sp" />
+        </LinearLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/my_page_back" />
 </LinearLayout>

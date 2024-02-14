@@ -18,6 +18,9 @@ class MedicalInfoWriteActivity : AppCompatActivity() {
         binding = ActivityMedicalInfoWriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.appBarMain.toolbar)
+        supportActionBar?.title = "질병/약품 관련 사이트 추가"
+
         db = MedicalInfoDBHelper(this).writableDatabase
 
         binding.btnClose.setOnClickListener {

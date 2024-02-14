@@ -46,7 +46,7 @@ fun myCheckPermission(activity: AppCompatActivity) {
 }
 
 fun dateToString(date: Date?): String {
-    val format = SimpleDateFormat("yyyy-MM-dd")
+    val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     return format.format(date)
 }
 

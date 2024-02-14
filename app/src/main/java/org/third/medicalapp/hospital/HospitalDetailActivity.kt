@@ -47,7 +47,7 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
     lateinit var binding: ActivityHospitalDetailBinding
     private lateinit var naverMap: NaverMap
     private lateinit var locationSource: FusedLocationSource
-    private var hospitalName: String? = null
+    private var hospitalId: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,15 +65,16 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         hospitalListCall.enqueue(object : retrofit2.Callback<Hospital> {
             override fun onResponse(call: Call<Hospital>, response: Response<Hospital>) {
                 val hospital = response.body()
-                hospitalName = hospital?.hname
+                hospitalId = hospital?.id
                 binding.tvHospitalName.text = "${hospital?.hname}"
                 binding.tvHospitalCode.text = "${hospital?.hcode}"
                 binding.tvHospitalAddress.text = "${hospital?.addr}"
                 binding.tvHospitalDepart.text = "${hospital?.hcode}"
                 binding.tvPhoneNumber.text = "${hospital?.tel}"
+                Log.d("aaa","${hospitalId}")
 
-                hospitalName?.let { name ->
-                    makeHospitalReviewRecyclerView(name)
+                hospitalId?.let { id ->
+                    makeHospitalReviewRecyclerView(id)
                 }
             }
 
@@ -82,6 +83,13 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
             }
 
         })
+
+        binding.btnReview.setOnClickListener {
+            // 리뷰로 스크롤 이동
+            binding.hospitalDetail.post {
+                binding.hospitalDetail.smoothScrollTo(0, binding.reviewRecyclerView.top)
+            }
+        }
 
         val tel = intent.getStringExtra("tel")
         binding.btnCall.setOnClickListener { //버튼을 누르면 전화가 되게끔
@@ -107,16 +115,17 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            hospitalName?.let { name ->
-                makeHospitalReviewRecyclerView(name)
+            hospitalId?.let { id ->
+                makeHospitalReviewRecyclerView(id)
             }
         }
 
 
         // 좋아요 상태에 따라 이미지 설정
         CoroutineScope(Dispatchers.Main).launch {
-            hospitalName?.let { name ->
-                val isLiked = isSavedHospitalLike(name, MyApplication.email)
+            hospitalId?.let { id ->
+                Log.d("aaa","${id}")
+                val isLiked = isSavedHospitalLike(id, MyApplication.email)
                 if (isLiked == false) {
                     binding.imageLike.setImageResource(R.drawable.like)
                 } else {
@@ -129,8 +138,8 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         // 좋아요 이미지를 클릭했을 때 이벤트 처리
         binding.imageLike.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
-                hospitalName?.let { name ->
-                    val isLiked = isSavedHospitalLike(name, MyApplication.email)
+                hospitalId?.let { id ->
+                    val isLiked = isSavedHospitalLike(id, MyApplication.email)
                     // 여기에서 isLiked를 사용하여 다음 작업 수행
                     if (isLiked == false) {
                         // 좋아요 버튼을 누르면
@@ -138,19 +147,12 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
                         binding.imageLike.setImageResource(R.drawable.like_full)
                     } else {
                         // 좋아요 취소 버튼을 누르면
-                        deleteHospitalLike(name, MyApplication.email)
+                        deleteHospitalLike(id, MyApplication.email)
                         binding.imageLike.setImageResource(R.drawable.like)
                     }
                 }
             }
         }
-
-
-        binding.imageLike.setOnClickListener {
-            binding.imageLike.setImageResource(R.drawable.like_full)
-            saveHospitalLikeStore()
-        }
-
 
     }
 
@@ -192,9 +194,12 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
     // 리뷰 데이터를 Firestore에 저장하는 함수
     fun saveStore() {
+        val sharedPref = getSharedPreferences("User", MODE_PRIVATE)
+
         val data = mapOf(
-            "hospitalName" to binding.tvHospitalName.text.toString(),
+            "hospitalId" to hospitalId,
             "email" to MyApplication.email,
+            "nick" to sharedPref.getString("nickName", "-"),
             "review" to binding.edReview.text.toString(),
             "date" to dateToString(Date()),
             "isLiked" to false
@@ -206,8 +211,8 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
                 Toast.makeText(this, "병원 후기가 추가되었습니다.", Toast.LENGTH_SHORT).show()
 
                 // 댓글이 성공적으로 추가되면 RecyclerView를 새로 고침
-                hospitalName?.let { name ->
-                    makeHospitalReviewRecyclerView(name)
+                hospitalId?.let { id ->
+                    makeHospitalReviewRecyclerView(id)
                 }
 
                 binding.edReview.setText("")
@@ -221,15 +226,15 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     // ReviewRecyclerView를 생성하고 데이터를 로드하는 함수
-    fun makeHospitalReviewRecyclerView(name: String?) {
+    fun makeHospitalReviewRecyclerView(id: Long?) {
 
         Log.d("Hospital Review", "Hospital Review")
 
         // Firestore에서 커뮤니티 게시물 데이터 가져오기
-        MyApplication.db.collection("HospitalReview").whereEqualTo("hospitalName", name)
+        MyApplication.db.collection("HospitalReview").whereEqualTo("hospitalId", id)
             .get()
             .addOnSuccessListener { result ->
-                Log.d("-------Hospital Review", "$name")
+                Log.d("-------Hospital Review", "$id")
                 val itemList = mutableListOf<HospitalReview>()
                 // 가져온 데이터를 CommentData 객체로 변환하여 itemList에 추가
                 for (document in result) {
@@ -258,7 +263,7 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
     // 찜 데이터를 Firestore에 저장하는 함수
     fun saveHospitalLikeStore() {
         val data = mapOf(
-            "like_hospitalName" to binding.tvHospitalName.text.toString(),
+            "like_hospitalId" to hospitalId,
             "like_email" to MyApplication.email,
             "isLiked" to true
         )
@@ -289,8 +294,8 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
             }
     }
 
-    fun deleteHospitalLike(like_hospitalName: String?, email: String?) {
-        MyApplication.db.collection("hospital_like").whereEqualTo("like_hospitalName", like_hospitalName)
+    fun deleteHospitalLike(like_hospitalId: Long?, email: String?) {
+        MyApplication.db.collection("hospital_like").whereEqualTo("like_hospitalId", like_hospitalId)
         .whereEqualTo("like_email", email)
             .get()
             .addOnSuccessListener { documents ->
@@ -311,12 +316,12 @@ class HospitalDetailActivity : AppCompatActivity(), OnMapReadyCallback {
             }
     }
 
-    suspend fun isSavedHospitalLike(like_hospitalName: String?, email: String?): Boolean {
+    suspend fun isSavedHospitalLike(like_hospitalId: Long?, email: String?): Boolean {
         var hodpitalLike: HospitalLike? = null
         // 비동기 작업
         return suspendCoroutine { continuation ->
             MyApplication.db.collection("hospital_like")
-                .whereEqualTo("like_hospitalName", like_hospitalName)
+                .whereEqualTo("like_hospitalId", like_hospitalId)
                 .whereEqualTo("like_email", email)
                 .get()
                 .addOnSuccessListener { result ->

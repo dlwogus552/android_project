@@ -12,15 +12,17 @@ import retrofit2.http.Path
 
 interface PharmacyNetworkService {
 
-    @GET("api/pharmacy/list")
+    @GET("api/ph/list")
     fun doGetPharmacyList(): Call<PharmacyList>
-    @GET("api/pharmacy/byId/{id}")
+    @GET("api/ph/byId/{id}")
     fun doGetPharmacyId(@Path("id") id: Long): Call<Pharmacy>
-    @GET("api/pharmacy/byPhar/{pharmacy}")
+    @GET("api/ph/byPhar/{pharmacy}")
     fun doGetPharmacyName(@Path("pharmacy") pharmacy: String): Call<PharmacyList>
 
-    @GET("api/pharmacy/byDong/{dong}")
+    @GET("api/ph/byDong/{dong}")
     fun doGetDong(@Path("dong") dong: String): Call<PharmacyList>
-    @POST("api/pharmacy/insert")
+    @POST("api/ph/insert")
     fun insert(@Body pharmacy: Pharmacy): Call<Boolean>
+    @POST("api/ph/findid")
+    fun findById(@Body pharmacyList: List<Long>): Call<PharmacyList>
 }
