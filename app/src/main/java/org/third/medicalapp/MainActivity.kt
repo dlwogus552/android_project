@@ -100,6 +100,20 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.nav_hospital -> {
+                    val intent = Intent(this, HospitalListActivity::class.java)
+                    drawerLayout.closeDrawers()
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.nav_pharmacy -> {
+                    val intent = Intent(this, PharmacyListActivity::class.java)
+                    drawerLayout.closeDrawers()
+                    startActivity(intent)
+                    true
+                }
+
                 R.id.nav_community -> {
                     val intent = Intent(this, CommunityActivity::class.java)
                     drawerLayout.closeDrawers()

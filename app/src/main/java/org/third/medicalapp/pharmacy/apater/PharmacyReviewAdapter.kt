@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ItemReviewBinding
 import org.third.medicalapp.pharmacy.model.PharmacyReview
 
@@ -32,6 +33,19 @@ class PharmacyReviewAdapter(val context: Context, val itemList: MutableList<Phar
             tvWriter.text = "${data.email}"
             tvDate.text = data.date
             tvReview.text = data.review
+
+            tvGood.setOnClickListener {
+                holder.binding.imageReview.setImageResource(R.drawable.good)
+                tvGood.setText("")
+                tvBad.setText("")
+                tv.setText("")
+            }
+            tvBad.setOnClickListener {
+                holder.binding.imageReview.setImageResource(R.drawable.bad)
+                tvGood.setText("")
+                tvBad.setText("")
+                tv.setText("")
+            }
         }
     }
 

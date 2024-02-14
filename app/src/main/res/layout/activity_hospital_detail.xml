@@ -84,6 +84,7 @@
                     android:text="병원정보" />
 
                 <Button
+                    android:id="@+id/btnReview"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
