@@ -22,6 +22,8 @@ import org.third.medicalapp.databinding.ActivityLoginBinding
 import org.third.medicalapp.medicalInfo.MedicalInfoActivity
 import org.third.medicalapp.sign.model.UserModel
 import org.third.medicalapp.admin.UserListActivity
+import org.third.medicalapp.hospital.HospitalListActivity
+import org.third.medicalapp.pharmacy.PharmacyListActivity
 import org.third.medicalapp.user.UserMainActivity
 import org.third.medicalapp.util.MyApplication
 import org.third.medicalapp.util.MyApplication.Companion.auth
@@ -65,6 +67,19 @@ class LoginActivity : AppCompatActivity() {
                 R.id.nav_admin -> {
                     Toast.makeText(baseContext, "User List", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, UserListActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.nav_hospital -> {
+                    val intent = Intent(this, HospitalListActivity::class.java)
+                    drawerLayout.closeDrawers()
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.nav_pharmacy -> {
+                    val intent = Intent(this, PharmacyListActivity::class.java)
+                    drawerLayout.closeDrawers()
                     startActivity(intent)
                     true
                 }

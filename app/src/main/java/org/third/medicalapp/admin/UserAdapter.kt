@@ -28,9 +28,7 @@ class UserAdapter(val context: Context, val itemList:MutableList<UserModel>):Rec
         val data = itemList.get(position)
         val storageRef = MyApplication.storage.reference.child("images/profile/${data.userName}.jpg")
         // 파일 존재 여부 확인
-        Log.d("aaaa","파일존재여부 확인 전")
         storageRef.metadata.addOnSuccessListener { metadata ->
-            Log.d("aaaa","파일존재여부 확인 중")
             storageRef.downloadUrl.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Glide.with(context)
@@ -39,7 +37,6 @@ class UserAdapter(val context: Context, val itemList:MutableList<UserModel>):Rec
                 }
             }
         }.addOnFailureListener {exception->
-            Log.d("aaaa","파일존재여부 확인 중")
             holder.binding.profilePicture.setImageResource(R.drawable.basic_profile)
         }
         holder.binding.run{

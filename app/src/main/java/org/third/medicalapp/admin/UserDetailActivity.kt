@@ -9,6 +9,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import org.third.medicalapp.R
 import org.third.medicalapp.community.CommunityData
 import org.third.medicalapp.community.MyAdapter
@@ -31,7 +32,19 @@ class UserDetailActivity : AppCompatActivity() {
         binding.regiDate.text=intent.getStringExtra("regiDate")
 
         setSupportActionBar(binding.appBarMain.toolbar)
-
+        val storageRef = MyApplication.storage.reference.child("images/profile/${intent.getStringExtra("userName")}.jpg")
+        // 파일 존재 여부 확인
+        storageRef.metadata.addOnSuccessListener { metadata ->
+            storageRef.downloadUrl.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Glide.with(this)
+                        .load(task.result)
+                        .into(binding.profilePicture)
+                }
+            }
+        }.addOnFailureListener {exception->
+            binding.profilePicture.setImageResource(R.drawable.basic_profile)
+        }
         val sharedPref = getSharedPreferences("User", MODE_PRIVATE)
         MyApplication.db.collection("community")
             .whereEqualTo("email",intent.getStringExtra("userName"))

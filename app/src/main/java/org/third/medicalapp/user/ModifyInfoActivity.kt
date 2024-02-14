@@ -154,7 +154,7 @@ class ModifyInfoActivity : AppCompatActivity() {
                 val networkService =
                     (applicationContext as MyApplication).netWorkService
                 val nickname = binding.modiEditNickName.text.toString()
-                val phoneNumber = binding.modiPhoneNumberText.text.toString()
+                val phoneNumber = binding.modiEditPhoneNumber.text.toString()
                 var userModel = UserModel(email.toString(), nickname, phoneNumber, null, null)
                 if (nickname != "") {
                     val result = networkService.modify(userModel)

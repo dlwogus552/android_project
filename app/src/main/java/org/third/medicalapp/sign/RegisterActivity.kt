@@ -29,8 +29,8 @@ class RegisterActivity : AppCompatActivity() {
             val password = binding.passwordEditText.text.toString()
             val nickName = binding.nickNameEditText.text.toString()
             val phone = binding.phoneEditText.text.toString()
-            val userModel = UserModel(email, nickName, phone,null,"user")
-            Log.d("aaaa","${nickName}")
+            val userModel = UserModel(email, nickName, phone, null, "user")
+            Log.d("aaaa", "${nickName}")
 
             networkService.checkNick(nickName).enqueue(object : Callback<Boolean> {
                 override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
@@ -39,7 +39,7 @@ class RegisterActivity : AppCompatActivity() {
                     if (validateInput(email, password)) {
                         //닉네임 중복확인
                         if (response.body() == true) {
-                            binding.userNickNameError.visibility=View.GONE
+                            binding.userNickNameError.visibility = View.GONE
                             auth.createUserWithEmailAndPassword(email, password)
                                 .addOnCompleteListener(this@RegisterActivity) { task ->
                                     if (task.isSuccessful) {
@@ -65,10 +65,10 @@ class RegisterActivity : AppCompatActivity() {
                                                             call: Call<Boolean>,
                                                             response: Response<Boolean>
                                                         ) {
-                                                            if(response.body()==true){
-                                                            finish()
-                                                            Log.d("aaa", "성공")
-                                                            }else{
+                                                            if (response.body() == true) {
+                                                                finish()
+                                                                Log.d("aaa", "성공")
+                                                            } else {
 
                                                                 Log.d("aaa", "실패")
                                                             }
@@ -91,8 +91,10 @@ class RegisterActivity : AppCompatActivity() {
                                                     Log.d("aaaa", "인증실패")
                                                 }
                                             }
-                                    }else{
-                                        Toast.makeText(baseContext, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                                    } else {
+                                        Toast.makeText(baseContext, "회원가입 실패", Toast.LENGTH_SHORT)
+                                            .show()
+                                        binding.userNameError.text = "중복된 아이디가 존재합니다."
                                         binding.userNameError.visibility = View.VISIBLE
                                         Log.d("aaaa", "회원가입 실패")
                                     }
@@ -105,7 +107,7 @@ class RegisterActivity : AppCompatActivity() {
                                 .show()
                         }
 
-                    }else{
+                    } else {
                         Toast.makeText(baseContext, "회원가입 실패", Toast.LENGTH_SHORT).show()
                         binding.userNameError.text = "이메일 형식으로 입력해주세요."
                         binding.userNameError.visibility = View.VISIBLE

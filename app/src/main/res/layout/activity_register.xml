@@ -34,6 +34,7 @@
         android:id="@+id/userNameError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="중복된 아이디가 존재합니다."
         android:textColor="#ff0000"
         android:visibility="gone" />
@@ -75,6 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="중복된 닉네임이 존재합니다."
+        android:layout_gravity="center"
         android:textColor="#ff0000"
         android:visibility="gone" />
 
