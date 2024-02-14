@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
 import org.third.medicalapp.R
 import org.third.medicalapp.MainActivity
 import org.third.medicalapp.databinding.ActivityPharmacyDetailBinding
+import org.third.medicalapp.hospital.model.HospitalLike
 import org.third.medicalapp.pharmacy.apater.PharmacyReviewAdapter
 import org.third.medicalapp.pharmacy.model.Pharmacy
 import org.third.medicalapp.pharmacy.model.PharmacyLike
@@ -57,7 +58,9 @@ class PharmacyDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         pharmacyListCall.enqueue(object : retrofit2.Callback<Pharmacy> {
             override fun onResponse(call: Call<Pharmacy>, response: Response<Pharmacy>) {
                 val pharmacy = response.body()
-                pharmacyId = pharmacy?.id
+                pharmacyId = intent.getLongExtra("id", 0)
+
+                Log.d("pharmacyId","${pharmacyId}")
 
                 binding.tvPharmacyName.text = intent.getStringExtra("pharmacy")
                 binding.tvPharmacyAddress.text = intent.getStringExtra("addr")
@@ -188,9 +191,12 @@ class PharmacyDetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
     // 리뷰 데이터를 Firestore에 저장하는 함수
     fun saveStore() {
+        val sharedPref = getSharedPreferences("User", MODE_PRIVATE)
+
         val data = mapOf(
             "pharmacyId" to pharmacyId,
             "email" to MyApplication.email,
+            "nick" to sharedPref.getString("nickName", "-"),
             "review" to binding.edReview.text.toString(),
             "date" to dateToString(Date()),
             "isLiked" to false
@@ -308,6 +314,7 @@ class PharmacyDetailActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     suspend fun isSavedPharmacyLike(like_pharmacyId: Long?, email: String?): Boolean {
+        Log.d("like_pharmacyId","$like_pharmacyId")
         var pharmacyLike: PharmacyLike? = null
         // 비동기 작업
         return suspendCoroutine { continuation ->

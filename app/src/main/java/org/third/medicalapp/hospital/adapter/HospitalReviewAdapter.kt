@@ -35,7 +35,7 @@ class HospitalReviewAdapter(val context: Context, val itemList: MutableList<Hosp
         val data = itemList.get(position)
 
         holder.binding.run{
-            tvWriter.text = "${data.email}"
+            tvWriter.text = data.nick
             tvDate.text = data.date
             tvReview.text = data.review
 

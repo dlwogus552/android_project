@@ -1,7 +1,6 @@
 package org.third.medicalapp.user
 
-import android.app.AlertDialog
-import android.content.Intent
+import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,29 +11,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import org.third.medicalapp.R
+import org.third.medicalapp.community.CommunityData
+import org.third.medicalapp.community.MyAdapter
 import org.third.medicalapp.databinding.FragmentLikeHospitalBinding
 import org.third.medicalapp.databinding.FragmentLikePharmacyBinding
-import org.third.medicalapp.databinding.FragmentMyPageBinding
 import org.third.medicalapp.hospital.adapter.HospitalAdapter
+import org.third.medicalapp.hospital.model.Hospital
 import org.third.medicalapp.hospital.model.HospitalLike
 import org.third.medicalapp.hospital.model.HospitalList
-import org.third.medicalapp.pharmacy.apater.PharmacyAdapter
-import org.third.medicalapp.pharmacy.model.Pharmacy
-import org.third.medicalapp.pharmacy.model.PharmacyLike
-import org.third.medicalapp.pharmacy.model.PharmacyList
 import org.third.medicalapp.util.MyApplication
+import org.third.medicalapp.util.MyApplication.Companion.email
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
 
-class LikePharmacyFragment : Fragment() {
+class LikeHospitalFragment : Fragment() {
 
-    private var _binding: FragmentLikePharmacyBinding? = null
+    private var _binding: FragmentLikeHospitalBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -46,19 +41,19 @@ class LikePharmacyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentLikePharmacyBinding.inflate(inflater, container, false)
+        _binding = FragmentLikeHospitalBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val activity = activity as UserMainActivity
-        val pharmacyList = mutableListOf<Long>()
-        MyApplication.db.collection("pharmacy_like")
-            .whereEqualTo("like_email", MyApplication.email)
+        val hospitalList = mutableListOf<Long>()
+        MyApplication.db.collection("hospital_like")
+            .whereEqualTo("like_email", email)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    val item = document.toObject(PharmacyLike::class.java)
-                    var pharmacyId = item.like_pharmacyId
-                    Log.d("aaaa1","${pharmacyId}")
-                    pharmacyList.add(pharmacyId!!)
+                    val item = document.toObject(HospitalLike::class.java)
+                    var hospitalId = item.like_hospitalId
+                    Log.d("aaaa", "${hospitalId.toString()}")
+                    hospitalList.add(hospitalId!!)
                 }
             }
             .addOnFailureListener { exception ->
@@ -66,28 +61,28 @@ class LikePharmacyFragment : Fragment() {
                 Toast.makeText(context, "서버 데이터 획득 실패", Toast.LENGTH_SHORT).show()
             }
         Handler(Looper.getMainLooper()).postDelayed({
-            Log.d("aaa", "${pharmacyList.toList().size}")
-            if (pharmacyList.toList().size == 0) {
+            Log.d("aaa", "${hospitalList.toList().size}")
+            if (hospitalList.toList().size == 0) {
                 binding.nonWrite.visibility = View.VISIBLE
-                binding.pharmacyRecyclerView.visibility = View.GONE
+                binding.hospitalRecyclerView.visibility = View.GONE
             } else {
                 binding.nonWrite.visibility = View.GONE
-                binding.pharmacyRecyclerView.visibility = View.VISIBLE
-                val networkService = (activity.applicationContext as MyApplication).pharmacyService
+                binding.hospitalRecyclerView.visibility = View.VISIBLE
+                val networkService = (activity.applicationContext as MyApplication).hospitalServie
 //        전체리스트 호출
-                val pharmacyListCall = networkService.findById(pharmacyList.toList())
-                pharmacyListCall.enqueue(object : Callback<PharmacyList> {
+                val hospitalListCall = networkService.findById(hospitalList.toList())
+                hospitalListCall.enqueue(object : retrofit2.Callback<HospitalList> {
                     override fun onResponse(
-                        call: Call<PharmacyList>,
-                        response: Response<PharmacyList>
+                        call: Call<HospitalList>,
+                        response: Response<HospitalList>
                     ) {
                         if (response.isSuccessful) {
-                            binding.pharmacyRecyclerView.layoutManager =
+                            binding.hospitalRecyclerView.layoutManager =
                                 LinearLayoutManager(context)
-                            val pharmacy = response.body()?.pharmacyList
-                            val adapter = PharmacyAdapter(activity, pharmacy)
-                            binding.pharmacyRecyclerView.adapter = adapter
-                            binding.pharmacyRecyclerView.addItemDecoration(
+                            val hospital = response.body()?.hospitalList
+                            val adapter = HospitalAdapter(activity, hospital)
+                            binding.hospitalRecyclerView.adapter = adapter
+                            binding.hospitalRecyclerView.addItemDecoration(
                                 DividerItemDecoration(
                                     context,
                                     LinearLayoutManager.VERTICAL
@@ -97,7 +92,7 @@ class LikePharmacyFragment : Fragment() {
 
                     }
 
-                    override fun onFailure(call: Call<PharmacyList>, t: Throwable) {
+                    override fun onFailure(call: Call<HospitalList>, t: Throwable) {
                         call.cancel()
                     }
                 })

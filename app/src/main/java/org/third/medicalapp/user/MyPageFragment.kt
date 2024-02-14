@@ -137,9 +137,7 @@ class MyPageFragment : Fragment() {
         // profile 지정
         val storageRef = storage.reference.child("images/profile/${email}.jpg")
         // 파일 존재 여부 확인
-        Log.d("aaaa", "파일존재여부 확인 전")
         storageRef.metadata.addOnSuccessListener { metadata ->
-            Log.d("aaaa", "파일존재여부 확인 중")
             storageRef.downloadUrl.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Glide.with(requireContext())
@@ -148,7 +146,6 @@ class MyPageFragment : Fragment() {
                 }
             }
         }.addOnFailureListener { exception ->
-            Log.d("aaaa", "파일존재여부 확인 중")
             binding.profilePicture.setImageResource(R.drawable.basic_profile)
         }
 

@@ -41,4 +41,8 @@ interface HospitalNetworkService {
 
     @POST("api/hospital/insert")
     fun insert(@Body hospital: Hospital): Call<Boolean>
+    @POST("api/hospital/findid")
+    fun findById(@Body hospitalList: List<Long>): Call<HospitalList>
+
+
 }

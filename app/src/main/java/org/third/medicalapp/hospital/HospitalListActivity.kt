@@ -1,22 +1,24 @@
 package org.third.medicalapp.hospital
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.third.medicalapp.MainActivity
 import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ActivityHospitalListBinding
 import org.third.medicalapp.hospital.adapter.HospitalAdapter
+import org.third.medicalapp.hospital.model.Hospital
 import org.third.medicalapp.hospital.model.HospitalList
 import org.third.medicalapp.util.MyApplication
 import retrofit2.Call
 import retrofit2.Response
+import javax.security.auth.callback.Callback
 
 class HospitalListActivity : AppCompatActivity() {
     lateinit var binding: ActivityHospitalListBinding
@@ -30,7 +32,6 @@ class HospitalListActivity : AppCompatActivity() {
 
         val hcode = intent.getStringExtra("hcode")
         val dong = intent.getStringExtra("dong")
-        Log.d("hcode, dong","${hcode}, ${dong}")
 
 
         binding.tvDepart.text = hcode
@@ -38,16 +39,12 @@ class HospitalListActivity : AppCompatActivity() {
 
         binding.btnDepSelect.setOnClickListener {
             val intent = Intent(this, DepartSelectActivity::class.java)
-            Log.d("dong", "$dong")
-            intent.putExtra("dong", dong)
             startActivity(intent)
 
         }
 
         binding.btnLocalSelect.setOnClickListener {
             val intent = Intent(this, LocationSelectActivity::class.java)
-            Log.d("hcode", "$hcode")
-            intent.putExtra("hcode", hcode)
             startActivity(intent)
 
         }
@@ -136,13 +133,11 @@ class HospitalListActivity : AppCompatActivity() {
                             LinearLayoutManager.VERTICAL
                         )
                     )
-
                 }
 
                 override fun onFailure(call: Call<HospitalList>, t: Throwable) {
                     call.cancel()
                 }
-
             })
         }
 
