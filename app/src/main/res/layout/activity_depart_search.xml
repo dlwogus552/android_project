@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/departSelect"
+    android:id="@+id/departSearch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".hospital.DepartSelectActivity">
+    tools:context=".hospital.DepartSearchActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="120dp"
             android:layout_marginTop="16dp"
-            android:text="병원 찾기"
+            android:text=""
             android:textSize="15sp"
             android:textColor="#000000" />
     </LinearLayout>
@@ -303,6 +303,5 @@
         </GridLayout>
 
     </LinearLayout>
-
 
 </LinearLayout>

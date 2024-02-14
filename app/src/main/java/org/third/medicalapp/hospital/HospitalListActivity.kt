@@ -34,23 +34,25 @@ class HospitalListActivity : AppCompatActivity() {
         val dong = intent.getStringExtra("dong")
 
 
+        binding.tvDepart.text = hcode
+        binding.tvDong.text = dong
+
         binding.btnDepSelect.setOnClickListener {
             val intent = Intent(this, DepartSelectActivity::class.java)
             startActivity(intent)
-            finish()
+
         }
 
         binding.btnLocalSelect.setOnClickListener {
             val intent = Intent(this, LocationSelectActivity::class.java)
             startActivity(intent)
-            finish()
+
         }
 
-//        binding.btnNameSelect.setOnClickListener {
-//            val intent = Intent(this, NameSearchActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
+        binding.btnSearchHospital.setOnClickListener {
+            val intent = Intent(this, NameSearchActivity::class.java)
+            startActivity(intent)
+        }
 
         if (MyApplication.checkAdmin()) {
             binding.addFab.visibility = View.VISIBLE
@@ -81,8 +83,6 @@ class HospitalListActivity : AppCompatActivity() {
         val hCode = intent.getStringExtra("hcode")
         val Dong = intent.getStringExtra("dong")
         val hName = intent.getStringExtra("hname")
-//        val city = intent.getStringExtra("city")
-//        val sigun = intent.getStringExtra("sigun")
 
         val networkService = (applicationContext as MyApplication).hospitalServie
 //        전체리스트 호출
@@ -192,6 +192,31 @@ class HospitalListActivity : AppCompatActivity() {
 
             })
         }
+// 통합검색
+        if (hName != null && Dong !=null && hCode != null){
+            val searchListCall = networkService.doSearch(hcode = hCode, hname = hName, dong = Dong)
+            searchListCall.enqueue(object :retrofit2.Callback<HospitalList>{
+                override fun onResponse(
+                    call: Call<HospitalList>,
+                    response: Response<HospitalList>
+                ) {
+                    if(response.isSuccessful){
+                        binding.recyclerListView.layoutManager = LinearLayoutManager(this@HospitalListActivity)
+                        val nameAndDong = response.body()?.hospitalList
+                        val adapter = HospitalAdapter(this@HospitalListActivity, nameAndDong)
+                        binding.recyclerListView.adapter = adapter
+                        binding.recyclerListView.addItemDecoration(DividerItemDecoration(this@HospitalListActivity, LinearLayoutManager.VERTICAL))
+                    }
+                }
+
+                override fun onFailure(call: Call<HospitalList>, t: Throwable) {
+                    call.cancel()
+                }
+
+            })
+        }
+
+
     }
 
 }

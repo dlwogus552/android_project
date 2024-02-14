@@ -3,6 +3,7 @@ package org.third.medicalapp.hospital
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ActivityLocationSelectBinding
 
@@ -13,6 +14,8 @@ class LocationSelectActivity : AppCompatActivity() {
         binding = ActivityLocationSelectBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val intent = Intent(this, HospitalListActivity::class.java)
+        val hcode = intent.getStringExtra("hcode")
+        Log.d("진료과 데이터", "$hcode")
 
         binding.btnCloseX.setOnClickListener {
             startActivity(intent)
@@ -22,6 +25,7 @@ class LocationSelectActivity : AppCompatActivity() {
         binding.btnDongSearch.setOnClickListener {
             val dong = binding.tvDong.text.toString()
             intent.putExtra("dong", dong)
+            intent.putExtra("hcode", hcode)
             startActivity(intent)
             finish()
         }

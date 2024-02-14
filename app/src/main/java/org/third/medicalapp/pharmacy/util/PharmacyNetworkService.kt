@@ -21,6 +21,11 @@ interface PharmacyNetworkService {
 
     @GET("api/ph/byDong/{dong}")
     fun doGetDong(@Path("dong") dong: String): Call<PharmacyList>
+
+    @GET("api/ph/search")
+    fun doSearch(@Path("dong") dong: String, @Path("pharmacy") pharmacy:String): Call<PharmacyList>
+
+
     @POST("api/ph/insert")
     fun insert(@Body pharmacy: Pharmacy): Call<Boolean>
     @POST("api/ph/findid")
