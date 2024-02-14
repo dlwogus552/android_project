@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.third.medicalapp.R
 import org.third.medicalapp.community.CommunityActivity
 import org.third.medicalapp.databinding.ActivityUserListBinding
+import org.third.medicalapp.hospital.HospitalListActivity
 import org.third.medicalapp.medicalInfo.MedicalInfoActivity
+import org.third.medicalapp.pharmacy.PharmacyListActivity
 import org.third.medicalapp.sign.LoginActivity
 import org.third.medicalapp.sign.model.UserModel
 import org.third.medicalapp.sign.model.UserModelList
@@ -26,15 +28,15 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class UserListActivity : AppCompatActivity() {
-    lateinit var binding:ActivityUserListBinding
+    lateinit var binding: ActivityUserListBinding
     lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=ActivityUserListBinding.inflate(layoutInflater)
+        binding = ActivityUserListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.appBarMain.toolbar)
-        supportActionBar?.title="My Page"
+        supportActionBar?.title = "User List"
         //네비게이션 및 drawer 설정
         setSupportActionBar(binding.appBarMain.toolbar)
         var drawerLayout: DrawerLayout = binding.drawerLayout
@@ -45,29 +47,49 @@ class UserListActivity : AppCompatActivity() {
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val navView = binding.navView
+        if(MyApplication.checkAuth()){
+            navView.menu.findItem(R.id.nav_login).setVisible(false)
+            navView.menu.findItem(R.id.nav_my_page).setVisible(true)
+            if(MyApplication.checkAdmin()){
+                navView.menu.findItem(R.id.nav_admin).setVisible(true)
+                navView.menu.findItem(R.id.nav_my_page).setVisible(false)
+            }
+        }else{
+            navView.menu.findItem(R.id.nav_login).setVisible(true)
+            navView.menu.findItem(R.id.nav_my_page).setVisible(false)
+        }
         navView.setNavigationItemSelectedListener { menuItem ->
             // 클릭된 아이템에 따라 동작 처리
             when (menuItem.itemId) {
                 R.id.nav_login -> {
-                    Toast.makeText(baseContext, "login", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                     true
                 }
+
                 R.id.nav_my_page -> {
-                    Toast.makeText(baseContext, "My Page", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, UserMainActivity::class.java)
                     startActivity(intent)
                     true
                 }
 
                 R.id.nav_admin -> {
-                    Toast.makeText(baseContext, "User List", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, UserListActivity::class.java)
                     startActivity(intent)
                     true
                 }
-
+                R.id.nav_hospital -> {
+                    val intent = Intent(this, HospitalListActivity::class.java)
+                    drawerLayout.closeDrawers()
+                    startActivity(intent)
+                    true
+                }
+                R.id.nav_pharmacy -> {
+                    val intent = Intent(this, PharmacyListActivity::class.java)
+                    drawerLayout.closeDrawers()
+                    startActivity(intent)
+                    true
+                }
                 R.id.nav_community -> {
                     val intent = Intent(this, CommunityActivity::class.java)
                     startActivity(intent)
@@ -92,18 +114,24 @@ class UserListActivity : AppCompatActivity() {
             (applicationContext as MyApplication).netWorkService
         val check = networkService.getUserList()
         val itemList = mutableListOf<UserModel>()
-        check.enqueue(object : Callback<UserModelList>{
+        check.enqueue(object : Callback<UserModelList> {
             override fun onResponse(call: Call<UserModelList>, response: Response<UserModelList>) {
-                for(data in response.body()?.users!!){
-                    if(data.roles!="admin"){
+                for (data in response.body()?.users!!) {
+                    if (data.roles != "admin") {
                         itemList.add(data)
                     }
                 }
                 binding.recyclerUserListView.layoutManager = LinearLayoutManager(baseContext)
                 binding.recyclerUserListView.adapter = UserAdapter(this@UserListActivity, itemList)
-                binding.recyclerUserListView.addItemDecoration(DividerItemDecoration(baseContext,LinearLayoutManager.VERTICAL))
+                binding.recyclerUserListView.addItemDecoration(
+                    DividerItemDecoration(
+                        baseContext,
+                        LinearLayoutManager.VERTICAL
+                    )
+                )
 
             }
+
             override fun onFailure(call: Call<UserModelList>, t: Throwable) {
                 TODO("Not yet implemented")
             }
@@ -116,6 +144,17 @@ class UserListActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_logout -> {
+                MyApplication.auth.signOut()
+                MyApplication.email = null
+                finish()
+                return true
+            }
+        }
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
+        }
         return super.onOptionsItemSelected(item)
     }
 }

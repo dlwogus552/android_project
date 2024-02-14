@@ -23,12 +23,12 @@ import org.third.medicalapp.util.myCheckPermission
 class MainActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
     lateinit var binding: ActivityMainBinding
-    lateinit var navView:NavigationView
+    lateinit var navView: NavigationView
     lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding =ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         myCheckPermission(this)
 
@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity() {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.imageView2.setOnClickListener{
-            var intent = Intent(this,HospitalListActivity::class.java)
+        binding.imageView2.setOnClickListener {
+            var intent = Intent(this, HospitalListActivity::class.java)
             startActivity(intent)
         }
 
@@ -51,10 +51,10 @@ class MainActivity : AppCompatActivity() {
             var intent = Intent(this, PharmacyListActivity::class.java)
             startActivity(intent)
         }
-        binding.call.setOnClickListener{
+        binding.call.setOnClickListener {
             var intent = Intent(Intent.ACTION_DIAL)
             intent.data = Uri.parse("tel:0555521435")
-            if(intent.resolveActivity(packageManager) != null){
+            if (intent.resolveActivity(packageManager) != null) {
                 startActivity(intent)
             }
         }
@@ -63,29 +63,29 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         navView = binding.navView
-        if(MyApplication.checkAuth()){
+        if (MyApplication.checkAuth()) {
             navView.menu.findItem(R.id.nav_login).setVisible(false)
             navView.menu.findItem(R.id.nav_my_page).setVisible(true)
-            if(MyApplication.checkAdmin()){
+            if (MyApplication.checkAdmin()) {
                 navView.menu.findItem(R.id.nav_admin).setVisible(true)
                 navView.menu.findItem(R.id.nav_my_page).setVisible(false)
             }
-        }else{
+        } else {
             navView.menu.findItem(R.id.nav_login).setVisible(true)
+            navView.menu.findItem(R.id.nav_admin).setVisible(false)
             navView.menu.findItem(R.id.nav_my_page).setVisible(false)
         }
         navView.setNavigationItemSelectedListener { menuItem ->
             // 클릭된 아이템에 따라 동작 처리
             when (menuItem.itemId) {
                 R.id.nav_login -> {
-                    Toast.makeText(baseContext, "login", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, LoginActivity::class.java)
                     drawerLayout.closeDrawers()
                     startActivity(intent)
                     true
                 }
+
                 R.id.nav_my_page -> {
-                    Toast.makeText(baseContext, "My Page", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, UserMainActivity::class.java)
                     drawerLayout.closeDrawers()
                     startActivity(intent)
@@ -93,8 +93,21 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_admin -> {
-                    Toast.makeText(baseContext, "User List", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, UserListActivity::class.java)
+                    drawerLayout.closeDrawers()
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.nav_hospital -> {
+                    val intent = Intent(this, HospitalListActivity::class.java)
+                    drawerLayout.closeDrawers()
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.nav_pharmacy -> {
+                    val intent = Intent(this, PharmacyListActivity::class.java)
                     drawerLayout.closeDrawers()
                     startActivity(intent)
                     true
@@ -118,6 +131,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)) {
             return true
