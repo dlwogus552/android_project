@@ -87,7 +87,7 @@
                     />
 
                 <Button
-                    android:id="@+id/btnNameSelect"
+                    android:id="@+id/btnSearchHospital"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="병원을 검색하세요"
