@@ -3,18 +3,30 @@ package org.third.medicalapp.user
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import org.third.medicalapp.R
 import org.third.medicalapp.databinding.FragmentLikeHospitalBinding
 import org.third.medicalapp.databinding.FragmentLikePharmacyBinding
 import org.third.medicalapp.databinding.FragmentMyPageBinding
+import org.third.medicalapp.hospital.adapter.HospitalAdapter
+import org.third.medicalapp.hospital.model.HospitalLike
+import org.third.medicalapp.hospital.model.HospitalList
+import org.third.medicalapp.pharmacy.apater.PharmacyAdapter
+import org.third.medicalapp.pharmacy.model.Pharmacy
+import org.third.medicalapp.pharmacy.model.PharmacyLike
+import org.third.medicalapp.pharmacy.model.PharmacyList
 import org.third.medicalapp.util.MyApplication
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,23 +48,63 @@ class LikePharmacyFragment : Fragment() {
 
         _binding = FragmentLikePharmacyBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        val activity = activity as UserMainActivity
+        val pharmacyList = mutableListOf<Long>()
+        MyApplication.db.collection("pharmacy_like")
+            .whereEqualTo("like_email", MyApplication.email)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val item = document.toObject(PharmacyLike::class.java)
+                    var pharmacyId = item.like_pharmacyId
+                    Log.d("aaaa1","${pharmacyId}")
+                    pharmacyList.add(pharmacyId!!)
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("aaaa", "error... getting document..", exception)
+                Toast.makeText(context, "서버 데이터 획득 실패", Toast.LENGTH_SHORT).show()
+            }
+        Handler(Looper.getMainLooper()).postDelayed({
+            Log.d("aaa", "${pharmacyList.toList().size}")
+            if (pharmacyList.toList().size == 0) {
+                binding.nonWrite.visibility = View.VISIBLE
+                binding.pharmacyRecyclerView.visibility = View.GONE
+            } else {
+                binding.nonWrite.visibility = View.GONE
+                binding.pharmacyRecyclerView.visibility = View.VISIBLE
+                val networkService = (activity.applicationContext as MyApplication).pharmacyService
+//        전체리스트 호출
+                val pharmacyListCall = networkService.findById(pharmacyList.toList())
+                pharmacyListCall.enqueue(object : Callback<PharmacyList> {
+                    override fun onResponse(
+                        call: Call<PharmacyList>,
+                        response: Response<PharmacyList>
+                    ) {
+                        if (response.isSuccessful) {
+                            binding.pharmacyRecyclerView.layoutManager =
+                                LinearLayoutManager(context)
+                            val pharmacy = response.body()?.pharmacyList
+                            val adapter = PharmacyAdapter(activity, pharmacy)
+                            binding.pharmacyRecyclerView.adapter = adapter
+                            binding.pharmacyRecyclerView.addItemDecoration(
+                                DividerItemDecoration(
+                                    context,
+                                    LinearLayoutManager.VERTICAL
+                                )
+                            )
+                        }
 
+                    }
 
-
+                    override fun onFailure(call: Call<PharmacyList>, t: Throwable) {
+                        call.cancel()
+                    }
+                })
+            }
+        }, 500) // 1000ms = 1초
         return root
     }
-    // on create 종료
-    override fun onStart() {
-        super.onStart()
-
-        val activity = activity as UserMainActivity
-        //회원정보 값 받아오기
-        val sharedPref = activity.getSharedPreferences("User", AppCompatActivity.MODE_PRIVATE)
-        sharedPref.getString("nickName", "-")
-
-
-    }
-
 
 
     override fun onDestroyView() {

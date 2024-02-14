@@ -2,6 +2,8 @@ package org.third.medicalapp.user
 
 import android.app.Activity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +19,7 @@ import org.third.medicalapp.community.MyAdapter
 import org.third.medicalapp.databinding.FragmentLikeHospitalBinding
 import org.third.medicalapp.databinding.FragmentLikePharmacyBinding
 import org.third.medicalapp.hospital.adapter.HospitalAdapter
+import org.third.medicalapp.hospital.model.Hospital
 import org.third.medicalapp.hospital.model.HospitalLike
 import org.third.medicalapp.hospital.model.HospitalList
 import org.third.medicalapp.util.MyApplication
@@ -41,84 +44,66 @@ class LikeHospitalFragment : Fragment() {
         _binding = FragmentLikeHospitalBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val activity = activity as UserMainActivity
-        val sharedPref = activity.getSharedPreferences("User", AppCompatActivity.MODE_PRIVATE)
-        val emailList = mutableListOf<String>()
-        val hospitalList= mutableListOf<Long>()
+        val hospitalList = mutableListOf<Long>()
         MyApplication.db.collection("hospital_like")
-            .whereEqualTo("email", MyApplication.email)
+            .whereEqualTo("like_email", email)
             .get()
             .addOnSuccessListener { result ->
-                val emailList = mutableListOf<String>()
                 for (document in result) {
                     val item = document.toObject(HospitalLike::class.java)
-                    var email = item.email
-                    var email = item.
-                    itemList.add(item)
+                    var hospitalId = item.like_hospitalId
+                    Log.d("aaaa", "${hospitalId.toString()}")
+                    hospitalList.add(hospitalId!!)
                 }
-                // RecyclerView 설정
-//                if(itemList.size!=0 && itemList!=null){
-//                    binding.hospitalRecyclerView.layoutManager = LinearLayoutManager(context)
-//                    binding.myWriteRecycler.adapter = MyAdapter(activity as UserMainActivity, itemList)
-//                    binding.nonWrite.visibility=View.GONE
-//                    binding.myWriteRecycler.visibility=View.VISIBLE
-//                }else{
-//                    binding.nonWrite.visibility=View.VISIBLE
-//                    binding.myWriteRecycler.visibility=View.GONE
-//                }
             }
             .addOnFailureListener { exception ->
                 Log.d("aaaa", "error... getting document..", exception)
                 Toast.makeText(context, "서버 데이터 획득 실패", Toast.LENGTH_SHORT).show()
             }
-        val networkService = (activity.applicationContext as MyApplication).hospitalServie
+        Handler(Looper.getMainLooper()).postDelayed({
+            Log.d("aaa", "${hospitalList.toList().size}")
+            if (hospitalList.toList().size == 0) {
+                binding.nonWrite.visibility = View.VISIBLE
+                binding.hospitalRecyclerView.visibility = View.GONE
+            } else {
+                binding.nonWrite.visibility = View.GONE
+                binding.hospitalRecyclerView.visibility = View.VISIBLE
+                val networkService = (activity.applicationContext as MyApplication).hospitalServie
 //        전체리스트 호출
-        val hospitalListCall = networkService.doGetHospitalList()
-        hospitalListCall.enqueue(object : retrofit2.Callback<HospitalList> {
-            override fun onResponse(
-                call: Call<HospitalList>,
-                response: Response<HospitalList>
-            ) {
-                if (response.isSuccessful) {
-                    binding.recyclerListView.layoutManager =
-                        LinearLayoutManager(this@HospitalListActivity)
-                    val hospital = response.body()?.hospitalList
-                    val adapter = HospitalAdapter(this@HospitalListActivity, hospital)
-                    binding.recyclerListView.adapter = adapter
-                    binding.recyclerListView.addItemDecoration(
-                        DividerItemDecoration(
-                            this@HospitalListActivity,
-                            LinearLayoutManager.VERTICAL
-                        )
-                    )
-                }
+                val hospitalListCall = networkService.findById(hospitalList.toList())
+                hospitalListCall.enqueue(object : retrofit2.Callback<HospitalList> {
+                    override fun onResponse(
+                        call: Call<HospitalList>,
+                        response: Response<HospitalList>
+                    ) {
+                        if (response.isSuccessful) {
+                            binding.hospitalRecyclerView.layoutManager =
+                                LinearLayoutManager(context)
+                            val hospital = response.body()?.hospitalList
+                            val adapter = HospitalAdapter(activity, hospital)
+                            binding.hospitalRecyclerView.adapter = adapter
+                            binding.hospitalRecyclerView.addItemDecoration(
+                                DividerItemDecoration(
+                                    context,
+                                    LinearLayoutManager.VERTICAL
+                                )
+                            )
+                        }
 
-            }
+                    }
 
-            override fun onFailure(call: Call<HospitalList>, t: Throwable) {
-                call.cancel()
+                    override fun onFailure(call: Call<HospitalList>, t: Throwable) {
+                        call.cancel()
+                    }
+                })
             }
-        })
+        }, 500) // 1000ms = 1초
+        return root
     }
 
 
-    return root
-}
-
-// on create 종료
-override fun onStart() {
-    super.onStart()
-
-    val activity = activity as UserMainActivity
-    //회원정보 값 받아오기
-    val sharedPref = activity.getSharedPreferences("User", AppCompatActivity.MODE_PRIVATE)
-    sharedPref.getString("nickName", "-")
-
-
-}
-
-
-override fun onDestroyView() {
-    super.onDestroyView()
-    _binding = null
-}
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

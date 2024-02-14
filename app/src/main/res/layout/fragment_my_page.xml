@@ -106,7 +106,7 @@
                 android:layout_height="30dp"
                 android:layout_marginBottom="8dp"
 
-                android:src="@drawable/pencil" />
+                android:src="@drawable/hospital" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -129,7 +129,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/pencil" />
+                android:src="@drawable/pharmacy" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -173,7 +173,7 @@
                 android:layout_height="30dp"
                 android:layout_marginBottom="8dp"
 
-                android:src="@drawable/pencil" />
+                android:src="@drawable/user_info" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -196,7 +196,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/pencil" />
+                android:src="@drawable/change_pass" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -219,7 +219,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/pencil" />
+                android:src="@drawable/logout" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -242,7 +242,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/pencil" />
+                android:src="@drawable/unregi" />
 
             <TextView
                 android:layout_width="match_parent"

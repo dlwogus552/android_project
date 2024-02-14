@@ -51,13 +51,13 @@ class MainActivity : AppCompatActivity() {
             var intent = Intent(this, PharmacyListActivity::class.java)
             startActivity(intent)
         }
-        binding.call.setOnClickListener {
-            var intent = Intent(Intent.ACTION_DIAL)
-            intent.data = Uri.parse("tel:0555521435")
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent)
-            }
-        }
+//        binding.call.setOnClickListener {
+//            var intent = Intent(Intent.ACTION_DIAL)
+//            intent.data = Uri.parse("tel:0555521435")
+//            if (intent.resolveActivity(packageManager) != null) {
+//                startActivity(intent)
+//            }
+//        }
     }
 
     override fun onStart() {
