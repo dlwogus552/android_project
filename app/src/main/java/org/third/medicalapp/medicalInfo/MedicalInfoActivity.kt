@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.third.medicalapp.MainActivity
 import org.third.medicalapp.R
 import org.third.medicalapp.medicalInfo.adapter.MediInfoAdapter
 import org.third.medicalapp.databinding.ActivityMedicalInfoBinding
 import org.third.medicalapp.medicalInfo.model.MediInfo
+import org.third.medicalapp.util.MyApplication
 
 class MedicalInfoActivity : AppCompatActivity() {
     lateinit var binding : ActivityMedicalInfoBinding
@@ -30,6 +32,12 @@ class MedicalInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMedicalInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if(MyApplication.checkAdmin()){
+            binding.writeFab.visibility= View.VISIBLE
+        }else{
+            binding.writeFab.visibility= View.GONE
+        }
 
         setSupportActionBar(binding.appBarMain.toolbar)
         supportActionBar?.title = "질병/약품 관련 사이트"
