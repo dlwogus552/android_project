@@ -70,6 +70,7 @@
         android:layout_marginTop="10dp"
         android:id="@+id/tvInputX"
         android:hint="x좌표를 입력하세요"
+        android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -77,6 +78,7 @@
         android:layout_marginTop="10dp"
         android:id="@+id/tvInputY"
         android:hint="y좌표를 입력하세요"
+        android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

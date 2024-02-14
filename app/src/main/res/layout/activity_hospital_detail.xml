@@ -5,7 +5,6 @@
     android:id="@+id/hospitalDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     tools:context=".hospital.HospitalDetailActivity">
 
     <LinearLayout
@@ -13,15 +12,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <include
+            android:id="@+id/app_bar_main"
+            layout="@layout/app_bar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <!--병원 이름 / 진료시간 정보-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvHospitalName"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
@@ -30,6 +36,14 @@
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
+            <ImageView
+                android:id="@+id/imageLike"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                app:srcCompat="@drawable/like" />
 
             <TextView
                 android:id="@+id/tvHospitalCode"
@@ -60,6 +74,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:orientation="horizontal">
 
                 <Button
@@ -90,6 +105,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
@@ -99,7 +115,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                android:padding="10dp"
+                android:orientation="horizontal">
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/map_fragment"
@@ -122,12 +140,14 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
+                android:padding="10dp"
                 android:text="진료과목"
                 android:textSize="22sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
@@ -137,6 +157,7 @@
                 android:id="@+id/tvPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:layout_marginLeft="15dp"
                 android:text="051-777-7777" />
 
@@ -144,6 +165,7 @@
                 android:id="@+id/btnCall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:layout_gravity="right"
                 android:text="전화하기"
                 android:backgroundTint="#FFFFFF"
@@ -158,6 +180,7 @@
                 android:id="@+id/reviewRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:layout_marginTop="30dp"
                 android:paddingHorizontal="20dp"
                 android:visibility="visible" />
@@ -165,6 +188,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:layout_marginTop="70dp"
                 android:orientation="horizontal">
 

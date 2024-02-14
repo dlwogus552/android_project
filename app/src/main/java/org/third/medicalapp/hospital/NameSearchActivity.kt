@@ -4,13 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import org.third.medicalapp.R
-import org.third.medicalapp.databinding.ActivityLocationSelectBinding
+import org.third.medicalapp.databinding.ActivityNameSearchBinding
 
-class LocationSelectActivity : AppCompatActivity() {
-    lateinit var binding: ActivityLocationSelectBinding
+class NameSearchActivity : AppCompatActivity() {
+    lateinit var binding:ActivityNameSearchBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLocationSelectBinding.inflate(layoutInflater)
+        binding = ActivityNameSearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val intent = Intent(this, HospitalListActivity::class.java)
 
@@ -19,12 +19,11 @@ class LocationSelectActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.btnDongSearch.setOnClickListener {
-            val dong = binding.tvDong.text.toString()
-            intent.putExtra("dong", dong)
+        binding.btnHospitalSearch.setOnClickListener {
+            val hname = binding.tvHospitalSearch.text.toString()
+            intent.putExtra("hname", hname)
             startActivity(intent)
             finish()
         }
-
     }
 }

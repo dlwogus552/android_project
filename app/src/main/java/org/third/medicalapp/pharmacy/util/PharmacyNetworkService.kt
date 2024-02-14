@@ -16,8 +16,11 @@ interface PharmacyNetworkService {
     fun doGetPharmacyList(): Call<PharmacyList>
     @GET("api/pharmacy/byId/{id}")
     fun doGetPharmacyId(@Path("id") id: Long): Call<Pharmacy>
-    @GET("api/pharmacy/byPhar/{Pharmacy}")
-    fun doGetPharmacyName(@Path("pharmacy") name: String): Call<Hospital>
+    @GET("api/pharmacy/byPhar/{pharmacy}")
+    fun doGetPharmacyName(@Path("pharmacy") pharmacy: String): Call<PharmacyList>
+
+    @GET("api/pharmacy/byDong/{dong}")
+    fun doGetDong(@Path("dong") dong: String): Call<PharmacyList>
     @POST("api/pharmacy/insert")
-    fun insert(@Body hospital: Hospital): Call<String>
+    fun insert(@Body pharmacy: Pharmacy): Call<Boolean>
 }

@@ -4,9 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.third.medicalapp.MainActivity
+import org.third.medicalapp.R
 import org.third.medicalapp.databinding.ActivityHospitalListBinding
 import org.third.medicalapp.hospital.adapter.HospitalAdapter
 import org.third.medicalapp.hospital.model.Hospital
@@ -23,8 +27,11 @@ class HospitalListActivity : AppCompatActivity() {
         binding = ActivityHospitalListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.appBarMain.toolbar)
+        supportActionBar?.title = "병원 찾기"
+
         val hcode = intent.getStringExtra("hcode")
-        val location = intent.getStringExtra("location")
+        val dong = intent.getStringExtra("dong")
 
 
         binding.btnDepSelect.setOnClickListener {
@@ -38,6 +45,13 @@ class HospitalListActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        binding.btnNameSelect.setOnClickListener {
+            val intent = Intent(this, NameSearchActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         if (MyApplication.checkAdmin()) {
             binding.addFab.visibility = View.VISIBLE
         }
@@ -48,17 +62,31 @@ class HospitalListActivity : AppCompatActivity() {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_home, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // 저장 메뉴 아이템을 선택한 경우
+        if (item.itemId == R.id.menu_main) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onStart() {
         super.onStart()
         val hCode = intent.getStringExtra("hcode")
-        val city = intent.getStringExtra("city")
-        val sigun = intent.getStringExtra("sigun")
-        val dong = intent.getStringExtra("dong")
+        val Dong = intent.getStringExtra("dong")
+        val hName = intent.getStringExtra("hname")
+//        val city = intent.getStringExtra("city")
+//        val sigun = intent.getStringExtra("sigun")
 
-        Log.d("주소입력 확인", "city:${city}, sigun:${sigun}, dong:${dong}")
         val networkService = (applicationContext as MyApplication).hospitalServie
 //        전체리스트 호출
-        if (hCode == null || hCode == "" && city == null && sigun == null && dong == null) {
+        if (hCode == null && Dong == null && hName == null) {
             val hospitalListCall = networkService.doGetHospitalList()
             hospitalListCall.enqueue(object : retrofit2.Callback<HospitalList> {
                 override fun onResponse(
@@ -87,7 +115,7 @@ class HospitalListActivity : AppCompatActivity() {
             })
         }
 //        진료과 선택 리스트 호출
-        else if (hCode != null || hCode != "" && city == null && sigun == null && dong == null) {
+        else if (hCode != null) {
             val hcodeListCall = networkService.doGetHcode(hcode = hCode)
             hcodeListCall.enqueue(object : retrofit2.Callback<HospitalList> {
                 override fun onResponse(
@@ -114,8 +142,8 @@ class HospitalListActivity : AppCompatActivity() {
         }
 
 //        지역검색 리스트 호출
-        else if (dong != null && city == null && sigun == null) {
-            val dongListCall = networkService.doGetDong(dong = dong)
+        if (Dong != null) {
+            val dongListCall = networkService.doGetDong(dong = Dong)
             dongListCall.enqueue(object : retrofit2.Callback<HospitalList> {
                 override fun onResponse(
                     call: Call<HospitalList>,
@@ -141,17 +169,18 @@ class HospitalListActivity : AppCompatActivity() {
                 }
             })
         }
-        else if (city != null && dong == null && sigun == null){
-            val cityListCall = networkService.doGetCity(city = city)
-            cityListCall.enqueue(object : retrofit2.Callback<HospitalList>{
+//        이름검색 호출
+        if (hName != null){
+            val nameListCall = networkService.doGetHospitalName(name = hName)
+            nameListCall.enqueue(object : retrofit2.Callback<HospitalList>{
                 override fun onResponse(
                     call: Call<HospitalList>,
                     response: Response<HospitalList>
                 ) {
-                    if (response.isSuccessful){
+                    if(response.isSuccessful){
                         binding.recyclerListView.layoutManager = LinearLayoutManager(this@HospitalListActivity)
-                        val cityHospital = response.body()?.hospitalList
-                        val adapter = HospitalAdapter(this@HospitalListActivity, cityHospital)
+                        val nameHospital = response.body()?.hospitalList
+                        val adapter = HospitalAdapter(this@HospitalListActivity, nameHospital)
                         binding.recyclerListView.adapter = adapter
                         binding.recyclerListView.addItemDecoration(DividerItemDecoration(this@HospitalListActivity, LinearLayoutManager.VERTICAL))
                     }
@@ -163,30 +192,6 @@ class HospitalListActivity : AppCompatActivity() {
 
             })
         }
-        else if (sigun !=null && dong == null && city== null){
-            val sigunListCall = networkService.doGetSignun(sigun = sigun)
-            sigunListCall.enqueue(object : retrofit2.Callback<HospitalList>{
-                override fun onResponse(
-                    call: Call<HospitalList>,
-                    response: Response<HospitalList>
-                ) {
-                    if (response.isSuccessful){
-                        binding.recyclerListView.layoutManager = LinearLayoutManager(this@HospitalListActivity)
-                        val sigunHospital = response.body()?.hospitalList
-                        val adapter = HospitalAdapter(this@HospitalListActivity, sigunHospital)
-                        binding.recyclerListView.adapter = adapter
-                        binding.recyclerListView.addItemDecoration(DividerItemDecoration(this@HospitalListActivity, LinearLayoutManager.VERTICAL))
-                    }
-                }
-
-                override fun onFailure(call: Call<HospitalList>, t: Throwable) {
-                    call.cancel()
-                }
-
-            })
-        }
-
-
     }
 
 }
