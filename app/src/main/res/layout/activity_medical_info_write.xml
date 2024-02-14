@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".medicalInfo.MedicalInfoWriteActivity">
 
     <include
@@ -65,9 +66,9 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginHorizontal="20dp"
-        android:background="@android:drawable/editbox_background_normal"
         android:ems="10"
         android:hint="70자 이내로 입력하세요."
+        android:background="@android:drawable/editbox_background_normal"
         android:inputType="textMultiLine"
         android:textSize="20sp" />
 
@@ -80,11 +81,15 @@
         android:id="@+id/btnClose"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_marginTop="50dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="#7B7474"
+        android:textStyle="bold"
         android:text="닫기"
-        android:textStyle="bold" />
+        android:backgroundTint="#FFFFFF"
+        android:background="@drawable/rounded_button"
+        android:textColor="#000000"
+        android:padding="10dp"/>
 
 </LinearLayout>

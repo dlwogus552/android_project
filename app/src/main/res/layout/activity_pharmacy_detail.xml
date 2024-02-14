@@ -5,6 +5,7 @@
     android:id="@+id/pharmacyDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context=".hospital.HospitalDetailActivity">
 
     <LinearLayout
@@ -59,6 +60,8 @@
         </LinearLayout>
 
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -74,14 +77,24 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="약국정보" />
+                    android:text="약국정보"
+                    android:backgroundTint="#FFFFFF"
+                    android:background="@drawable/rounded_button"
+                    android:textColor="#000000"
+                    android:padding="10dp"
+                    android:layout_marginEnd="5dp"/>
 
                 <Button
                     android:id="@+id/btnReview"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="약국리뷰" />
+                    android:text="약국리뷰"
+                    android:backgroundTint="#FFFFFF"
+                    android:background="@drawable/rounded_button"
+                    android:textColor="#000000"
+                    android:padding="10dp"
+                    android:layout_marginEnd="5dp"/>
             </LinearLayout>
 
 
@@ -115,7 +128,6 @@
                 android:layout_marginBottom="15dp"
                 android:text="전화번호"
                 android:textSize="22sp" />
-
             <TextView
                 android:id="@+id/tvPhoneNumber"
                 android:layout_width="match_parent"
@@ -127,8 +139,13 @@
                 android:id="@+id/btnCall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="전화하기"
                 android:layout_gravity="right"
-                android:text="전화하기" />
+                android:backgroundTint="#FFFFFF"
+                android:background="@drawable/rounded_button"
+                android:textColor="#000000"
+                android:padding="10dp"
+                android:layout_marginEnd="5dp"/>
 
             <!--            병원 리뷰 작성-->
 
